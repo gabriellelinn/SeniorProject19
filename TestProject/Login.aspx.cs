@@ -26,7 +26,7 @@ namespace TestProject
 
         protected void LoginButton_Click(object sender, EventArgs e)
         {
-            //String userName = Request.Form["UserName"];
+            String userName = UserName.Text;
 
 
             //using (var PCTModel = new PCTEntities())
