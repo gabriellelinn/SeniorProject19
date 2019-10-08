@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="14c9fe198a7f46fcbd150d1f969965f6" Name="Diagram1">
+        <EntityTypeShape EntityType="PCTModel.department" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCTModel.employee" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCTModel.empStatu" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCTModel.request" Width="1.5" PointX="7.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCTModel.requestType" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCTModel.sysdiagram" Width="1.5" PointX="7.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCTModel.userAccount" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PCTModel.userRole" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="PCTModel.FK__employee__dept_i__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="PCTModel.FK__request__dept_id__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="PCTModel.FK__employee__empSta__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="PCTModel.FK__userAccou__emp_i__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="PCTModel.FK__request__request__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="PCTModel.FK__request__userAcc__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="PCTModel.FK__userAccou__userR__5EBF139D" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

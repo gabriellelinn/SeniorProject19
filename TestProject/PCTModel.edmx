@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PCTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="20" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="hireDate" Type="date" />
+          <Property Name="dept_id" Type="int" />
+          <Property Name="empStatus_id" Type="int" />
+          <Property Name="IsDeptManager" Type="bit" />
+        </EntityType>
+        <EntityType Name="empStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="statusName" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="request">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="created" Type="datetime" Nullable="false" />
+          <Property Name="submitted" Type="datetime" Nullable="false" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="endDate" Type="date" />
+          <Property Name="startTime" Type="time" Precision="7" />
+          <Property Name="endTime" Type="time" Precision="7" />
+          <Property Name="TotalHours" Type="int" />
+          <Property Name="TotalDays" Type="int" />
+          <Property Name="status" Type="char" MaxLength="25" />
+          <Property Name="comments" Type="varchar" MaxLength="255" />
+          <Property Name="dept_id" Type="int" />
+          <Property Name="requestType_id" Type="int" />
+          <Property Name="userAccount_id" Type="int" />
+        </EntityType>
+        <EntityType Name="requestType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="name" Type="char" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="userAccount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hashedPassword" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="dateCreated" Type="datetime" Nullable="false" />
+          <Property Name="createdBy" Type="int" Nullable="false" />
+          <Property Name="accountStatus" Type="bit" />
+          <Property Name="lunch" Type="int" />
+          <Property Name="fullDayHours" Type="int" />
+          <Property Name="emp_id" Type="int" />
+          <Property Name="userRole_id" Type="int" />
+          <Property Name="userName" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK__employee__dept_i__4F7CD00D">
+          <End Role="department" Type="Self.department" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="dept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__employee__empSta__5070F446">
+          <End Role="empStatus" Type="Self.empStatus" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="empStatus_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__request__dept_id__5629CD9C">
+          <End Role="department" Type="Self.department" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="dept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__request__request__571DF1D5">
+          <End Role="requestType" Type="Self.requestType" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requestType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="requestType_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__request__userAcc__5FB337D6">
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccount">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="userAccount_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userAccou__emp_i__5DCAEF64">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="userAccount">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userAccou__userR__5EBF139D">
+          <End Role="userRole" Type="Self.userRole" Multiplicity="0..1" />
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="userAccount">
+              <PropertyRef Name="userRole_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PCTModelStoreContainer">
+          <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="empStatus" EntityType="Self.empStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="request" EntityType="Self.request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="requestType" EntityType="Self.requestType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userAccount" EntityType="Self.userAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userRole" EntityType="Self.userRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__employee__dept_i__4F7CD00D" Association="Self.FK__employee__dept_i__4F7CD00D">
+            <End Role="department" EntitySet="department" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__employee__empSta__5070F446" Association="Self.FK__employee__empSta__5070F446">
+            <End Role="empStatus" EntitySet="empStatus" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__request__dept_id__5629CD9C" Association="Self.FK__request__dept_id__5629CD9C">
+            <End Role="department" EntitySet="department" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK__request__request__571DF1D5" Association="Self.FK__request__request__571DF1D5">
+            <End Role="requestType" EntitySet="requestType" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK__request__userAcc__5FB337D6" Association="Self.FK__request__userAcc__5FB337D6">
+            <End Role="userAccount" EntitySet="userAccount" />
+            <End Role="request" EntitySet="request" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userAccou__emp_i__5DCAEF64" Association="Self.FK__userAccou__emp_i__5DCAEF64">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="userAccount" EntitySet="userAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userAccou__userR__5EBF139D" Association="Self.FK__userAccou__userR__5EBF139D">
+            <End Role="userRole" EntitySet="userRole" />
+            <End Role="userAccount" EntitySet="userAccount" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PCTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="department">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employees" Relationship="Self.FK__employee__dept_i__4F7CD00D" FromRole="department" ToRole="employee" />
+          <NavigationProperty Name="requests" Relationship="Self.FK__request__dept_id__5629CD9C" FromRole="department" ToRole="request" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="hireDate" Type="DateTime" Precision="0" />
+          <Property Name="dept_id" Type="Int32" />
+          <Property Name="empStatus_id" Type="Int32" />
+          <Property Name="IsDeptManager" Type="Boolean" />
+          <NavigationProperty Name="department" Relationship="Self.FK__employee__dept_i__4F7CD00D" FromRole="employee" ToRole="department" />
+          <NavigationProperty Name="empStatu" Relationship="Self.FK__employee__empSta__5070F446" FromRole="employee" ToRole="empStatus" />
+          <NavigationProperty Name="userAccounts" Relationship="Self.FK__userAccou__emp_i__5DCAEF64" FromRole="employee" ToRole="userAccount" />
+        </EntityType>
+        <EntityType Name="empStatu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="statusName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="employees" Relationship="Self.FK__employee__empSta__5070F446" FromRole="empStatus" ToRole="employee" />
+        </EntityType>
+        <EntityType Name="request">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="submitted" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="endDate" Type="DateTime" Precision="0" />
+          <Property Name="startTime" Type="Time" Precision="7" />
+          <Property Name="endTime" Type="Time" Precision="7" />
+          <Property Name="TotalHours" Type="Int32" />
+          <Property Name="TotalDays" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+          <Property Name="comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="dept_id" Type="Int32" />
+          <Property Name="requestType_id" Type="Int32" />
+          <Property Name="userAccount_id" Type="Int32" />
+          <NavigationProperty Name="department" Relationship="Self.FK__request__dept_id__5629CD9C" FromRole="request" ToRole="department" />
+          <NavigationProperty Name="requestType" Relationship="Self.FK__request__request__571DF1D5" FromRole="request" ToRole="requestType" />
+          <NavigationProperty Name="userAccount" Relationship="Self.FK__request__userAcc__5FB337D6" FromRole="request" ToRole="userAccount" />
+        </EntityType>
+        <EntityType Name="requestType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="requests" Relationship="Self.FK__request__request__571DF1D5" FromRole="requestType" ToRole="request" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="userAccount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hashedPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="accountStatus" Type="Boolean" />
+          <Property Name="lunch" Type="Int32" />
+          <Property Name="fullDayHours" Type="Int32" />
+          <Property Name="emp_id" Type="Int32" />
+          <Property Name="userRole_id" Type="Int32" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="employee" Relationship="Self.FK__userAccou__emp_i__5DCAEF64" FromRole="userAccount" ToRole="employee" />
+          <NavigationProperty Name="requests" Relationship="Self.FK__request__userAcc__5FB337D6" FromRole="userAccount" ToRole="request" />
+          <NavigationProperty Name="userRole" Relationship="Self.FK__userAccou__userR__5EBF139D" FromRole="userAccount" ToRole="userRole" />
+        </EntityType>
+        <EntityType Name="userRole">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="userAccounts" Relationship="Self.FK__userAccou__userR__5EBF139D" FromRole="userRole" ToRole="userAccount" />
+        </EntityType>
+        <Association Name="FK__employee__dept_i__4F7CD00D">
+          <End Role="department" Type="Self.department" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="dept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__request__dept_id__5629CD9C">
+          <End Role="department" Type="Self.department" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="department">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="dept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__employee__empSta__5070F446">
+          <End Role="empStatus" Type="Self.empStatu" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="empStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="empStatus_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userAccou__emp_i__5DCAEF64">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="userAccount">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__request__request__571DF1D5">
+          <End Role="requestType" Type="Self.requestType" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="requestType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="requestType_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__request__userAcc__5FB337D6">
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="0..1" />
+          <End Role="request" Type="Self.request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccount">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="userAccount_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userAccou__userR__5EBF139D">
+          <End Role="userRole" Type="Self.userRole" Multiplicity="0..1" />
+          <End Role="userAccount" Type="Self.userAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="userAccount">
+              <PropertyRef Name="userRole_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PCTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="departments" EntityType="Self.department" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="empStatus" EntityType="Self.empStatu" />
+          <EntitySet Name="requests" EntityType="Self.request" />
+          <EntitySet Name="requestTypes" EntityType="Self.requestType" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="userAccounts" EntityType="Self.userAccount" />
+          <EntitySet Name="userRoles" EntityType="Self.userRole" />
+          <AssociationSet Name="FK__employee__dept_i__4F7CD00D" Association="Self.FK__employee__dept_i__4F7CD00D">
+            <End Role="department" EntitySet="departments" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__request__dept_id__5629CD9C" Association="Self.FK__request__dept_id__5629CD9C">
+            <End Role="department" EntitySet="departments" />
+            <End Role="request" EntitySet="requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__employee__empSta__5070F446" Association="Self.FK__employee__empSta__5070F446">
+            <End Role="empStatus" EntitySet="empStatus" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userAccou__emp_i__5DCAEF64" Association="Self.FK__userAccou__emp_i__5DCAEF64">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="userAccount" EntitySet="userAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__request__request__571DF1D5" Association="Self.FK__request__request__571DF1D5">
+            <End Role="requestType" EntitySet="requestTypes" />
+            <End Role="request" EntitySet="requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__request__userAcc__5FB337D6" Association="Self.FK__request__userAcc__5FB337D6">
+            <End Role="userAccount" EntitySet="userAccounts" />
+            <End Role="request" EntitySet="requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__userAccou__userR__5EBF139D" Association="Self.FK__userAccou__userR__5EBF139D">
+            <End Role="userRole" EntitySet="userRoles" />
+            <End Role="userAccount" EntitySet="userAccounts" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PCTModelStoreContainer" CdmEntityContainer="PCTEntities">
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="PCTModel.department">
+              <MappingFragment StoreEntitySet="department">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="PCTModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="hireDate" ColumnName="hireDate" />
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+                <ScalarProperty Name="empStatus_id" ColumnName="empStatus_id" />
+                <ScalarProperty Name="IsDeptManager" ColumnName="IsDeptManager" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empStatus">
+            <EntityTypeMapping TypeName="PCTModel.empStatu">
+              <MappingFragment StoreEntitySet="empStatus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="statusName" ColumnName="statusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requests">
+            <EntityTypeMapping TypeName="PCTModel.request">
+              <MappingFragment StoreEntitySet="request">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="submitted" ColumnName="submitted" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startTime" ColumnName="startTime" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="TotalHours" ColumnName="TotalHours" />
+                <ScalarProperty Name="TotalDays" ColumnName="TotalDays" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+                <ScalarProperty Name="requestType_id" ColumnName="requestType_id" />
+                <ScalarProperty Name="userAccount_id" ColumnName="userAccount_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requestTypes">
+            <EntityTypeMapping TypeName="PCTModel.requestType">
+              <MappingFragment StoreEntitySet="requestType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PCTModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userAccounts">
+            <EntityTypeMapping TypeName="PCTModel.userAccount">
+              <MappingFragment StoreEntitySet="userAccount">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="hashedPassword" ColumnName="hashedPassword" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="accountStatus" ColumnName="accountStatus" />
+                <ScalarProperty Name="lunch" ColumnName="lunch" />
+                <ScalarProperty Name="fullDayHours" ColumnName="fullDayHours" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="userRole_id" ColumnName="userRole_id" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userRoles">
+            <EntityTypeMapping TypeName="PCTModel.userRole">
+              <MappingFragment StoreEntitySet="userRole">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
