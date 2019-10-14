@@ -89,10 +89,10 @@
                                             </tr>
                                             <tr>
                                                 <td class="auto-style14">
-                                                    <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" Font-Names="Segoe UI">User Name:</asp:Label>
+                                                    <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" Font-Names="Segoe UI">Username:</asp:Label>
                                                 </td>
                                                 <td class="auto-style10">
-                                                    <asp:TextBox id="UserName" runat="server" class="auto-style22"></asp:TextBox>
+                                                    <asp:TextBox ID="UserName" runat="server" class="auto-style22"></asp:TextBox>
                                                     
                                                     <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required." ForeColor="Red" ToolTip="User Name is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
                                                 </td>
@@ -102,7 +102,7 @@
                                                     <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
                                                 </td>
                                                 <td class="auto-style10">
-                                                    <asp:TextBox  id="Password" runat="server" class="auto-style22"></asp:TextBox>
+                                                    <asp:TextBox  ID="Password" type= "Password" runat="server" class="auto-style22"></asp:TextBox>
                                                     <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ForeColor="Red" ToolTip="Password is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
                                                 </td>
                                             </tr>

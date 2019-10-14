@@ -26,19 +26,47 @@ namespace TestProject
 
         protected void LoginButton_Click(object sender, EventArgs e)
         {
-            String userName = UserName.Text;
+            String usernameTxt = Login1.UserName.ToString().Trim();
+            String passwordTxt = Login1.Password.ToString().Trim();
 
+            
 
-            //using (var PCTModel = new PCTEntities())
-            //{
-            //    var username = (from c in PCTModel.userAccounts
-            //                    where c.userName == userName
-            //                    select c).First();
-            //    if (username == null)
-            //    {
-                    
-            //    }
-            //}
+            if (usernameTxt != null && passwordTxt != null)
+            {
+                //need to convert their typed password into their stored hashed password in database
+                // string unhashedPassword = null;
+
+                try
+                {
+                    using (var PCTModel = new PCTEntities())
+                    {
+                        var username = (from c in PCTModel.userAccounts
+                                        where c.userName == usernameTxt
+                                        select c).First();
+
+                        //Test with hashedPassword which is a string for my test account
+                        var password = (from p in PCTModel.userAccounts
+                                        where p.hashedPassword == passwordTxt
+                                        select p).First();
+                        //if username and password returns 1 then authorize to go to their home page
+                        if (username.userName != null && password.hashedPassword != null)
+                        {
+                            Response.Redirect("Default.aspx");
+                        }
+                        else
+                        {
+                            Login1.FailureText = "Your username/password is incorrect. Try again!";
+                        }
+
+                    }
+                }
+                catch
+                {
+                    Login1.FailureText = "Your username/password is incorrect. Try again!";
+                }
+            }
+            else { }
+                //display warning where fields are required (already done)
         }
-    }
+    } // ignore this line computer
 }
