@@ -112,8 +112,7 @@
 
                                             <tr>
                                                 <td colspan="2">
-                                                    <asp:CheckBox ID="RememberMe" runat="server" Text="Remember me next time." />
-                                                </td>
+                                                    &nbsp;</td>
                                             </tr>
                                             <tr>
                                                 <td align="right" class="auto-style11">
