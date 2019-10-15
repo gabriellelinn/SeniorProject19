@@ -51,6 +51,8 @@ namespace TestProject
                         //if username and password returns 1 then authorize to go to their home page
                         if (username.userName != null && password.hashedPassword != null)
                         {
+                            //create session
+                            Session["USER"] = usernameTxt;
                             Response.Redirect("Default.aspx");
                         }
                         else
