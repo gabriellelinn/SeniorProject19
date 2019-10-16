@@ -13,5 +13,10 @@ namespace TestProject
         {
 
         }
+
+        protected void NavMenu_MenuItemClick(object sender, MenuEventArgs e)
+        {
+
+        }
     }
 }

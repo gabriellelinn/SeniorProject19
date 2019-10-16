@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <%-- <title><%: Page.Title %> - My ASP.NET Application</title>--%>
+    <title><%: Page.Title %> - My ASP.NET Application</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -15,40 +15,55 @@
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-<%--    For Navbar--%>
-      <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>Collapsible sidebar using Bootstrap 4</title>
-
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="css/Styles.css">
-
-  <script type="text/html" src="js/JavaScript.js"></script>
-   
-    <!-- Font Awesome JS -->
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <style type="text/css">
+        .auto-style3 {
+            width: 133px;
+            height: 201px;
+            margin-left: 0px;
+            margin-top: 0px;
+            float: left;
+        }
+        .auto-style4 {
+            width: 33px;
+            height: 28px;
+        }
+        .auto-style5 {
+            height: 479px;
+            width: 1395px;
+            margin-right: 10px;
+        }
+        .auto-style6 {
+            width: 795px;
+            height: 207px;
+            margin-left: 0px;
+            margin-top: 0px;
+            float: inherit;
+        }
+        .auto-style7 {
+            margin-top: 0px;
+        }
+        .auto-style8 {
+            height: 15px;
+            width: 684px;
+        }
+        .auto-style10 {
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 71px;
+        }
+    </style>
+      <script src="js/jquery-3.1.1.min.js"></script>
+  <link href="css/w3.css" rel="stylesheet" />
+  <link href="css/jquery-ui.css" rel="stylesheet" />
 </head>
 <body>
-    <form runat="server">
-        <%--NAV BAR--%>
-     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-        
-        
+    <form runat="server" class="auto-style5">
+                    <button type="button" class="auto-style4" onclick="w3_open()">&#9776;</button>
+
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
                 <%--Framework Scripts--%>
-                <%--<asp:ScriptReference Name="JavaScript.js" Path="~/js/JavaScript.js" />--%>
                 <asp:ScriptReference Name="MsAjaxBundle" />
                 <asp:ScriptReference Name="jquery" />
                 <asp:ScriptReference Name="bootstrap" />
@@ -64,111 +79,46 @@
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
-        <div class="wrapper">
-    <!-- Sidebar  -->
-    <nav id="sidebar">
-        <div class="sidebar-header">
-            <h3>Bootstrap Sidebar</h3>
-            <strong>BS</strong>
+        <div class="auto-style10">
+                        <div class="auto-style3" id="mySidebar" ;>
+                            <a href="Default.aspx" class="w3-bar-item w3-button">HOME</a><br /><a href="#" class="w3-bar-item w3-button">REQUEST OFF</a>
+                            <br /><a href="#" class="w3-bar-item w3-button">MY PROFILE</a><br /><a href="#" class="w3-bar-item w3-button">CALENDAR</a>
+                            <br /><a href="#" class="w3-bar-item w3-button">MY DEPARTMENTS</a><br /><a href="#" class="w3-bar-item w3-button">ADMIN</a>
+                            <br />
+                            <br />&nbsp;
+                            <button type="button" class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">
+                            Close &times;
+                            </button>
         </div>
 
-        <ul class="list-unstyled components">
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fas fa-home"></i>
-                    Home
-                </a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">Home 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Home 3</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fas fa-briefcase"></i>
-                    About
-                </a>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fas fa-copy"></i>
-                    Pages
-                </a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                        <div aria-pressed="mixed" class="auto-style6" ;>
+                            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                            </asp:ContentPlaceHolder>
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+                      </div>  
 
-    </nav>
+                <asp:Panel ID="Panel1" runat="server" Height="412px" Width="1357px" CssClass="auto-style7">
+        </asp:Panel>
+                <script>
+                  function w3_open() {
+                            document.getElementById("mySidebar").style.display = "block";
+                        }
+                        function w3_close() {
+                            document.getElementById("mySidebar").style.display = "none";
+                        }
+                </script>
 
-    <!-- Page Content  -->
-    <div id="content">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-                    <span>Toggle Sidebar</span>
-                </button>
-            </div>
-        </nav>
-    </div>
-</div>
-
-         <%-- THIS WAS FOR THE ORGINAL VIDEO ON SIDEBAR NAV
-             <div class="sidebar-wrapper">
-            
-                <a href="Default.aspx"> HOME</a>
-                <a href="About.aspx"> HOME</a>
-                <a href="Contact.aspx"> HOME</a>
-            
-
-        </div>--%>
-       <%-- --navbar navbar-inverse navbar-fixed-top %>--%>
-        <%--<div class="navbar navbar-inverse navbar-fixed-side">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" runat="server" href="~/">Application name</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>--%>
-
-        <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-            <hr />
+        <div class="auto-style8">
+            <hr class="auto-style7" />
             <footer>
                 <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
             </footer>
         </div>
 
-    </form>
+              </form>
+
+
 </body>
 </html>
