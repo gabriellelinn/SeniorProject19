@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PCTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PCTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="department">
           <Key>
             <PropertyRef Name="ID" />
@@ -74,6 +74,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="hashedPassword" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="dateCreated" Type="datetime" Nullable="false" />
           <Property Name="createdBy" Type="int" Nullable="false" />
@@ -82,7 +85,6 @@
           <Property Name="fullDayHours" Type="int" />
           <Property Name="emp_id" Type="int" />
           <Property Name="userRole_id" Type="int" />
-          <Property Name="userName" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="userRole">
           <Key>
@@ -213,8 +215,7 @@
             <End Role="userAccount" EntitySet="userAccount" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PCTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -305,10 +306,12 @@
           <Property Name="fullDayHours" Type="Int32" />
           <Property Name="emp_id" Type="Int32" />
           <Property Name="userRole_id" Type="Int32" />
-          <Property Name="userName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="employee" Relationship="Self.FK__userAccou__emp_i__5DCAEF64" FromRole="userAccount" ToRole="employee" />
           <NavigationProperty Name="requests" Relationship="Self.FK__request__userAcc__5FB337D6" FromRole="userAccount" ToRole="request" />
           <NavigationProperty Name="userRole" Relationship="Self.FK__userAccou__userR__5EBF139D" FromRole="userAccount" ToRole="userRole" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="userRole">
           <Key>
@@ -519,6 +522,9 @@
           <EntitySetMapping Name="userAccounts">
             <EntityTypeMapping TypeName="PCTModel.userAccount">
               <MappingFragment StoreEntitySet="userAccount">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="hashedPassword" ColumnName="hashedPassword" />
                 <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
@@ -528,7 +534,6 @@
                 <ScalarProperty Name="fullDayHours" ColumnName="fullDayHours" />
                 <ScalarProperty Name="emp_id" ColumnName="emp_id" />
                 <ScalarProperty Name="userRole_id" ColumnName="userRole_id" />
-                <ScalarProperty Name="userName" ColumnName="userName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -41,7 +41,7 @@ namespace TestProject
                     using (var PCTModel = new PCTEntities())
                     {
                         var username = (from c in PCTModel.userAccounts
-                                        where c.userName == usernameTxt
+                                        where c.email == usernameTxt
                                         select c).First();
 
                         //Test with hashedPassword which is a string for my test account
@@ -49,7 +49,7 @@ namespace TestProject
                                         where p.hashedPassword == passwordTxt
                                         select p).First();
                         //if username and password returns 1 then authorize to go to their home page
-                        if (username.userName != null && password.hashedPassword != null)
+                        if (username.email != null && password.hashedPassword != null)
                         {
                             //create session
                             Session["USER"] = usernameTxt;
@@ -70,5 +70,5 @@ namespace TestProject
             else { }
                 //display warning where fields are required (already done)
         }
-    } // ignore this line computer
+    } 
 }
