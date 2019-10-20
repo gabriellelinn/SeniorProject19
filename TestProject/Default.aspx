@@ -2,7 +2,7 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <p class="text-center" style="font-size: xx-large">
+    <p class="text-center" style="font-size: xx-large; width: 1684px; margin-left: 0;">
     My Request Off</p>
 <p>
     &nbsp;</p>

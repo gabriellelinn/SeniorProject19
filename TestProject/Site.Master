@@ -17,7 +17,7 @@
 
     <style type="text/css">
         .auto-style3 {
-            width: 133px;
+            width: 174px;
             height: 201px;
             margin-left: 0px;
             margin-top: 0px;
@@ -28,35 +28,33 @@
             height: 28px;
         }
         .auto-style5 {
-            height: 479px;
-            width: 1395px;
+            height: 566px;
+            width: 1884px;
             margin-right: 10px;
+            margin-top: 0px;
         }
         .auto-style6 {
-            width: 795px;
-            height: 207px;
+            width: 1882px;
+            height: 199px;
             margin-left: 0px;
             margin-top: 0px;
             float: inherit;
-        }
-        .auto-style7 {
-            margin-top: 0px;
-        }
-        .auto-style8 {
-            height: 15px;
-            width: 684px;
+            margin-right: 0px;
+            margin-bottom: 84px;
         }
         .auto-style10 {
-            width: 100%;
+            width: 132%;
             overflow: hidden;
             margin-bottom: 71px;
+            height: 570px;
+            margin-right: 99px;
         }
     </style>
       <script src="js/jquery-3.1.1.min.js"></script>
   <link href="css/w3.css" rel="stylesheet" />
   <link href="css/jquery-ui.css" rel="stylesheet" />
 </head>
-<body>
+<body style="height: 558px; margin-bottom: 3;">
     <form runat="server" class="auto-style5">
                     <button type="button" class="auto-style4" onclick="w3_open()">&#9776;</button>
 
@@ -79,11 +77,17 @@
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
+
+        <%--Moved the Div to include the side bar--%>
+         <div aria-pressed="mixed" class="auto-style6" ;>
         <div class="auto-style10">
                         <div class="auto-style3" id="mySidebar" ;>
-                            <a href="Default.aspx" class="w3-bar-item w3-button">HOME</a><br /><a href="#" class="w3-bar-item w3-button">REQUEST OFF</a>
-                            <br /><a href="#" class="w3-bar-item w3-button">MY PROFILE</a><br /><a href="#" class="w3-bar-item w3-button">CALENDAR</a>
-                            <br /><a href="#" class="w3-bar-item w3-button">MY DEPARTMENTS</a><br /><a href="#" class="w3-bar-item w3-button">ADMIN</a>
+                            <a href="Default.aspx" class="w3-bar-item w3-button">HOME</a><br />
+                            <a href="#" class="w3-bar-item w3-button">REQUEST OFF</a>
+                            <br /><a href="#" class="w3-bar-item w3-button">MY PROFILE</a>
+                            <br /><a href="#" class="w3-bar-item w3-button">CALENDAR</a>
+                            <br /><a href="#" class="w3-bar-item w3-button">MY DEPARTMENTS</a>
+                            <br /><a href="Admin.aspx" class="w3-bar-item w3-button">ADMIN</a>
                             <br />
                             <br />&nbsp;
                             <button type="button" class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">
@@ -91,16 +95,15 @@
                             </button>
         </div>
 
-                        <div aria-pressed="mixed" class="auto-style6" ;>
+                       <body>
                             <asp:ContentPlaceHolder ID="MainContent" runat="server">
                             </asp:ContentPlaceHolder>
+                           </body>
                             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                             </asp:ContentPlaceHolder>
                         </div>
                       </div>  
 
-                <asp:Panel ID="Panel1" runat="server" Height="412px" Width="1357px" CssClass="auto-style7">
-        </asp:Panel>
                 <script>
                   function w3_open() {
                             document.getElementById("mySidebar").style.display = "block";
@@ -109,13 +112,6 @@
                             document.getElementById("mySidebar").style.display = "none";
                         }
                 </script>
-
-        <div class="auto-style8">
-            <hr class="auto-style7" />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
-            </footer>
-        </div>
 
               </form>
 
