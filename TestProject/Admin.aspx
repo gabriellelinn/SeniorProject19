@@ -1,105 +1,105 @@
 ﻿<%@ Page Title="Admin" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="TestProject.About" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Panel ID="Panel1" runat="server" Height="655px" Width="1703px" style="margin-left: 150px; margin-top: 0px; margin-right: 0px;" >
-            <div class="text-left" style="height: 44px; width: 1476px; margin-top: 0px; margin-bottom: 23px; margin-left: 0px; margin-right: 0px;">
-                <p class="text-center" style="font-size: xx-large; width: 1477px; margin-left: 0;">
-                    My Request Off</p>
-            </div>
-            <div class="text-center" style="height: 68px; width: 1478px; margin-top: 0px; margin-left: 0px; margin-right: 0px;">
-                <strong>
-                <asp:Button ID="NewUserbtn" runat="server" BackColor="#009999" BorderColor="#009999" BorderStyle="Outset" Font-Bold="True" Font-Size="X-Large" Height="68px" OnClick="NewUserbtn_Click" style="left:50%; margin-left: 14px" Text="New User" Width="238px" />
-                </strong>
-                <asp:Button ID="EditUserbtn" runat="server" Font-Size="X-Large" Height="68px" OnClick="EditUserbtn_Click" style="margin-right: 14px; margin-left:477px" Text="Edit User" Width="238px" CssClass="col-xs-pull-6" BackColor="#009999" BorderColor="#009999" BorderStyle="Outset" Font-Bold="True" />
-            </div>
-        <div style="margin-bottom: 0px">
-
+    <asp:Panel ID="Panel1" runat="server" style="margin-left: 135px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px;" Height="648px" >
+        <div class="text-left" style="height:auto; width:auto; margin-top: 0px; margin-bottom: 23px; margin-left: 0px; margin-right: 0px;">
+            <p class="text-center" style="font-size: xx-large; width: 1427px; margin-left: 0;">
+                My Request Off
+            </p>
+        </div>
+        <div class="text-center" style="height: 68px; width: 1429px; margin-top: 0px; margin-left: 0px; margin-right: 0px;">
+            <strong>
+                <asp:Button ID="NewUserbtn" runat="server" BackColor="#009999" BorderColor="#009999" BorderStyle="Outset" Font-Bold="True" Font-Size="X-Large" Height="68px" OnClick="NewUserbtn_Click" Style="left: 50%; margin-left: 14px" Text="New User" Width="238px" />
+            </strong>
+            <asp:Button ID="EditUserbtn" runat="server" Font-Size="X-Large" Height="68px" OnClick="EditUserbtn_Click" Style="margin-right: 14px; margin-left: 477px" Text="Edit User" Width="238px" CssClass="col-xs-pull-6" BackColor="#009999" BorderColor="#009999" BorderStyle="Outset" Font-Bold="True" />
+        </div>
+        <div style="margin-bottom: 0px; width: 1494px; height: 58px;">
             &#39;<asp:SqlDataSource ID="usersDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT [first_name] + ' ' + [last_name] AS Name, [ID] FROM [userAccount]  ORDER BY [last_name]"></asp:SqlDataSource>
             <br />
 
         </div>
-        <div style="height: 63px; width: 1699px; margin-top: 0px;" class="text-center">
-            <asp:Label ID="Label3" runat="server" Font-Bold="True" Font-Size="X-Large" style="font-size: large" Text="Select User: "></asp:Label>
-            <asp:DropDownList ID="UserDropDown" runat="server" BackColor="White" DataSourceID="usersDataSource" DataTextField="Name" DataValueField="ID" Font-Size="Large" ForeColor="#000099" Height="48px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" style="font-size: large" Width="435px">
+        <div style="height: 71px; width: 1497px; margin-top: 0px; margin-left: 0px;" class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4">
+            <asp:Label ID="selectEmployee" runat="server" Font-Bold="True" Font-Size="X-Large" Style="font-size: large" Text="Select Employee: "></asp:Label>
+            <asp:DropDownList ID="UserDropDown0" runat="server" BackColor="White" DataSourceID="usersDataSource" DataTextField="Name" DataValueField="ID" Font-Size="Large" ForeColor="#000099" Height="49px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Style="font-size: large" Width="414px">
             </asp:DropDownList>
-            </div>
-        
-                <form id="NewUser_Form">
+                    </div>
+               <div class="col-sm-4" style="left: 0px; top: 0px; width: 99%">
+            <asp:Label ID="selectUser" runat="server" Font-Bold="True" Font-Size="X-Large" Style="font-size: large" Text="Select User: "></asp:Label>
+            <asp:DropDownList ID="UserDropDown" runat="server" BackColor="White" DataSourceID="usersDataSource" DataTextField="Name" DataValueField="ID" Font-Size="Large" ForeColor="#000099" Height="48px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Style="font-size: large" Width="435px">
+            </asp:DropDownList>
+                 </div>
+                </div>
+        </div>
 
-
-<div class="container-fluid">
- 
-  <%--<div class="row">
+             <%--<div class="row">
     <div class="col-sm-4" style="background-color:lavender;">.col-sm-3</div>
     <div class="col-sm-4" style="background-color:lavenderblush;">.col-sm-6</div>
     <div class="col-sm-4" style="background-color:lavender;">.col-sm-3</div>
   </div>--%>
-</div>
+        <form id="NewUser_Form">
 
-                                    <div class="form-group row" style="width: 1698px; height: 53px">
-                                        <label for="fname" class="col-sm-4 col-form-label" style="left: 0px; top: 0px; width: 99%">First Name:</label>
-                                        <div class="col-sm-4" style="left: 0px; top: 0px; width: 99%;">
-                                        <input class="form-control" type="text" id="fname"  placeholder="First Name" style="width: 34%">
-                                        </div>
-                                        </div>
-                      <div class="form-group row" style="width: 1698px; height: 53px">
-                                        <div class="col-sm-4" style="left: 966px; top: 0px; width: 42%">
-                                           <label for="hireDate" class="col-sm-4 col-form-label" style="left: 0px; top: 0px; width: 95%">Hire Date:</label>
-                                            <input class="form-control" type="date" id="hireDate" style="width: 34%" />
-                                        </div>
-                                    
-                                        <input id="lname" class="form-control" placeholder="Last Name" style="width: 34%; margin-top: 0;" type="text"></div>
 
-                                    <div class="form-group row"> 
-                                        
-                                        <label for="lname" class="col-sm-4 col-form-label" style="left: 0px; top: -45px">Last Name:</label>
-                                        <div class="col-sm-4" style="left: 0px; top: 0px; width: 33%">
-                                            &nbsp;</div>
-                                        </div>
-                                    <div class="form-group row" >
-                                        <label for="createEmail" class="col-2 col-form-label" style="left: 0px; top: 0px; width: 97%">Username:</label>
-                                        <div class="col-10" style="left: 0px; top: 0px; width: 97%">
-                                        <input type="email" class="form-control" id="NewEmail" aria-describedby="emailHelp" placeholder="Employee email" style="width: 34%">
-                                        </div>
-                                    </div>
+            <div class="form-group" style="height: inherit; width: inherit;">
+                <table class="auto-style1">
+                    <tr>
+                        <td style="width: 174px; height: 54px">First Name:</td>
+                        <td style="height: 54px"><asp:TextBox ID="fname_txt" class="form-control" runat="server" Width="348px"></asp:TextBox></td>
+                         <td style="width: 376px; height: 54px">
+                             &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
+                        </td>
+                        <td style="height: 54px; width: 135px;">
+                            Hire Date:
 
-                                    <div class="form-group row">
-                                        <label for="createPassword" class="col-2 col-form-label" style="left: 0px; top: 0px; width: 97%">Password:</label>
-                                         <div class="col-10" style="left: 0px; top: 0px; width: 97%">
-                                        <input type="password" class="form-control" id="NewPassword" placeholder="Password" style="width: 34%">
-                                         </div>
-                                    </div>
+                        </td>
+                        <td style="width: 344px; height: 54px"> <input class="form-control" type="date" id="hireDate" style="width: 65%" /></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 174px; height: 54px">Last Name:</td>
+                        <td style="height: 54px"> <asp:TextBox ID="lname_txt" class="form-control" runat="server"></asp:TextBox></td>
+                         <td style="width: 376px; height: 54px">
+                             &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
+                        </td>
+                        <td style="height: 54px; width: 135px;">
+                           Department:
 
-                                    <div class="form-group row">
-                                        <label for="confirmPassword" class="col-2 col-form-label" style="left: 0px; top: 0px; width: 97%">Confirm Password:</label>
-                                        <div class="col-10" style="left: 0px; top: 0px; width: 97%">
-                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" style="width: 34%">
-                                            </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                       <fieldset class="form-group">
-                                        <legend>Gender</legend>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked> Female
-                                            </label>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2"> Male
-                                            </label>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                                    </fieldset>
-                                </form>
-         
-        
-         
-                                
-        
-          </asp:Panel>
-       
+                        </td>
+                         <td style="width: 344px; height: 54px;"><asp:DropDownList ID="dept_dropdownlist" runat="server" Height="37px" Width="225px">
+                            </asp:DropDownList>
+                       </td>
+                       
+                    </tr>
+                    <tr>
+                        <td style="width: 174px; height: 54px">Username/Email:</td>
+                        <td style="height: 54px"><asp:TextBox ID="username_txt" class="form-control" runat="server"></asp:TextBox> </td>
+                        <td style="width: 376px; height: 54px">
+                             &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
+                        </td>
+                        <td style="height: 54px; width: 135px;">
+                            Employee Status:
+
+                        </td>
+                         <td style="width: 344px; height: 54px;"><asp:DropDownList ID="empStat_dropdownlist" runat="server" Height="37px" Width="225px">
+                            </asp:DropDownList>
+                       </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 174px; height: 54px">Password:</td>
+                        <td style="height: 54px"><input type="text" class="form-control" ID="NewPassword" placeholder="Password" style="width: 100%"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 174px; height: 45px">Confirm Password:</td>
+                        <td style="height: 45px; margin-left: 160px;"><asp:TextBox ID="confirmPass_txt" class="form-control" placeholder="Confirm Password" runat="server"></asp:TextBox>
+                           
+                        </td>
+                    </tr>
+                </table>
+        </div>          
+        </form>
+
+    </asp:Panel>
+   
 </asp:Content>
-  
-<asp:Content ID="Content1" runat="server" contentplaceholderid="ContentPlaceHolder1">
-</asp:Content>
+
 

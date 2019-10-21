@@ -29,23 +29,24 @@
         }
         .auto-style5 {
             height: 566px;
-            width: 1884px;
+            width: auto;
             margin-right: 10px;
             margin-top: 0px;
+            margin-bottom: 1px;
         }
         .auto-style6 {
-            width: 1882px;
+            width:auto;
             height: 199px;
             margin-left: 0px;
             margin-top: 0px;
             float: inherit;
             margin-right: 0px;
-            margin-bottom: 84px;
+            margin-bottom: 25px;
         }
         .auto-style10 {
-            width: 132%;
+            width: 1673px;
             overflow: hidden;
-            margin-bottom: 71px;
+            margin-bottom: 8px;
             height: 570px;
             margin-right: 99px;
         }
@@ -54,7 +55,8 @@
   <link href="css/w3.css" rel="stylesheet" />
   <link href="css/jquery-ui.css" rel="stylesheet" />
 </head>
-<body style="height: 558px; margin-bottom: 3;">
+<body >
+    <%--style="height: 558px; margin-bottom: 3;"--%>
     <form runat="server" class="auto-style5">
                     <button type="button" class="auto-style4" onclick="w3_open()">&#9776;</button>
 
@@ -95,14 +97,13 @@
                             </button>
         </div>
 
-                       <body>
+                        
                             <asp:ContentPlaceHolder ID="MainContent" runat="server">
                             </asp:ContentPlaceHolder>
-                           </body>
-                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                            </asp:ContentPlaceHolder>
-                        </div>
-                      </div>  
+                         
+                              </div>  
+                      
+                  
 
                 <script>
                   function w3_open() {
