@@ -14,17 +14,18 @@ namespace TestProject
 
         }
 
-        protected void Button2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+ 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void NewUserbtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void EditUserbtn_Click(object sender, EventArgs e)
         {
 
         }

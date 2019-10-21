@@ -24,22 +24,22 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.Panel Panel1;
 
         /// <summary>
-        /// Button1 control.
+        /// NewUserbtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button NewUserbtn;
 
         /// <summary>
-        /// Button2 control.
+        /// EditUserbtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button EditUserbtn;
 
         /// <summary>
         /// usersDataSource control.
