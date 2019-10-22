@@ -60,13 +60,13 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.Label selectEmployee;
 
         /// <summary>
-        /// UserDropDown0 control.
+        /// EmployeeDropDown control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList UserDropDown0;
+        protected global::System.Web.UI.WebControls.DropDownList EmployeeDropDown;
 
         /// <summary>
         /// selectUser control.
@@ -105,13 +105,22 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.TextBox lname_txt;
 
         /// <summary>
-        /// dept_dropdownlist control.
+        /// empStat_dropdownlist control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList dept_dropdownlist;
+        protected global::System.Web.UI.WebControls.DropDownList empStat_dropdownlist;
+
+        /// <summary>
+        /// EmpStatDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource EmpStatDataSource;
 
         /// <summary>
         /// username_txt control.
@@ -123,13 +132,31 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.TextBox username_txt;
 
         /// <summary>
-        /// empStat_dropdownlist control.
+        /// dept_dropdownlist control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList empStat_dropdownlist;
+        protected global::System.Web.UI.WebControls.DropDownList dept_dropdownlist;
+
+        /// <summary>
+        /// departmentDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource departmentDataSource;
+
+        /// <summary>
+        /// acct_dropdownlist control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList acct_dropdownlist;
 
         /// <summary>
         /// confirmPass_txt control.

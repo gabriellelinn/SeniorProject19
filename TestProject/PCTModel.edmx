@@ -18,8 +18,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="255" />
           <Property Name="hireDate" Type="date" />
           <Property Name="dept_id" Type="int" />
@@ -234,8 +234,6 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="hireDate" Type="DateTime" Precision="0" />
           <Property Name="dept_id" Type="Int32" />
@@ -244,6 +242,8 @@
           <NavigationProperty Name="department" Relationship="Self.FK__employee__dept_i__4F7CD00D" FromRole="employee" ToRole="department" />
           <NavigationProperty Name="empStatu" Relationship="Self.FK__employee__empSta__5070F446" FromRole="employee" ToRole="empStatus" />
           <NavigationProperty Name="userAccounts" Relationship="Self.FK__userAccou__emp_i__5DCAEF64" FromRole="employee" ToRole="userAccount" />
+          <Property Name="last_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="empStatu">
           <Key>
@@ -461,9 +461,9 @@
           <EntitySetMapping Name="employees">
             <EntityTypeMapping TypeName="PCTModel.employee">
               <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="hireDate" ColumnName="hireDate" />
                 <ScalarProperty Name="dept_id" ColumnName="dept_id" />
