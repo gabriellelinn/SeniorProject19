@@ -4,8 +4,9 @@
 
     <p class="text-center" style="font-size: xx-large; width: 1684px; margin-left: 0;">
     My Request Off</p>
-<p>
-    &nbsp;</p>
+<p class="text-right" style="margin-right: 55px;">
+    <asp:Button ID="RequestOff_btn" runat="server" Height="78px" Text="New Request Off" Width="240px" BackColor="#009999" BorderColor="#009999" BorderStyle="Groove" Font-Bold="True" Font-Size="X-Large" />
+    </p>
 <p>
     &nbsp;</p>
 <p>

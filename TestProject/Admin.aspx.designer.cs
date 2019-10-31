@@ -69,6 +69,15 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.DropDownList EmployeeDropDown;
 
         /// <summary>
+        /// EmployeeSelect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button EmployeeSelect;
+
+        /// <summary>
         /// selectUser control.
         /// </summary>
         /// <remarks>
@@ -87,6 +96,24 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.DropDownList UserDropDown;
 
         /// <summary>
+        /// UserSelect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button UserSelect;
+
+        /// <summary>
+        /// GeneralPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel GeneralPanel;
+
+        /// <summary>
         /// fname_txt control.
         /// </summary>
         /// <remarks>
@@ -94,6 +121,15 @@ namespace TestProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox fname_txt;
+
+        /// <summary>
+        /// hireDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox hireDate;
 
         /// <summary>
         /// lname_txt control.
@@ -166,5 +202,14 @@ namespace TestProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox confirmPass_txt;
+
+        /// <summary>
+        /// RoleDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList RoleDropDownList;
     }
 }
