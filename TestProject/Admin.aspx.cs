@@ -108,12 +108,15 @@ namespace TestProject
                     fname_txt.Text = selectedEmployee.first_name;
                     lname_txt.Text = selectedEmployee.last_name;
                     username_txt.Text = selectedEmployee.email;
+                    empStat_dropdownlist.SelectedValue = selectedEmployee.empStatus_id.ToString();
+                    dept_dropdownlist.SelectedValue = selectedEmployee.dept_id.ToString();
                     //Need to parse the DATETIME for hiredate
                     string str = selectedEmployee.hireDate.ToString();
                     string[] HireDateArray = null;
                     char[] splitchar = {' '};
                     HireDateArray = str.Split(splitchar);
                     hireDate.Text = HireDateArray[0];
+
 
                 }
             }
@@ -146,8 +149,9 @@ namespace TestProject
                     fname_txt.Text = selectedUser.first_name;
                     lname_txt.Text = selectedUser.last_name;
                     username_txt.Text = selectedUser.email;
+                    empStat_dropdownlist.SelectedValue = selectedUser.employee.empStatus_id.ToString();
                     dept_dropdownlist.SelectedValue = selectedUser.employee.dept_id.ToString();
-                   String status  = selectedUser.accountStatus.ToString();
+                    String status  = selectedUser.accountStatus.ToString();
                     if (status == "True") { acct_dropdownlist.SelectedValue = "1"; }
                     else { acct_dropdownlist.SelectedValue = "0"; }
      
