@@ -50,42 +50,13 @@ namespace TestProject
                 EmployeeDropDown.Visible = true;
                 EmployeeSelect.Visible = true;
             }
+          
+            
             ////Show Panel that contains the form
             //GeneralPanel.Visible = true;
 
 
 
-            ////Try to fill in the text fields for a new user
-            //try
-            //{
-            //    using (var PCTModel = new PCTEntities())
-            //    {
-            //        var username = (from c in PCTModel.userAccounts
-            //                        where c.email == usernameTxt
-            //                        select c).First();
-
-            //        //Test with hashedPassword which is a string for my test account
-            //        var password = (from p in PCTModel.userAccounts
-            //                        where p.hashedPassword == passwordTxt
-            //                        select p).First();
-            //        //if username and password returns 1 then authorize to go to their home page
-            //        if (username.email != null && password.hashedPassword != null)
-            //        {
-            //            //create session
-            //            Session["USER"] = usernameTxt;
-            //            Response.Redirect("Default.aspx");
-            //        }
-            //        else
-            //        {
-            //            Login1.FailureText = "Your username/password is incorrect. Try again!";
-            //        }
-
-            //    }
-            //}
-            //catch
-            //{
-            //    Login1.FailureText = "Your username/password is incorrect. Try again!";
-            //}
         }
 
         protected void EditUserbtn_Click(object sender, EventArgs e)
@@ -137,30 +108,18 @@ namespace TestProject
                     fname_txt.Text = selectedEmployee.first_name;
                     lname_txt.Text = selectedEmployee.last_name;
                     username_txt.Text = selectedEmployee.email;
+                    //Need to parse the DATETIME for hiredate
                     string str = selectedEmployee.hireDate.ToString();
                     string[] HireDateArray = null;
                     char[] splitchar = {' '};
                     HireDateArray = str.Split(splitchar);
                     hireDate.Text = HireDateArray[0];
-                    //hireDate.Text = selectedEmployee.hireDate.ToString();
-
-                    //selectedEmployee.empStatu = empStat_dropdownlist.SelectedValue;
-                    //empStat_dropdownlist.SelectedValue = selectedEmployee.empStatu.ToString();
-
-                  
-
-                    //This doesnt work -- selectedEmployee.empStatu = empStat_dropdownlist.SelectedValue;
-
-
-
-
-
 
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                
+                throw ex;
             }
             //Show Panel that contains the form
             GeneralPanel.Visible = true;
@@ -175,7 +134,46 @@ namespace TestProject
             EditUserbtn.Enabled = false;
 
             //Fill in form 
+            try
+            {
+                using (var PCTModel = new PCTEntities())
+                {
+                    var selectedUser = (from ua in PCTModel.userAccounts
+                                        join u in PCTModel.employees on ua.emp_id equals u.ID
+                                            where ua.ID.ToString() == UserDropDown.SelectedValue
+                                            select ua).First();
 
+                    fname_txt.Text = selectedUser.first_name;
+                    lname_txt.Text = selectedUser.last_name;
+                    username_txt.Text = selectedUser.email;
+                    dept_dropdownlist.SelectedValue = selectedUser.employee.dept_id.ToString();
+                   String status  = selectedUser.accountStatus.ToString();
+                    if (status == "True") { acct_dropdownlist.SelectedValue = "1"; }
+                    else { acct_dropdownlist.SelectedValue = "0"; }
+     
+                    RoleDropDownList.SelectedValue = selectedUser.userRole_id.ToString();
+
+
+                    //var selectedUserEmp = (from ue in PCTModel.employees
+                    //                       where ue.ID.ToString() == UserDropDown.SelectedValue
+                    //                       select ue).First();
+
+
+
+                    //Need to parse the DATETIME for hiredate
+                    string str = selectedUser.employee.hireDate.ToString();
+                    string[] HireDateArray = null;
+                    char[] splitchar = { ' ' };
+                    HireDateArray = str.Split(splitchar);
+                    hireDate.Text = HireDateArray[0];
+                    
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             //Show Panel that contains the form
             GeneralPanel.Visible = true;

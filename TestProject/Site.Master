@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - Time Off</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -28,7 +28,7 @@
             height: 28px;
         }
         .auto-style5 {
-            height: 566px;
+            height: auto;
             width: auto;
             margin-right: 10px;
             margin-top: 0px;
@@ -44,10 +44,10 @@
             margin-bottom: 25px;
         }
         .auto-style10 {
-            width: 1673px;
+            width: inherit;
             overflow: hidden;
             margin-bottom: 8px;
-            height: 570px;
+            height: auto;
             margin-right: 99px;
         }
     </style>
@@ -97,13 +97,13 @@
                             </button>
         </div>
 
-                        
+                     
                             <asp:ContentPlaceHolder ID="MainContent" runat="server">
                             </asp:ContentPlaceHolder>
                          
                               </div>  
                       
-                  
+                   </div>  
 
                 <script>
                   function w3_open() {

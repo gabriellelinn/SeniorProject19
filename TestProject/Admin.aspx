@@ -33,7 +33,7 @@
               </div>
               <div style="height: 71px; width: 1463px; margin-top: 0px; margin-left: 0px;"  id="DropdownDiv2">
             <div class="row" runat="server">
-               <div class="col-sm-4" id="selectUserOption" >
+               <div class="col-sm-4" id="selectUserOption" style="left: 0px; top: 0px; width: 102%" >
             <asp:Label ID="selectUser" runat="server" Font-Bold="True" Font-Size="X-Large" Style="font-size: large" Text="User: " Visible="False"></asp:Label>
             <asp:DropDownList ID="UserDropDown" runat="server" BackColor="White" DataSourceID="usersDataSource" DataTextField="Name" DataValueField="ID" Font-Size="Large" ForeColor="#000099" Height="48px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Style="font-size: large" Width="435px" Enabled="False" Visible="False">
             </asp:DropDownList>
@@ -51,75 +51,75 @@
     <div class="col-sm-4" style="background-color:lavender;">.col-sm-3</div>
   </div>--%>
      </asp:Panel>
-    <asp:Panel ID="GeneralPanel" runat="server">
+    <asp:Panel ID="GeneralPanel" runat="server" Width="1665px">
         <form ID="NewUser_Form">
 
         <%--<asp:Form ID="NewUserForm" runat="server">--%>
 
             <div class="form-group" style="height: inherit; width: inherit;">
-                <table class="auto-style1" style="margin-left: 137px">
+                <table class="auto-style1" style="margin-left: 137px; width: 1523px;">
                     <tr>
-                        <td style="width: 174px; height: 54px">First Name:</td>
-                        <td style="height: 54px"><asp:TextBox ID="fname_txt" class="form-control" runat="server" Width="348px"></asp:TextBox></td>
-                         <td style="width: 376px; height: 54px">
+                        <td style="width: 193px; height: 54px">First Name:</td>
+                        <td style="height: 54px; width: 452px;"><asp:TextBox ID="fname_txt" class="form-control" runat="server" Width="348px"></asp:TextBox></td>
+                         <td style="width: 289px; height: 54px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                         </td>
-                        <td style="height: 54px; width: 135px;">
+                        <td style="height: 54px; width: 161px; font-size: large;">
                             Hire Date:
                         </td>
-                        <td style="width: 344px; height: 54px"> <asp:TextBox ID="hireDate" class="form-control" runat="server" ReadOnly="True"></asp:TextBox></td>
+                        <td style="width: 420px; height: 54px"> <asp:TextBox ID="hireDate" class="form-control" runat="server" ReadOnly="True" Enabled="False" Width="248px"></asp:TextBox></td>
                     </tr>
                     <tr>
-                        <td style="width: 174px; height: 54px">Last Name:</td>
-                        <td style="height: 54px"> <asp:TextBox ID="lname_txt" class="form-control" runat="server"></asp:TextBox></td>
-                         <td style="width: 376px; height: 54px">
+                        <td style="width: 193px; height: 54px; font-size: large;">Last Name:</td>
+                        <td style="height: 54px; width: 452px;"> <asp:TextBox ID="lname_txt" class="form-control" runat="server" style="font-size: large"></asp:TextBox></td>
+                         <td style="width: 289px; height: 54px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                         </td>
-                        <td style="height: 54px; width: 135px;">Employee Status:</td>
-                         <td style="width: 344px; height: 54px;"><asp:DropDownList ID="empStat_dropdownlist" ReadOnly="True" class="form-control" runat="server" Height="37px" Width="225px" DataSourceID="EmpStatDataSource" DataTextField="statusName" DataValueField="ID">
+                        <td style="height: 54px; width: 161px; font-size: large;">Employee Status:</td>
+                         <td style="width: 420px; height: 54px;"><asp:DropDownList ID="empStat_dropdownlist" ReadOnly="True" class="form-control" runat="server" Height="37px" Width="248px" DataSourceID="EmpStatDataSource" DataTextField="statusName" DataValueField="ID" Enabled="False" style="font-size: large">
                             </asp:DropDownList>
                              <asp:SqlDataSource ID="EmpStatDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT * FROM [empStatus]"></asp:SqlDataSource>
                        </td>
                        
                     </tr>
                     <tr>
-                        <td style="width: 174px; height: 54px">Username/Email:</td>
-                        <td style="height: 54px"><asp:TextBox ID="username_txt" class="form-control" runat="server"></asp:TextBox> </td>
-                        <td style="width: 376px; height: 54px">
+                        <td style="width: 193px; height: 54px; font-size: large;">Username/Email:</td>
+                        <td style="height: 54px; width: 452px;"><asp:TextBox ID="username_txt" class="form-control" runat="server" style="font-size: large"></asp:TextBox> </td>
+                        <td style="width: 289px; height: 54px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                         </td>
-                         <td style="height: 54px; width: 135px;">Department:</td>
-                         <td style="width: 344px; height: 54px;"><asp:DropDownList ID="dept_dropdownlist" class="form-control" runat="server" Height="37px" Width="225px" DataSourceID="departmentDataSource" DataTextField="name" DataValueField="ID">
+                         <td style="height: 54px; width: 161px; font-size: large;">Department:</td>
+                         <td style="width: 420px; height: 54px;"><asp:DropDownList ID="dept_dropdownlist" class="form-control" runat="server" Height="37px" Width="248px" DataSourceID="departmentDataSource" DataTextField="name" DataValueField="ID" style="font-size: large">
                             </asp:DropDownList>
                              <asp:SqlDataSource ID="departmentDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" EnableViewState="False" SelectCommand="SELECT * FROM [department]"></asp:SqlDataSource>
                        </td>
                        
                     </tr>
                     <tr>
-                        <td style="width: 174px; height: 53px">Password:</td>
-                        <td style="height: 53px"><input type="text" class="form-control" ID="NewPassword" placeholder="Password" style="width: 100%"></td>
-                        <td style="width: 376px; height: 53px">
+                        <td style="width: 193px; height: 53px; font-size: large;">Password:</td>
+                        <td style="height: 53px; width: 452px;"><input class="form-control" ID="NewPassword" placeholder="Password" style="width: 100%; font-size: large;"></td>
+                        <td style="width: 289px; height: 53px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                         </td>
-                        <td style="height: 53px; width: 135px;">Account Status:</td>
-                        <td style="height: 53px">
-                            <asp:DropDownList ID="acct_dropdownlist" class="form-control" runat="server" Height="37px" Width="225px">
+                        <td style="height: 53px; width: 161px; font-size: large;">Account Status:</td>
+                        <td style="height: 53px; width: 420px;">
+                            <asp:DropDownList ID="acct_dropdownlist" class="form-control" runat="server" Height="37px" Width="248px" style="font-size: large">
                                 <asp:ListItem Value="0">Inactive</asp:ListItem>
                                 <asp:ListItem Value="1">Active</asp:ListItem>
                             </asp:DropDownList>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 174px; height: 45px">Confirm Password:</td>
-                        <td style="height: 45px; margin-left: 160px;"><asp:TextBox ID="confirmPass_txt" class="form-control" placeholder="Confirm Password" runat="server"></asp:TextBox>
+                        <td style="width: 193px; height: 64px; font-size: large;">Confirm Password:</td>
+                        <td style="height: 64px; margin-left: 160px; width: 452px;"><asp:TextBox ID="confirmPass_txt" class="form-control" placeholder="Confirm Password" runat="server" style="font-size: large"></asp:TextBox>
                            
                         </td>
-                         <td style="width: 376px; height: 53px">
+                         <td style="width: 289px; height: 64px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                         </td>
-                        <td style="height: 53px; width: 135px;">Account Status:</td>
-                        <td style="height: 53px">
-                            <asp:DropDownList ID="RoleDropDownList" class="form-control" runat="server" Height="37px" Width="225px">
+                        <td style="height: 64px; width: 161px; font-size: large;">User Role:</td>
+                        <td style="height: 64px; width: 420px;">
+                            <asp:DropDownList ID="RoleDropDownList" class="form-control" runat="server" Height="37px" Width="248px" style="font-size: large">
                                 <asp:ListItem Value="0">Regular User</asp:ListItem>
                                 <asp:ListItem Value="1">Department Supervisor</asp:ListItem>
                                  <asp:ListItem Value="8">HR Administrator</asp:ListItem>
@@ -127,8 +127,23 @@
                             </asp:DropDownList>
                         </td>
                     </tr>
+                    <tr>
+                        <td style="height: 113px; width: 193px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 193px"></td>
+                        <td style="width: 452px"></td>
+                        <td style="width: 289px; height: 54px"><asp:Button ID="SubmitBtn" runat="server" Text="SUBMIT" Height="54px" Width="217px" BackColor="#3366FF" BorderColor="#3366FF" CssClass="mt-0" Font-Bold="True" Font-Size="Larger" /></td>
+                        <td style="width: 161px"></td>
+                        <td style="width: 420px"></td>
+                             </tr>
                 </table>
-        </div>          
+              
+                  
+        </div>      
+          <%--  <div style="width: 376px; height: 53px">
+                           
+                        </div>--%>
         </form>
         </asp:Panel>
 <%--            </asp:Form>--%>
