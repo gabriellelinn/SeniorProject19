@@ -59,8 +59,10 @@
             <div class="form-group" style="height: inherit; width: inherit;">
                 <table class="auto-style1" style="margin-left: 137px; width: 1523px;">
                     <tr>
-                        <td style="width: 193px; height: 54px">First Name:</td>
-                        <td style="height: 54px; width: 452px;"><asp:TextBox ID="fname_txt" class="form-control" runat="server" Width="348px"></asp:TextBox></td>
+                        <td style="width: 193px; height: 54px">First Name*:</td>
+                        <td style="height: 54px; width: 452px;"><asp:TextBox ID="fname_txt" class="form-control" runat="server" Width="348px"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="fnameRequired" runat="server" ControlToValidate="fname_txt" ErrorMessage="First Name is required." ForeColor="Red" ToolTip="First Name is required." ValidationGroup="generalPanelValid"></asp:RequiredFieldValidator>
+                        </td>
                          <td style="width: 289px; height: 54px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                         </td>
@@ -70,8 +72,10 @@
                         <td style="width: 420px; height: 54px"> <asp:TextBox ID="hireDate" class="form-control" runat="server" ReadOnly="True" Enabled="False" Width="248px"></asp:TextBox></td>
                     </tr>
                     <tr>
-                        <td style="width: 193px; height: 54px; font-size: large;">Last Name:</td>
-                        <td style="height: 54px; width: 452px;"> <asp:TextBox ID="lname_txt" class="form-control" runat="server" style="font-size: large"></asp:TextBox></td>
+                        <td style="width: 193px; height: 54px; font-size: large;">Last Name*:</td>
+                        <td style="height: 54px; width: 452px;"> <asp:TextBox ID="lname_txt" class="form-control" runat="server" style="font-size: large"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="LastNameRequired" runat="server" ControlToValidate="lname_txt" ErrorMessage="Last Name is required." ForeColor="Red" ToolTip="Last Name is required." ValidationGroup="gernalPanelValid"></asp:RequiredFieldValidator>
+                        </td>
                          <td style="width: 289px; height: 54px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                         </td>
@@ -83,8 +87,10 @@
                        
                     </tr>
                     <tr>
-                        <td style="width: 193px; height: 54px; font-size: large;">Username/Email:</td>
-                        <td style="height: 54px; width: 452px;"><asp:TextBox ID="username_txt" class="form-control" runat="server" style="font-size: large"></asp:TextBox> </td>
+                        <td style="width: 193px; height: 54px; font-size: large;">Username/Email*:</td>
+                        <td style="height: 54px; width: 452px;"><asp:TextBox ID="username_txt" class="form-control" runat="server" style="font-size: large"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="username_req" runat="server" ControlToValidate="username_txt" ErrorMessage="Username/Email is required." ForeColor="Red" ToolTip="Username/Email is required." ValidationGroup="generalPanelValid"></asp:RequiredFieldValidator>
+                        </td>
                         <td style="width: 289px; height: 54px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                         </td>
@@ -96,8 +102,12 @@
                        
                     </tr>
                     <tr>
-                        <td style="width: 193px; height: 53px; font-size: large;">Password:</td>
-                        <td style="height: 53px; width: 452px;"><input class="form-control" ID="NewPassword" placeholder="Password" style="width: 100%; font-size: large;"></td>
+                        <td style="width: 193px; height: 53px; font-size: large;" id="PasswordLabel" runat="server">Password:</td>
+                       
+                        <td style="height: 53px; width: 452px;"><input class="form-control" ID="NewPassword" type="password" runat="server" style="width: 100%; font-size: large;">
+                         <asp:RequiredFieldValidator ID="PasswordRFV" runat="server" ControlToValidate="NewPassword" ErrorMessage="Required Field" ForeColor="Red" Enabled="False" EnableViewState="False"></asp:RequiredFieldValidator></td>
+                        <asp:CompareValidator ID="CompareValidator1" style="margin-left: 137px" runat="server" ControlToValidate="confirmPass_txt" ControlToCompare="NewPassword" ErrorMessage="Passwords must match!" ForeColor="Red" Font-Size="X-Large" ></asp:CompareValidator>
+                        
                         <td style="width: 289px; height: 53px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                         </td>
@@ -110,9 +120,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width: 193px; height: 64px; font-size: large;">Confirm Password:</td>
-                        <td style="height: 64px; margin-left: 160px; width: 452px;"><asp:TextBox ID="confirmPass_txt" class="form-control" placeholder="Confirm Password" runat="server" style="font-size: large"></asp:TextBox>
-                           
+                       
+                        <td style="width: 193px; height: 54px; font-size: large;" id="confirmPass_label" runat="server">Confirm Password:</td>
+                        <td style="height: 64px; margin-left: 160px; width: 452px;">
+                            
+                            <asp:TextBox ID="confirmPass_txt" class="form-control" placeholder="Confirm Password" runat="server" type="password" style="font-size: large"></asp:TextBox>
+                           <asp:RequiredFieldValidator ID="confirmPassRFV" runat="server" ControlToValidate="confirmPass_txt" ErrorMessage="Required field" ForeColor="Red" Enabled="False"></asp:RequiredFieldValidator>
                         </td>
                          <td style="width: 289px; height: 64px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
@@ -128,14 +141,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="height: 113px; width: 193px;"></td>
+                        <td style="height: 50px; width: 193px;"></td>
+                        <td><asp:Literal ID="LitAlert" runat="server" Visible="False"></asp:Literal></td>
                     </tr>
                     <tr>
-                        <td style="width: 193px"></td>
+                        <td style="width: 193px"><asp:Button ID="CancelBtn" runat="server" Text="CANCEL" Height="54px" BackColor="#3366FF" BorderColor="#3366FF" CssClass="mt-0" Font-Bold="True" Font-Size="Larger" OnClick="CancelBtn_Click"/></td>
                         <td style="width: 452px"></td>
-                        <td style="width: 289px; height: 54px"><asp:Button ID="SubmitBtn" runat="server" Text="SUBMIT" Height="54px" Width="217px" BackColor="#3366FF" BorderColor="#3366FF" CssClass="mt-0" Font-Bold="True" Font-Size="Larger" /></td>
+                        <td style="width: 289px; height: 54px"></td>
                         <td style="width: 161px"></td>
-                        <td style="width: 420px"></td>
+                        <td style="width: 420px"><asp:Button ID="SubmitBtn" runat="server" Text="SUBMIT" Height="54px" Width="217px" BackColor="#3366FF" BorderColor="#3366FF" CssClass="mt-0" Font-Bold="True" Font-Size="Larger" OnClick="SubmitBtn_Click"/></td>
                              </tr>
                 </table>
               

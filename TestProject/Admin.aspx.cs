@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
-using System.Globalization;
+using System.Linq;
+using System.Web.UI;
 
 namespace TestProject
 {
     public partial class About : Page
     {
-        
+        bool NewUserMode = false;
+        bool EditUserMode = false;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Need to verify user is authorized to view.
-
+        //Need to verify user is authorized to view.
+        
             //Do not show anything yet
             GeneralPanel.Visible = false;
         }
@@ -25,6 +22,9 @@ namespace TestProject
         }      
         protected void NewUserbtn_Click(object sender, EventArgs e)
         {
+            EditUserMode = false;
+            NewUserMode = true;
+
             if (selectUser.Visible != true && UserDropDown.Visible != true)
             {
                 //define variables
@@ -50,17 +50,14 @@ namespace TestProject
                 EmployeeDropDown.Visible = true;
                 EmployeeSelect.Visible = true;
             }
-          
-            
-            ////Show Panel that contains the form
-            //GeneralPanel.Visible = true;
-
-
 
         }
 
         protected void EditUserbtn_Click(object sender, EventArgs e)
         {
+            NewUserMode = false;
+            EditUserMode = true;
+           
             if (selectEmployee.Visible != true && EmployeeDropDown.Visible
                 != true)
             {
@@ -95,7 +92,11 @@ namespace TestProject
             EditUserbtn.Enabled = false;
             EditUserbtn.Visible = false;
             NewUserbtn.Enabled = false;
-           // hireDate.Value = 
+            PasswordLabel.InnerText = "Password*:";
+            confirmPass_label.InnerText = "Confirm Password*:";
+            PasswordRFV.Enabled = true;
+            confirmPassRFV.Enabled = true;
+            // hireDate.Value = 
 
             //fill in form
             try
@@ -136,6 +137,7 @@ namespace TestProject
             NewUserbtn.Visible = false;
             EditUserbtn.Enabled = false;
 
+           
             //Fill in form 
             try
             {
@@ -181,6 +183,39 @@ namespace TestProject
 
             //Show Panel that contains the form
             GeneralPanel.Visible = true;
+        }
+
+        protected void CancelBtn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Admin.aspx",false);
+        }
+
+      
+        protected void SubmitBtn_Click(object sender, EventArgs e)
+        {
+          
+            //if user is creating a new user
+            if (NewUserMode == true)
+            {
+               
+
+               
+                //if(NewPassword == null || confirmPass_txt.Text == null)
+                // {
+                //     Response.Write("<script>alert('Must type and confirm password!')</script>");
+                //     goto start;
+                // }
+
+
+
+            }
+            
+            if(EditUserMode == true)
+            {
+                PasswordRFV.Enabled = false;
+                confirmPassRFV.Enabled = false;
+            }
+        
         }
     }
 }

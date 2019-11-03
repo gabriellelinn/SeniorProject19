@@ -123,6 +123,15 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.TextBox fname_txt;
 
         /// <summary>
+        /// fnameRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator fnameRequired;
+
+        /// <summary>
         /// hireDate control.
         /// </summary>
         /// <remarks>
@@ -139,6 +148,15 @@ namespace TestProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox lname_txt;
+
+        /// <summary>
+        /// LastNameRequired control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator LastNameRequired;
 
         /// <summary>
         /// empStat_dropdownlist control.
@@ -168,6 +186,15 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.TextBox username_txt;
 
         /// <summary>
+        /// username_req control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator username_req;
+
+        /// <summary>
         /// dept_dropdownlist control.
         /// </summary>
         /// <remarks>
@@ -186,6 +213,42 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.SqlDataSource departmentDataSource;
 
         /// <summary>
+        /// PasswordLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell PasswordLabel;
+
+        /// <summary>
+        /// NewPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword NewPassword;
+
+        /// <summary>
+        /// PasswordRFV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator PasswordRFV;
+
+        /// <summary>
+        /// CompareValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
+
+        /// <summary>
         /// acct_dropdownlist control.
         /// </summary>
         /// <remarks>
@@ -193,6 +256,15 @@ namespace TestProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList acct_dropdownlist;
+
+        /// <summary>
+        /// confirmPass_label control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell confirmPass_label;
 
         /// <summary>
         /// confirmPass_txt control.
@@ -204,6 +276,15 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.TextBox confirmPass_txt;
 
         /// <summary>
+        /// confirmPassRFV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator confirmPassRFV;
+
+        /// <summary>
         /// RoleDropDownList control.
         /// </summary>
         /// <remarks>
@@ -211,6 +292,24 @@ namespace TestProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList RoleDropDownList;
+
+        /// <summary>
+        /// LitAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal LitAlert;
+
+        /// <summary>
+        /// CancelBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button CancelBtn;
 
         /// <summary>
         /// SubmitBtn control.
