@@ -197,9 +197,7 @@ namespace TestProject
             //if user is creating a new user
             if (NewUserMode == true)
             {
-               
-
-               
+         
                 //if(NewPassword == null || confirmPass_txt.Text == null)
                 // {
                 //     Response.Write("<script>alert('Must type and confirm password!')</script>");
