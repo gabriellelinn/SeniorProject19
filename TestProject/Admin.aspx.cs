@@ -12,8 +12,7 @@ namespace TestProject
 {
     public partial class About : Page
     {
-        public Boolean NewUserMode;
-        public Boolean EditUserMode;
+        
         public int current_user;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,8 +34,7 @@ namespace TestProject
         }
         protected void NewUserbtn_Click(object sender, EventArgs e)
         {
-            EditUserMode = false;
-            NewUserMode = true;
+            
 
             if (selectUser.Visible != true && UserDropDown.Visible != true)
             {
@@ -68,9 +66,7 @@ namespace TestProject
 
         protected void EditUserbtn_Click(object sender, EventArgs e)
         {
-            NewUserMode = false;
-            EditUserMode = true;
-
+          
             if (selectEmployee.Visible != true && EmployeeDropDown.Visible
                 != true)
             {
@@ -101,7 +97,9 @@ namespace TestProject
         //Selects an employee to create a new user for
         protected void EmployeeSelect_Click(object sender, EventArgs e)
         {
-          
+            UserMode.Text = string.Empty;
+            UserMode.Text = "NewUser";
+
             //Disable Edit User Button
             EditUserbtn.Enabled = false;
             EditUserbtn.Visible = false;
@@ -141,13 +139,13 @@ namespace TestProject
             }
             //Show Panel that contains the form
             GeneralPanel.Visible = true;
-            NewUserMode = true;
+           
         }
 
         protected void UserSelect_Click(object sender, EventArgs e)
         {
-            NewUserMode = false;
-            EditUserMode = true;
+            UserMode.Text = string.Empty;
+            UserMode.Text = "EditUser";
             //Disable New User Button
             NewUserbtn.Enabled = false;
             NewUserbtn.Visible = false;
@@ -211,44 +209,101 @@ namespace TestProject
         {
             userAccount userEnt = new userAccount();
 
-
-            //if user is creating a new user
-            if (NewUserMode == true)
+            try
             {
-                //
-                using (var PCTModel = new PCTEntities())
+                //if user is creating a new user
+                if (UserMode.Text == "NewUser")
                 {
-                    //post
-                    int fullday;
-                    using (var context = new PCTEntities())
+                    //
+                    using (var PCTModel = new PCTEntities())
                     {
-                        userEnt.first_name = fname_txt.Text;
-                        userEnt.last_name = lname_txt.Text;
-                        userEnt.email = username_txt.Text;
-                        userEnt.dateCreated = DateTime.Now;
-                        userEnt.createdBy = current_user;
-                        userEnt.emp_id = Convert.ToInt32(EmployeeDropDown.SelectedValue);
-                        userEnt.userRole_id = Convert.ToInt32(RoleDropDownList.SelectedValue);
-                        if (empStat_dropdownlist.SelectedItem.ToString() == "Full-Time")
+                        //post
+                        int fullday;
+                        int lunchBreak;
+                        using (var context = new PCTEntities())
                         {
-                            fullday = 40;
-                        }
-                        else if (empStat_dropdownlist.SelectedItem.ToString() == "Part-Time")
-                        {
-                            fullday = 20;
-                        }
-                        else
-                        {
-                            fullday = 0;
-                        }
-                        userEnt.fullDayHours = fullday;
+                            userEnt.first_name = fname_txt.Text;
+                            userEnt.last_name = lname_txt.Text;
+                            userEnt.email = username_txt.Text;
+                            userEnt.dateCreated = DateTime.Now;
+                            userEnt.createdBy = current_user;
+                            userEnt.emp_id = Convert.ToInt32(EmployeeDropDown.SelectedValue);
+                            userEnt.userRole_id = Convert.ToInt32(RoleDropDownList.SelectedValue);
+                            if (empStat_dropdownlist.SelectedItem.ToString() == "Full-Time")
+                            {
+                                fullday = 8;
+                                lunchBreak = 60;
+                            }
+                            else if (empStat_dropdownlist.SelectedItem.ToString() == "Part-Time")
+                            {
+                                fullday = 4;
+                                lunchBreak = 15;
+                            }
+                            else
+                            {
+                                fullday = 0;
+                                lunchBreak = 0;
+                            }
+                            userEnt.fullDayHours = fullday;
+                            userEnt.lunch = lunchBreak;
+                            //BAD PRACTICE 
+                            userEnt.hashedPassword = NewPassword.Value.ToString();
+                            //account status, and user role
+                            int accountStat = Convert.ToInt16(acct_dropdownlist.SelectedValue);
+                            userEnt.accountStatus = Convert.ToBoolean(accountStat);
 
-                        //BAD PRACTICE 
-                        userEnt.hashedPassword = NewPassword.ToString();
-                        //account status, and user role
+
+                            //------------------create a hashed password-----------------------
+                            //string password = NewPassword.Value.ToString();
+                            // // Run the functions on the code, 
+                            // string hashed = Crypto.Hash(password, "MD5");
+                            // string sha256 = Crypto.SHA256(password);
+                            // string sha1 = Crypto.SHA1(password);
+
+                            //string salt = Crypto.GenerateSalt();
+
+                            // hashedPassword = Crypto.HashPassword(password);
+
+                            // // First parameter is the previously hashed string using a Salt
+                            // verify = Crypto.VerifyHashedPassword("{hash_password_here}", password);
+                            //}
+
+                            context.userAccounts.Add(userEnt);
+                            context.SaveChanges();
+
+                        }
+
+                    }
+                }
+                    if (UserMode.Text == "EditUser")
+                    {
+                        PasswordRFV.Enabled = false;
+                        confirmPassRFV.Enabled = false;
+
+                        using (var editUserSub = new PCTEntities())
+                        {
+                        var User = (from ua in editUserSub.userAccounts
+                                            where ua.ID.ToString() == UserDropDown.SelectedValue
+                                            select ua).First();
+
+                        User.first_name = fname_txt.Text;
+                        User.last_name = lname_txt.Text;
+                        User.email = username_txt.Text;
+                        User.lastUpdated = DateTime.Now; 
+                        User.userRole_id = Convert.ToInt32(RoleDropDownList.SelectedValue);
                         int accountStat = Convert.ToInt16(acct_dropdownlist.SelectedValue);
-                        userEnt.accountStatus = Convert.ToBoolean(accountStat);
-                       
+                        User.accountStatus = Convert.ToBoolean(accountStat);
+                        //BAD PRACTICE 
+                        bool np = string.IsNullOrEmpty(NewPassword.Value.ToString());
+                        bool cp = string.IsNullOrEmpty(confirmPass_txt.Text);
+                        if (np == false && cp == false)
+                        {
+                            User.hashedPassword = NewPassword.Value.ToString();
+                        }
+                                //account status, and user role
+                                int accountStatus2 = Convert.ToInt16(acct_dropdownlist.SelectedValue);
+                                userEnt.accountStatus = Convert.ToBoolean(accountStatus2);
+                        
 
                         //------------------create a hashed password-----------------------
                         //string password = NewPassword.Value.ToString();
@@ -265,20 +320,20 @@ namespace TestProject
                         // verify = Crypto.VerifyHashedPassword("{hash_password_here}", password);
                         //}
 
-                        context.userAccounts.Add(userEnt);
+                        editUserSub.SaveChanges();
+
+                        }
+
 
                     }
-
-                }
-
-                if (EditUserMode == true)
-                {
-                    PasswordRFV.Enabled = false;
-                    confirmPassRFV.Enabled = false;
-                }
-
-
+                    
+                
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

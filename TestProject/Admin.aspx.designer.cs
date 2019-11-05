@@ -195,6 +195,15 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.RequiredFieldValidator username_req;
 
         /// <summary>
+        /// UserMode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox UserMode;
+
+        /// <summary>
         /// dept_dropdownlist control.
         /// </summary>
         /// <remarks>
@@ -283,6 +292,15 @@ namespace TestProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator confirmPassRFV;
+
+        /// <summary>
+        /// CompareValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
 
         /// <summary>
         /// RoleDropDownList control.

@@ -14,7 +14,7 @@
             <asp:Button ID="EditUserbtn" runat="server" Font-Size="X-Large" Height="68px" OnClick="EditUserbtn_Click" Style="margin-right: 14px; margin-left: 477px" Text="Edit User" Width="238px" CssClass="col-xs-pull-6" BackColor="#009999" BorderColor="#009999" BorderStyle="Outset" Font-Bold="True" />
         </div>
         <div style="margin-bottom: 0px; width: 1494px; height: 58px;">
-            &#39;<asp:SqlDataSource ID="usersDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT [first_name] + ' ' + [last_name] AS Name, [ID] FROM [employee]  ORDER BY [last_name]"></asp:SqlDataSource>
+            &#39;<asp:SqlDataSource ID="usersDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT [first_name] + ' ' + [last_name] AS Name, [ID] FROM [userAccount]  ORDER BY [last_name]"></asp:SqlDataSource>
             <br />
 
         </div>
@@ -92,7 +92,7 @@
                             <asp:RequiredFieldValidator ID="username_req" runat="server" ControlToValidate="username_txt" ErrorMessage="Username/Email is required." ForeColor="Red" ToolTip="Username/Email is required." ValidationGroup="generalPanelValid"></asp:RequiredFieldValidator>
                         </td>
                         <td style="width: 289px; height: 54px">
-                             &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
+                             <asp:TextBox ID="UserMode" runat="server" Visible="false"></asp:TextBox>
                         </td>
                          <td style="height: 54px; width: 161px; font-size: large;">Department:</td>
                          <td style="width: 420px; height: 54px;"><asp:DropDownList ID="dept_dropdownlist" class="form-control" runat="server" Height="37px" Width="248px" DataSourceID="departmentDataSource" DataTextField="name" DataValueField="ID" style="font-size: large">
@@ -106,7 +106,7 @@
                        
                         <td style="height: 53px; width: 452px;"><input class="form-control" ID="NewPassword" type="password" runat="server" style="width: 100%; font-size: large;">
                          <asp:RequiredFieldValidator ID="PasswordRFV" runat="server" ControlToValidate="NewPassword" ErrorMessage="Required Field" ForeColor="Red" Enabled="False" EnableViewState="False"></asp:RequiredFieldValidator></td>
-                        <asp:CompareValidator ID="CompareValidator1" style="margin-left: 137px" runat="server" ControlToValidate="confirmPass_txt" ControlToCompare="NewPassword" ErrorMessage="Passwords must match!" ForeColor="Red" Font-Size="X-Large" ></asp:CompareValidator>
+                        <asp:CompareValidator ID="CompareValidator1" style="margin-left: 137px" runat="server" ControlToValidate="confirmPass_txt" ControlToCompare="NewPassword" ErrorMessage="Passwords must match!" ForeColor="Red" Font-Size="Large" ></asp:CompareValidator>
                         
                         <td style="width: 289px; height: 53px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
@@ -126,6 +126,7 @@
                             
                             <asp:TextBox ID="confirmPass_txt" class="form-control" placeholder="Confirm Password" runat="server" type="password" style="font-size: large"></asp:TextBox>
                            <asp:RequiredFieldValidator ID="confirmPassRFV" runat="server" ControlToValidate="confirmPass_txt" ErrorMessage="Required field" ForeColor="Red" Enabled="False"></asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="CompareValidator2" style="margin-left: 137px" runat="server" ControlToValidate="NewPassword" ControlToCompare="confirmPass_txt" ErrorMessage="Passwords must match!" ForeColor="Red" Font-Size="Large" ></asp:CompareValidator>
                         </td>
                          <td style="width: 289px; height: 64px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;

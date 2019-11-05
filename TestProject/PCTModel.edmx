@@ -85,6 +85,7 @@
           <Property Name="fullDayHours" Type="int" />
           <Property Name="emp_id" Type="int" />
           <Property Name="userRole_id" Type="int" />
+          <Property Name="lastUpdated" Type="datetime" />
         </EntityType>
         <EntityType Name="userRole">
           <Key>
@@ -312,6 +313,7 @@
           <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="lastUpdated" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="userRole">
           <Key>
@@ -522,6 +524,7 @@
           <EntitySetMapping Name="userAccounts">
             <EntityTypeMapping TypeName="PCTModel.userAccount">
               <MappingFragment StoreEntitySet="userAccount">
+                <ScalarProperty Name="lastUpdated" ColumnName="lastUpdated" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
