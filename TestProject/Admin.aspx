@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <asp:Panel ID="Panel1" runat="server" style="margin-left: 135px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px;" Height="275px" >
         <div class="text-left" style="height:auto; width:auto; margin-top: 0px; margin-bottom: 23px; margin-left: 0px; margin-right: 0px;">
-            <p class="text-center" style="font-size: xx-large; width: 1427px; margin-left: 0;">
+            <p class="text-center" style="font-size: xx-large;  margin-left: 0;">
                 My Request Off
             </p>
         </div>
@@ -51,13 +51,13 @@
     <div class="col-sm-4" style="background-color:lavender;">.col-sm-3</div>
   </div>--%>
      </asp:Panel>
-    <asp:Panel ID="GeneralPanel" runat="server" Width="1665px">
+    <asp:Panel ID="GeneralPanel" runat="server" >
         <form ID="NewUser_Form">
 
         <%--<asp:Form ID="NewUserForm" runat="server">--%>
 
             <div class="form-group" style="height: inherit; width: inherit;">
-                <table class="auto-style1" style="margin-left: 137px; width: 1523px;">
+                <table class="auto-style1" style="margin-left: 137px">
                     <tr>
                         <td style="width: 193px; height: 54px">First Name*:</td>
                         <td style="height: 54px; width: 452px;"><asp:TextBox ID="fname_txt" class="form-control" runat="server" Width="348px"></asp:TextBox>

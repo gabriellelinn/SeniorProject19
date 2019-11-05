@@ -48,11 +48,13 @@ namespace TestProject
                         var password = (from p in PCTModel.userAccounts
                                         where p.hashedPassword == passwordTxt
                                         select p).First();
+
+                        string user = username.ID.ToString();
                         //if username and password returns 1 then authorize to go to their home page
                         if (username.email != null && password.hashedPassword != null)
                         {
                             //create session
-                            Session["USER"] = usernameTxt;
+                            Session["USER"] = user;
                             Response.Redirect("Default.aspx");
                         }
                         else
