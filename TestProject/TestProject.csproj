@@ -132,6 +132,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\RegscanInc.PNG" />
     <Content Include="js\JavaScript.js" />
+    <Content Include="RequestOff.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -269,6 +270,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="request.cs">
       <DependentUpon>PCTModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RequestOff.aspx.cs">
+      <DependentUpon>RequestOff.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RequestOff.aspx.designer.cs">
+      <DependentUpon>RequestOff.aspx</DependentUpon>
     </Compile>
     <Compile Include="requestType.cs">
       <DependentUpon>PCTModel.tt</DependentUpon>
