@@ -28,22 +28,30 @@ namespace TestProject
         {
             String usernameTxt = Login1.UserName.ToString().Trim();
             String passwordTxt = Login1.Password.ToString().Trim();
-
-            
+           
 
             if (usernameTxt != null && passwordTxt != null)
             {
                 //need to convert their typed password into their stored hashed password in database
                 // string unhashedPassword = null;
 
-                NewMethod(usernameTxt, passwordTxt);
+                
+               bool authenticated = NewMethod(usernameTxt, passwordTxt);
+                if (authenticated == false)
+                {
+                    Login1.FailureText = "Your username/password is incorrect. Try again!";
+                }
             }
-            else { }
-                //display warning where fields are required (already done)
+            else {
+                Login1.FailureText = "Username and Password required";
+                }
+            
+
         }
 
-        private void NewMethod(string usernameTxt, string passwordTxt)
+        private bool NewMethod(string usernameTxt, string passwordTxt)
         {
+        
             try
             {
                 using (var ModelPCT = new PCTEntities())
@@ -71,10 +79,14 @@ namespace TestProject
                     }
 
                 }
+                return true;
             }
             catch
             {
-               Login1.FailureText = "Your username/password is incorrect. Try again!";
+                
+              
+                return false;
+              
             }
         }
     } 

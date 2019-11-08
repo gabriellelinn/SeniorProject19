@@ -89,6 +89,10 @@
             width: 92px;
         }
         
+        .auto-style27 {
+            font-size: xx-large;
+        }
+        
     </style>
     <script src="../../Scripts/jquery-1.3.2.min.js" lang ="javascript" type="text/javascript"></script>
 <script src = "../../Scripts/jquery-ui-1.7.1.custom.min.js" type = "text/javascript"></script> 
@@ -113,12 +117,12 @@
                     <tr><td></td></tr>
                     <tr>
                         <td class="auto-style26">Vacation Hours Remaining: </td>
-                        <td><asp:TextBox ID="VacationHrsbox" runat="server" BorderStyle="None"></asp:TextBox></td>
+                        <td><asp:TextBox ID="VacationHrsbox" runat="server" BorderStyle="None" CssClass="auto-style27"></asp:TextBox></td>
                     </tr>
                     <tr><td></td></tr>
                     <tr>
                         <td class="auto-style26">Personal Hours Remaining: </td>
-                        <td><asp:TextBox ID="PersonalHrsbox" runat="server" BorderStyle="None"></asp:TextBox></td>
+                        <td><asp:TextBox ID="PersonalHrsbox" runat="server" BorderStyle="None" CssClass="auto-style27"></asp:TextBox></td>
                     </tr>
                     <%-- <tr>
                     <td>Floating Holiday Remaining: </td>
