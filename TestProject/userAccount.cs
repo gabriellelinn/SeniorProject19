@@ -21,6 +21,9 @@ namespace TestProject
         }
     
         public int ID { get; set; }
+        public string last_name { get; set; }
+        public string first_name { get; set; }
+        public string email { get; set; }
         public string hashedPassword { get; set; }
         public System.DateTime dateCreated { get; set; }
         public int createdBy { get; set; }
@@ -29,10 +32,12 @@ namespace TestProject
         public Nullable<int> fullDayHours { get; set; }
         public Nullable<int> emp_id { get; set; }
         public Nullable<int> userRole_id { get; set; }
-        public string last_name { get; set; }
-        public string first_name { get; set; }
-        public string email { get; set; }
         public Nullable<System.DateTime> lastUpdated { get; set; }
+        public Nullable<int> supervisor { get; set; }
+        public Nullable<int> usedVHours { get; set; }
+        public Nullable<int> usedPHours { get; set; }
+        public Nullable<int> vacation_carryOver { get; set; }
+        public Nullable<int> personal_carryOver { get; set; }
     
         public virtual employee employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

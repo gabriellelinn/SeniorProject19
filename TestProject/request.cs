@@ -21,8 +21,6 @@ namespace TestProject
         public Nullable<System.DateTime> endDate { get; set; }
         public Nullable<System.TimeSpan> startTime { get; set; }
         public Nullable<System.TimeSpan> endTime { get; set; }
-        public Nullable<int> TotalHours { get; set; }
-        public Nullable<int> TotalDays { get; set; }
         public string status { get; set; }
         public string comments { get; set; }
         public Nullable<int> dept_id { get; set; }

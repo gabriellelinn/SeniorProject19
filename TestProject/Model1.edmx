@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PCTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="PCTModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="department">
           <Key>
             <PropertyRef Name="ID" />
@@ -181,7 +181,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PCTModelStoreContainer">
+        <EntityContainer Name="PCTModel1StoreContainer">
           <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="empStatus" EntityType="Self.empStatus" Schema="dbo" store:Type="Tables" />
@@ -219,10 +219,11 @@
             <End Role="userAccount" EntitySet="userAccount" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PCTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="PCTModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="department">
           <Key>
             <PropertyRef Name="ID" />
@@ -312,14 +313,14 @@
           <Property Name="emp_id" Type="Int32" />
           <Property Name="userRole_id" Type="Int32" />
           <Property Name="lastUpdated" Type="DateTime" Precision="3" />
-          <Property Name="supervisor" Type="Int32" />
-          <NavigationProperty Name="employee" Relationship="Self.FK__userAccou__emp_i__5DCAEF64" FromRole="userAccount" ToRole="employee" />
-          <NavigationProperty Name="requests" Relationship="Self.FK__request__userAcc__5FB337D6" FromRole="userAccount" ToRole="request" />
-          <NavigationProperty Name="userRole" Relationship="Self.FK__userAccou__userR__5EBF139D" FromRole="userAccount" ToRole="userRole" />
           <Property Name="usedVHours" Type="Int32" />
           <Property Name="usedPHours" Type="Int32" />
           <Property Name="vacation_carryOver" Type="Int32" />
           <Property Name="personal_carryOver" Type="Int32" />
+          <Property Name="supervisor" Type="Int32" />
+          <NavigationProperty Name="employee" Relationship="Self.FK__userAccou__emp_i__5DCAEF64" FromRole="userAccount" ToRole="employee" />
+          <NavigationProperty Name="requests" Relationship="Self.FK__request__userAcc__5FB337D6" FromRole="userAccount" ToRole="request" />
+          <NavigationProperty Name="userRole" Relationship="Self.FK__userAccou__userR__5EBF139D" FromRole="userAccount" ToRole="userRole" />
         </EntityType>
         <EntityType Name="userRole">
           <Key>
@@ -413,7 +414,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PCTEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PCTEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="departments" EntityType="Self.department" />
           <EntitySet Name="employees" EntityType="Self.employee" />
           <EntitySet Name="empStatus" EntityType="Self.empStatu" />
@@ -456,9 +457,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PCTModelStoreContainer" CdmEntityContainer="PCTEntities">
+        <EntityContainerMapping StorageEntityContainer="PCTModel1StoreContainer" CdmEntityContainer="PCTEntities1">
           <EntitySetMapping Name="departments">
-            <EntityTypeMapping TypeName="PCTModel.department">
+            <EntityTypeMapping TypeName="PCTModel1.department">
               <MappingFragment StoreEntitySet="department">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="code" ColumnName="code" />
@@ -467,7 +468,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="employees">
-            <EntityTypeMapping TypeName="PCTModel.employee">
+            <EntityTypeMapping TypeName="PCTModel1.employee">
               <MappingFragment StoreEntitySet="employee">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
@@ -481,7 +482,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="empStatus">
-            <EntityTypeMapping TypeName="PCTModel.empStatu">
+            <EntityTypeMapping TypeName="PCTModel1.empStatu">
               <MappingFragment StoreEntitySet="empStatus">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="statusName" ColumnName="statusName" />
@@ -489,7 +490,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="requests">
-            <EntityTypeMapping TypeName="PCTModel.request">
+            <EntityTypeMapping TypeName="PCTModel1.request">
               <MappingFragment StoreEntitySet="request">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="created" ColumnName="created" />
@@ -507,7 +508,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="requestTypes">
-            <EntityTypeMapping TypeName="PCTModel.requestType">
+            <EntityTypeMapping TypeName="PCTModel1.requestType">
               <MappingFragment StoreEntitySet="requestType">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -515,7 +516,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="PCTModel.sysdiagram">
+            <EntityTypeMapping TypeName="PCTModel1.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -526,12 +527,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="userAccounts">
-            <EntityTypeMapping TypeName="PCTModel.userAccount">
+            <EntityTypeMapping TypeName="PCTModel1.userAccount">
               <MappingFragment StoreEntitySet="userAccount">
-                <ScalarProperty Name="personal_carryOver" ColumnName="personal_carryOver" />
-                <ScalarProperty Name="vacation_carryOver" ColumnName="vacation_carryOver" />
-                <ScalarProperty Name="usedPHours" ColumnName="usedPHours" />
-                <ScalarProperty Name="usedVHours" ColumnName="usedVHours" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
@@ -545,12 +542,16 @@
                 <ScalarProperty Name="emp_id" ColumnName="emp_id" />
                 <ScalarProperty Name="userRole_id" ColumnName="userRole_id" />
                 <ScalarProperty Name="lastUpdated" ColumnName="lastUpdated" />
+                <ScalarProperty Name="usedVHours" ColumnName="usedVHours" />
+                <ScalarProperty Name="usedPHours" ColumnName="usedPHours" />
+                <ScalarProperty Name="vacation_carryOver" ColumnName="vacation_carryOver" />
+                <ScalarProperty Name="personal_carryOver" ColumnName="personal_carryOver" />
                 <ScalarProperty Name="supervisor" ColumnName="supervisor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="userRoles">
-            <EntityTypeMapping TypeName="PCTModel.userRole">
+            <EntityTypeMapping TypeName="PCTModel1.userRole">
               <MappingFragment StoreEntitySet="userRole">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="name" ColumnName="name" />

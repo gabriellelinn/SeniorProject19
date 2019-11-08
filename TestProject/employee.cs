@@ -21,13 +21,13 @@ namespace TestProject
         }
     
         public int ID { get; set; }
+        public string last_name { get; set; }
+        public string first_name { get; set; }
         public string email { get; set; }
         public Nullable<System.DateTime> hireDate { get; set; }
         public Nullable<int> dept_id { get; set; }
         public Nullable<int> empStatus_id { get; set; }
         public Nullable<bool> IsDeptManager { get; set; }
-        public string last_name { get; set; }
-        public string first_name { get; set; }
     
         public virtual department department { get; set; }
         public virtual empStatu empStatu { get; set; }
