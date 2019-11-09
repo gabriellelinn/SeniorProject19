@@ -51,13 +51,22 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.TextBox creatorbox;
 
         /// <summary>
-        /// deptbox control.
+        /// deptDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox deptbox;
+        protected global::System.Web.UI.WebControls.DropDownList deptDropDownList;
+
+        /// <summary>
+        /// deptDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource deptDataSource;
 
         /// <summary>
         /// VacationHrsbox control.
@@ -184,6 +193,15 @@ namespace TestProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label endTime_lbl;
+
+        /// <summary>
+        /// commentbox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox commentbox;
 
         /// <summary>
         /// FullDayView3 control.

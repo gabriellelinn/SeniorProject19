@@ -33,7 +33,9 @@
         }
         
         .auto-style13 {
-            height: 43px;
+            height: 69px;
+            width: 1558px;
+            margin-right: 15px;
         }
         
         .auto-style14 {
@@ -55,7 +57,7 @@
         }
         
         .auto-style18 {
-            height: 236px;
+            height: 103px;
         }
         
         .auto-style19 {
@@ -77,8 +79,8 @@
         }
         
         .auto-style24 {
-            margin-left: 1681px;
-            margin-right:20px;
+            margin-left: 1600px;
+            margin-right:0px;
         }
         
         .auto-style25 {
@@ -89,40 +91,66 @@
             width: 92px;
         }
         
-        .auto-style27 {
-            font-size: xx-large;
+        .auto-style28 {
+            font-size: medium;
+        }
+        .auto-style29 {
+            font-size: large;
         }
         
+        .auto-style30 {
+            width: 92px;
+            height: 46px;
+        }
+                
+        .auto-style31 {
+            margin-left: 4px;
+        }
+                
+        .auto-style32 {
+            font-size: large;
+            margin-left: 25px;
+        }
+                
     </style>
     <script src="../../Scripts/jquery-1.3.2.min.js" lang ="javascript" type="text/javascript"></script>
 <script src = "../../Scripts/jquery-ui-1.7.1.custom.min.js" type = "text/javascript"></script> 
+    <script lang="javascript">
+        function AutoExpand(commentbox) {
+            commentbox.style.height = "1px";
+            commentbox.style.height = (25 + commentbox.scrollHeight) + "px";
+        }
+        </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:panel ID="SummaryPanel" runat="server">
+        <asp:panel ID="SummaryPanel" runat="server" BorderColor="Teal" CssClass="auto-style31">
             <div class="auto-style24" id="Summary">
                 <table align="right" class="auto-style25">
                     <tr>
-                        <td class="auto-style26">Department Manager: </td>
-                        <td><asp:TextBox ID="deptManagerbox" runat="server" BorderStyle="None"></asp:TextBox></td>
+                        <td class="auto-style26">Manager: </td>
+                        <td><asp:TextBox ID="deptManagerbox" runat="server" ReadOnly="True" Enabled="False" BorderStyle="None" CssClass="auto-style28"></asp:TextBox></td>
                     </tr>
                     <tr>
                         <td class="auto-style26">Creator: </td>
-                        <td><asp:TextBox ID="creatorbox" runat="server" BorderStyle="None"></asp:TextBox></td>
+                        <td><asp:TextBox ID="creatorbox" runat="server" ReadOnly="True" Enabled="False" BorderStyle="None" CssClass="auto-style28"></asp:TextBox></td>
                     </tr>
                     <tr>
-                        <td class="auto-style26">Department: </td>
-                        <td><asp:TextBox ID="deptbox" runat="server" BorderStyle="None"></asp:TextBox></td>
+                        <td class="auto-style30">Department: </td>
+                        <td class="auto-style26"><%--<asp:TextBox ID="deptbox" runat="server" BorderStyle="None" CssClass="auto-style28"></asp:TextBox>--%>
+                            <asp:DropDownList ID="deptDropDownList" runat="server"></asp:DropDownList>         
+                            <asp:SqlDataSource ID="deptDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT [ID], [name] FROM [department]"></asp:SqlDataSource>
+                        </td>
                     </tr>
                     <tr><td></td></tr>
                     <tr>
                         <td class="auto-style26">Vacation Hours Remaining: </td>
-                        <td><asp:TextBox ID="VacationHrsbox" runat="server" BorderStyle="None" CssClass="auto-style27"></asp:TextBox></td>
+                        <td><asp:TextBox ID="VacationHrsbox" runat="server" ReadOnly="True" Enabled="False" BorderStyle="None" CssClass="auto-style29"></asp:TextBox></td>
                     </tr>
                     <tr><td></td></tr>
                     <tr>
                         <td class="auto-style26">Personal Hours Remaining: </td>
-                        <td><asp:TextBox ID="PersonalHrsbox" runat="server" BorderStyle="None" CssClass="auto-style27"></asp:TextBox></td>
+                        <td><asp:TextBox ID="PersonalHrsbox" runat="server" ReadOnly="True" Enabled="False" BorderStyle="None" CssClass="auto-style29"></asp:TextBox></td>
                     </tr>
                     <%-- <tr>
                     <td>Floating Holiday Remaining: </td>
@@ -193,6 +221,10 @@
                     <div class="auto-style21">
                         <asp:Label ID="endTime_lbl" runat="server" CssClass="auto-style3 center" Text="End Time:"></asp:Label>
                         <input type="time" name="Time" id="FDstartTime" class="auto-style19" />
+                    </div>
+                    <div>
+                        <span class="auto-style3"><asp:Label runat="server" Text="Comment:"></asp:Label></span>
+                        <asp:TextBox ID="commentbox" runat="server" CssClass="auto-style32" Height="27px" Onkeyup="AutoExpand(this)" TextMode="MultiLine" style="overflow:hidden" Width="435px" Rows="2"></asp:TextBox>
                     </div>
                 </div>
             </asp:View>

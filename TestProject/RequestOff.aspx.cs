@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 
 namespace TestProject
 {
@@ -30,9 +32,15 @@ namespace TestProject
                                         where ua.ID.ToString() == current_user
                                         select ua).First();
 
-                    deptManagerbox.Text = selectedUser.supervisor.ToString();
+
+                    string supervisor_id = selectedUser.supervisor.ToString();
+
+                    var selectSupervisor = (from s in PCTModel.userAccounts
+                                            where s.ID.ToString() == supervisor_id
+                                            select s).First();
+                    deptManagerbox.Text = (string)(selectSupervisor.first_name + ' '+ selectSupervisor.last_name);
                     creatorbox.Text = (selectedUser.first_name + ' ' + selectedUser.last_name).ToString();
-                    deptbox.Text = selectedUser.employee.department.ToString();
+                    deptDropDownList.SelectedValue = selectedUser.employee.dept_id.ToString();
                     VacationHrsbox.Text = selectedUser.usedVHours.ToString();
                     PersonalHrsbox.Text = selectedUser.usedPHours.ToString();
 
@@ -61,6 +69,13 @@ namespace TestProject
             MultiView1.ActiveViewIndex = 2;
             displayTypeF.Text = TypeRequest_dropdown.SelectedItem.ToString();
 
+        }
+
+      
+
+        protected void comment_TextChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }
