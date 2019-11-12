@@ -4,8 +4,7 @@
     <asp:Panel ID="Panel1" runat="server" style="margin-left: 135px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px;" Height="275px" >
         <div class="text-left" style="height:auto; width:auto; margin-top: 0px; margin-bottom: 23px; margin-left: 0px; margin-right: 0px;">
             <p class="text-center" style="font-size: xx-large;  margin-left: 0;">
-                My Request Off
-            </p>
+                Administrator</p>
         </div>
         <div class="text-center" style="height: 68px; width: 1429px; margin-top: 0px; margin-left: 0px; margin-right: 0px;">
             <strong>
@@ -23,7 +22,7 @@
                 <div class="col-sm-4" id="selectEmployeeOption" style="left: 0px; top: 0px; width: 97%">
            
             <asp:Label ID="selectEmployee" runat="server" Font-Bold="True" Font-Size="X-Large" Style="font-size: large" Text="Employee: " Visible="False"></asp:Label>
-            <asp:DropDownList ID="EmployeeDropDown" runat="server" BackColor="White" DataSourceID="usersDataSource" DataTextField="Name" DataValueField="ID" Font-Size="Large" ForeColor="#000099" Height="49px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Style="font-size: large" Width="414px" Visible="False" Enabled="False">
+            <asp:DropDownList ID="EmployeeDropDown" runat="server" BackColor="White" DataSourceID="employeeDataSource" DataTextField="Name" DataValueField="ID" Font-Size="Large" ForeColor="#000099" Height="49px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Style="font-size: large" Width="414px" Visible="False" Enabled="False">
             </asp:DropDownList>
                       </div>
                     <div class="col-sm-4" id="employeeSelectDiv">
@@ -37,6 +36,7 @@
             <asp:Label ID="selectUser" runat="server" Font-Bold="True" Font-Size="X-Large" Style="font-size: large" Text="User: " Visible="False"></asp:Label>
             <asp:DropDownList ID="UserDropDown" runat="server" BackColor="White" DataSourceID="usersDataSource" DataTextField="Name" DataValueField="ID" Font-Size="Large" ForeColor="#000099" Height="48px" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Style="font-size: large" Width="435px" Enabled="False" Visible="False">
             </asp:DropDownList>
+                   <asp:SqlDataSource ID="employeeDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT ([first_name] + ' ' + [last_name]) AS Name, [ID] FROM [employee]"></asp:SqlDataSource>
                    </div>
                    <div class="col-sm-4" id="userSelectDiv" style="left: 0px; top: 0px; width: 14%">
                     <asp:Button ID="UserSelect" runat="server" style="margin-left: 26px" Text="Select" Visible="False" Width="123px" Height="29px" OnClick="UserSelect_Click"  />

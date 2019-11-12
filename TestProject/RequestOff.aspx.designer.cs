@@ -69,22 +69,40 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.SqlDataSource deptDataSource;
 
         /// <summary>
-        /// VacationHrsbox control.
+        /// vacationHrsbox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox VacationHrsbox;
+        protected global::System.Web.UI.WebControls.TextBox vacationHrsbox;
 
         /// <summary>
-        /// PersonalHrsbox control.
+        /// personalHrsbox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox PersonalHrsbox;
+        protected global::System.Web.UI.WebControls.TextBox personalHrsbox;
+
+        /// <summary>
+        /// forecastedVHrs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox forecastedVHrs;
+
+        /// <summary>
+        /// forecastedPHrs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox forecastedPHrs;
 
         /// <summary>
         /// MultiView1 control.
@@ -204,6 +222,24 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.TextBox commentbox;
 
         /// <summary>
+        /// cancelbtnPD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cancelbtnPD;
+
+        /// <summary>
+        /// submitbtnPD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button submitbtnPD;
+
+        /// <summary>
         /// FullDayView3 control.
         /// </summary>
         /// <remarks>
@@ -222,12 +258,84 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.Label displayTypeF;
 
         /// <summary>
-        /// stDate_lbl control.
+        /// stDate_lbl2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label stDate_lbl;
+        protected global::System.Web.UI.WebControls.Label stDate_lbl2;
+
+        /// <summary>
+        /// endDate_lbl2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label endDate_lbl2;
+
+        /// <summary>
+        /// from control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText from;
+
+        /// <summary>
+        /// to control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText to;
+
+        /// <summary>
+        /// stTime_lbl2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label stTime_lbl2;
+
+        /// <summary>
+        /// fullDayHours control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label fullDayHours;
+
+        /// <summary>
+        /// commentBox2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox commentBox2;
+
+        /// <summary>
+        /// cancelBtnFD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cancelBtnFD;
+
+        /// <summary>
+        /// submitBtnFD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button submitBtnFD;
     }
 }

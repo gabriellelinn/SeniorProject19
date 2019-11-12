@@ -49,6 +49,7 @@
           <Property Name="dept_id" Type="int" />
           <Property Name="requestType_id" Type="int" />
           <Property Name="userAccount_id" Type="int" />
+          <Property Name="totalDays" Type="int" />
         </EntityType>
         <EntityType Name="requestType">
           <Key>
@@ -276,6 +277,7 @@
           <NavigationProperty Name="department" Relationship="Self.FK__request__dept_id__5629CD9C" FromRole="request" ToRole="department" />
           <NavigationProperty Name="requestType" Relationship="Self.FK__request__request__571DF1D5" FromRole="request" ToRole="requestType" />
           <NavigationProperty Name="userAccount" Relationship="Self.FK__request__userAcc__5FB337D6" FromRole="request" ToRole="userAccount" />
+          <Property Name="totalDays" Type="Int32" />
         </EntityType>
         <EntityType Name="requestType">
           <Key>
@@ -491,6 +493,7 @@
           <EntitySetMapping Name="requests">
             <EntityTypeMapping TypeName="PCTModel.request">
               <MappingFragment StoreEntitySet="request">
+                <ScalarProperty Name="totalDays" ColumnName="totalDays" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="created" ColumnName="created" />
                 <ScalarProperty Name="submitted" ColumnName="submitted" />

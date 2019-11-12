@@ -106,8 +106,7 @@ namespace TestProject
             NewUserbtn.Enabled = false;
             PasswordLabel.InnerText = "Password*:";
             confirmPass_label.InnerText = "Confirm Password*:";
-            PasswordRFV.Enabled = true;
-            confirmPassRFV.Enabled = true;
+           
             // hireDate.Value = 
 
             //fill in form
@@ -201,14 +200,17 @@ namespace TestProject
 
         protected void CancelBtn_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Admin.aspx", false);
+            confirmPassRFV.Enabled= false;
+             confirmPass_txt.CausesValidation = false;
+            Response.Redirect("Default.aspx");
         }
 
 
         protected void SubmitBtn_Click(object sender, EventArgs e)
         {
             userAccount userEnt = new userAccount();
-
+            PasswordRFV.Enabled = true;
+            confirmPassRFV.Enabled = true;
             try
             {
                 //if user is creating a new user
