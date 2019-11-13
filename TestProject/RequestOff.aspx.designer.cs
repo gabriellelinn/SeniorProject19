@@ -195,6 +195,15 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.Label selectDate_lbl;
 
         /// <summary>
+        /// datepickerSingle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText datepickerSingle;
+
+        /// <summary>
         /// startTime_lbl control.
         /// </summary>
         /// <remarks>
@@ -204,6 +213,15 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.Label startTime_lbl;
 
         /// <summary>
+        /// PDstartTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PDstartTime;
+
+        /// <summary>
         /// endTime_lbl control.
         /// </summary>
         /// <remarks>
@@ -211,6 +229,42 @@ namespace TestProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label endTime_lbl;
+
+        /// <summary>
+        /// PDendTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PDendTime;
+
+        /// <summary>
+        /// LabelPDLunch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelPDLunch;
+
+        /// <summary>
+        /// LunchPD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LunchPD;
+
+        /// <summary>
+        /// LunchCheckBoxPD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox LunchCheckBoxPD;
 
         /// <summary>
         /// commentbox control.
@@ -310,6 +364,15 @@ namespace TestProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label fullDayHours;
+
+        /// <summary>
+        /// lunch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lunch;
 
         /// <summary>
         /// commentBox2 control.

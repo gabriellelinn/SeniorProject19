@@ -31,7 +31,7 @@ namespace TestProject
         public virtual DbSet<request> requests { get; set; }
         public virtual DbSet<requestType> requestTypes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<userAccount> userAccounts { get; set; }
         public virtual DbSet<userRole> userRoles { get; set; }
+        public virtual DbSet<userAccount> userAccounts { get; set; }
     }
 }

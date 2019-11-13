@@ -37,7 +37,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="created" Type="datetime" Nullable="false" />
           <Property Name="submitted" Type="datetime" Nullable="false" />
           <Property Name="startDate" Type="date" />
@@ -49,7 +49,7 @@
           <Property Name="dept_id" Type="int" />
           <Property Name="requestType_id" Type="int" />
           <Property Name="userAccount_id" Type="int" />
-          <Property Name="totalDays" Type="int" />
+          <Property Name="totalHours" Type="numeric" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="requestType">
           <Key>
@@ -85,10 +85,10 @@
           <Property Name="emp_id" Type="int" />
           <Property Name="userRole_id" Type="int" />
           <Property Name="lastUpdated" Type="datetime" />
-          <Property Name="usedVHours" Type="int" />
-          <Property Name="usedPHours" Type="int" />
-          <Property Name="vacation_carryOver" Type="int" />
-          <Property Name="personal_carryOver" Type="int" />
+          <Property Name="usedVHours" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="usedPHours" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="vacation_carryOver" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="personal_carryOver" Type="decimal" Precision="18" Scale="2" />
           <Property Name="supervisor" Type="int" />
         </EntityType>
         <EntityType Name="userRole">
@@ -248,7 +248,7 @@
           <Property Name="IsDeptManager" Type="Boolean" />
           <NavigationProperty Name="department" Relationship="Self.FK__employee__dept_i__4F7CD00D" FromRole="employee" ToRole="department" />
           <NavigationProperty Name="empStatu" Relationship="Self.FK__employee__empSta__5070F446" FromRole="employee" ToRole="empStatus" />
-          <NavigationProperty Name="userAccounts" Relationship="Self.FK__userAccou__emp_i__5DCAEF64" FromRole="employee" ToRole="userAccount" />
+          <NavigationProperty Name="userAccounts" Relationship="PCTModel.FK__userAccou__emp_i__5DCAEF64" FromRole="employee" ToRole="userAccount" />
         </EntityType>
         <EntityType Name="empStatu">
           <Key>
@@ -276,8 +276,8 @@
           <Property Name="userAccount_id" Type="Int32" />
           <NavigationProperty Name="department" Relationship="Self.FK__request__dept_id__5629CD9C" FromRole="request" ToRole="department" />
           <NavigationProperty Name="requestType" Relationship="Self.FK__request__request__571DF1D5" FromRole="request" ToRole="requestType" />
-          <NavigationProperty Name="userAccount" Relationship="Self.FK__request__userAcc__5FB337D6" FromRole="request" ToRole="userAccount" />
-          <Property Name="totalDays" Type="Int32" />
+          <Property Name="totalHours" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="userAccount" Relationship="PCTModel.FK__request__userAcc__5FB337D6" FromRole="request" ToRole="userAccount" />
         </EntityType>
         <EntityType Name="requestType">
           <Key>
@@ -297,39 +297,13 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="userAccount">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="hashedPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="createdBy" Type="Int32" Nullable="false" />
-          <Property Name="accountStatus" Type="Boolean" />
-          <Property Name="lunch" Type="Int32" />
-          <Property Name="fullDayHours" Type="Int32" />
-          <Property Name="emp_id" Type="Int32" />
-          <Property Name="userRole_id" Type="Int32" />
-          <Property Name="lastUpdated" Type="DateTime" Precision="3" />
-          <Property Name="supervisor" Type="Int32" />
-          <NavigationProperty Name="employee" Relationship="Self.FK__userAccou__emp_i__5DCAEF64" FromRole="userAccount" ToRole="employee" />
-          <NavigationProperty Name="requests" Relationship="Self.FK__request__userAcc__5FB337D6" FromRole="userAccount" ToRole="request" />
-          <NavigationProperty Name="userRole" Relationship="Self.FK__userAccou__userR__5EBF139D" FromRole="userAccount" ToRole="userRole" />
-          <Property Name="usedVHours" Type="Int32" />
-          <Property Name="usedPHours" Type="Int32" />
-          <Property Name="vacation_carryOver" Type="Int32" />
-          <Property Name="personal_carryOver" Type="Int32" />
-        </EntityType>
         <EntityType Name="userRole">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="userAccounts" Relationship="Self.FK__userAccou__userR__5EBF139D" FromRole="userRole" ToRole="userAccount" />
+          <NavigationProperty Name="userAccounts" Relationship="PCTModel.FK__userAccou__userR__5EBF139D" FromRole="userRole" ToRole="userAccount" />
         </EntityType>
         <Association Name="FK__employee__dept_i__4F7CD00D">
           <End Role="department" Type="Self.department" Multiplicity="0..1" />
@@ -367,18 +341,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__userAccou__emp_i__5DCAEF64">
-          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
-          <End Role="userAccount" Type="Self.userAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="employee">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="userAccount">
-              <PropertyRef Name="emp_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__request__request__571DF1D5">
           <End Role="requestType" Type="Self.requestType" Multiplicity="0..1" />
           <End Role="request" Type="Self.request" Multiplicity="*" />
@@ -391,30 +353,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__request__userAcc__5FB337D6">
-          <End Role="userAccount" Type="Self.userAccount" Multiplicity="0..1" />
-          <End Role="request" Type="Self.request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="userAccount">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="request">
-              <PropertyRef Name="userAccount_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__userAccou__userR__5EBF139D">
-          <End Role="userRole" Type="Self.userRole" Multiplicity="0..1" />
-          <End Role="userAccount" Type="Self.userAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="userRole">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="userAccount">
-              <PropertyRef Name="userRole_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="PCTEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="departments" EntityType="Self.department" />
           <EntitySet Name="employees" EntityType="Self.employee" />
@@ -422,7 +360,6 @@
           <EntitySet Name="requests" EntityType="Self.request" />
           <EntitySet Name="requestTypes" EntityType="Self.requestType" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="userAccounts" EntityType="Self.userAccount" />
           <EntitySet Name="userRoles" EntityType="Self.userRole" />
           <AssociationSet Name="FK__employee__dept_i__4F7CD00D" Association="Self.FK__employee__dept_i__4F7CD00D">
             <End Role="department" EntitySet="departments" />
@@ -436,23 +373,86 @@
             <End Role="empStatus" EntitySet="empStatus" />
             <End Role="employee" EntitySet="employees" />
           </AssociationSet>
-          <AssociationSet Name="FK__userAccou__emp_i__5DCAEF64" Association="Self.FK__userAccou__emp_i__5DCAEF64">
-            <End Role="employee" EntitySet="employees" />
-            <End Role="userAccount" EntitySet="userAccounts" />
-          </AssociationSet>
           <AssociationSet Name="FK__request__request__571DF1D5" Association="Self.FK__request__request__571DF1D5">
             <End Role="requestType" EntitySet="requestTypes" />
             <End Role="request" EntitySet="requests" />
           </AssociationSet>
-          <AssociationSet Name="FK__request__userAcc__5FB337D6" Association="Self.FK__request__userAcc__5FB337D6">
+          <EntitySet Name="userAccounts" EntityType="PCTModel.userAccount" />
+          <AssociationSet Name="FK__userAccou__emp_i__5DCAEF64" Association="PCTModel.FK__userAccou__emp_i__5DCAEF64">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="userAccount" EntitySet="userAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__request__userAcc__5FB337D6" Association="PCTModel.FK__request__userAcc__5FB337D6">
             <End Role="userAccount" EntitySet="userAccounts" />
             <End Role="request" EntitySet="requests" />
           </AssociationSet>
-          <AssociationSet Name="FK__userAccou__userR__5EBF139D" Association="Self.FK__userAccou__userR__5EBF139D">
+          <AssociationSet Name="FK__userAccou__userR__5EBF139D" Association="PCTModel.FK__userAccou__userR__5EBF139D">
             <End Role="userRole" EntitySet="userRoles" />
             <End Role="userAccount" EntitySet="userAccounts" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
+        <EntityType Name="userAccount">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="hashedPassword" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="dateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdBy" Type="Int32" Nullable="false" />
+          <Property Name="accountStatus" Type="Boolean" />
+          <Property Name="lunch" Type="Int32" />
+          <Property Name="fullDayHours" Type="Int32" />
+          <Property Name="emp_id" Type="Int32" />
+          <Property Name="userRole_id" Type="Int32" />
+          <Property Name="lastUpdated" Type="DateTime" Precision="3" />
+          <Property Name="usedVHours" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="usedPHours" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="vacation_carryOver" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="personal_carryOver" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="supervisor" Type="Int32" />
+          <NavigationProperty Name="employee" Relationship="PCTModel.FK__userAccou__emp_i__5DCAEF64" FromRole="userAccount" ToRole="employee" />
+          <NavigationProperty Name="requests" Relationship="PCTModel.FK__request__userAcc__5FB337D6" FromRole="userAccount" ToRole="request" />
+          <NavigationProperty Name="userRole" Relationship="PCTModel.FK__userAccou__userR__5EBF139D" FromRole="userAccount" ToRole="userRole" />
+        </EntityType>
+        <Association Name="FK__userAccou__emp_i__5DCAEF64">
+          <End Type="PCTModel.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="PCTModel.userAccount" Role="userAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="userAccount">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__request__userAcc__5FB337D6">
+          <End Type="PCTModel.userAccount" Role="userAccount" Multiplicity="0..1" />
+          <End Type="PCTModel.request" Role="request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userAccount">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="request">
+              <PropertyRef Name="userAccount_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__userAccou__userR__5EBF139D">
+          <End Type="PCTModel.userRole" Role="userRole" Multiplicity="0..1" />
+          <End Type="PCTModel.userAccount" Role="userAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userRole">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="userAccount">
+              <PropertyRef Name="userRole_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -493,7 +493,7 @@
           <EntitySetMapping Name="requests">
             <EntityTypeMapping TypeName="PCTModel.request">
               <MappingFragment StoreEntitySet="request">
-                <ScalarProperty Name="totalDays" ColumnName="totalDays" />
+                <ScalarProperty Name="totalHours" ColumnName="totalHours" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="created" ColumnName="created" />
                 <ScalarProperty Name="submitted" ColumnName="submitted" />
@@ -528,35 +528,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="userAccounts">
-            <EntityTypeMapping TypeName="PCTModel.userAccount">
-              <MappingFragment StoreEntitySet="userAccount">
-                <ScalarProperty Name="personal_carryOver" ColumnName="personal_carryOver" />
-                <ScalarProperty Name="vacation_carryOver" ColumnName="vacation_carryOver" />
-                <ScalarProperty Name="usedPHours" ColumnName="usedPHours" />
-                <ScalarProperty Name="usedVHours" ColumnName="usedVHours" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="last_name" ColumnName="last_name" />
-                <ScalarProperty Name="first_name" ColumnName="first_name" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="hashedPassword" ColumnName="hashedPassword" />
-                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
-                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
-                <ScalarProperty Name="accountStatus" ColumnName="accountStatus" />
-                <ScalarProperty Name="lunch" ColumnName="lunch" />
-                <ScalarProperty Name="fullDayHours" ColumnName="fullDayHours" />
-                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
-                <ScalarProperty Name="userRole_id" ColumnName="userRole_id" />
-                <ScalarProperty Name="lastUpdated" ColumnName="lastUpdated" />
-                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="userRoles">
             <EntityTypeMapping TypeName="PCTModel.userRole">
               <MappingFragment StoreEntitySet="userRole">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userAccounts">
+            <EntityTypeMapping TypeName="PCTModel.userAccount">
+              <MappingFragment StoreEntitySet="userAccount">
+                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
+                <ScalarProperty Name="personal_carryOver" ColumnName="personal_carryOver" />
+                <ScalarProperty Name="vacation_carryOver" ColumnName="vacation_carryOver" />
+                <ScalarProperty Name="usedPHours" ColumnName="usedPHours" />
+                <ScalarProperty Name="usedVHours" ColumnName="usedVHours" />
+                <ScalarProperty Name="lastUpdated" ColumnName="lastUpdated" />
+                <ScalarProperty Name="userRole_id" ColumnName="userRole_id" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="fullDayHours" ColumnName="fullDayHours" />
+                <ScalarProperty Name="lunch" ColumnName="lunch" />
+                <ScalarProperty Name="accountStatus" ColumnName="accountStatus" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="dateCreated" ColumnName="dateCreated" />
+                <ScalarProperty Name="hashedPassword" ColumnName="hashedPassword" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

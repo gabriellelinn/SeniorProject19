@@ -277,21 +277,21 @@ namespace TestProject
 
                     }
                 }
-                    if (UserMode.Text == "EditUser")
-                    {
-                        PasswordRFV.Enabled = false;
-                        confirmPassRFV.Enabled = false;
+                if (UserMode.Text == "EditUser")
+                {
+                    PasswordRFV.Enabled = false;
+                    confirmPassRFV.Enabled = false;
 
-                        using (var editUserSub = new PCTEntities())
-                        {
+                    using (var editUserSub = new PCTEntities())
+                    {
                         var User = (from ua in editUserSub.userAccounts
-                                            where ua.ID.ToString() == UserDropDown.SelectedValue
-                                            select ua).First();
+                                    where ua.ID.ToString() == UserDropDown.SelectedValue
+                                    select ua).First();
 
                         User.first_name = fname_txt.Text;
                         User.last_name = lname_txt.Text;
                         User.email = username_txt.Text;
-                        User.lastUpdated = DateTime.Now; 
+                        User.lastUpdated = DateTime.Now;
                         User.userRole_id = Convert.ToInt32(RoleDropDownList.SelectedValue);
                         int accountStat = Convert.ToInt16(acct_dropdownlist.SelectedValue);
                         User.accountStatus = Convert.ToBoolean(accountStat);
@@ -302,10 +302,10 @@ namespace TestProject
                         {
                             User.hashedPassword = NewPassword.Value.ToString();
                         }
-                                //account status, and user role
-                                int accountStatus2 = Convert.ToInt16(acct_dropdownlist.SelectedValue);
-                                userEnt.accountStatus = Convert.ToBoolean(accountStatus2);
-                        
+                        //account status, and user role
+                        int accountStatus2 = Convert.ToInt16(acct_dropdownlist.SelectedValue);
+                        userEnt.accountStatus = Convert.ToBoolean(accountStatus2);
+
 
                         //------------------create a hashed password-----------------------
                         //string password = NewPassword.Value.ToString();
@@ -324,12 +324,10 @@ namespace TestProject
 
                         editUserSub.SaveChanges();
 
-                        }
-
-
                     }
-                    
-                
+
+
+                }
             }
             catch (Exception ex)
             {

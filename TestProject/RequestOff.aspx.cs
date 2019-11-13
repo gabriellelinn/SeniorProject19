@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -14,6 +16,7 @@ namespace TestProject
         string current_user;
         static int year = DateTime.Now.Year;
         DateTime firstDay = new DateTime(year, 1, 1);
+        DateTime requestStarted;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["USER"] != null)
@@ -24,7 +27,7 @@ namespace TestProject
             {
                 Response.Redirect("Login.aspx");
             }
-
+            
             try
             {
                 using (var PCTModel = new PCTEntities())
@@ -33,31 +36,34 @@ namespace TestProject
                                         join u in PCTModel.employees on ua.emp_id equals u.ID
                                         where ua.ID.ToString() == current_user
                                         select ua).First();
-
+                    requestStarted = DateTime.Now;
                     string supervisor_id = selectedUser.supervisor.ToString();
                     fullDayHours.Text = selectedUser.fullDayHours.ToString();
+                    lunch.Text = selectedUser.lunch.ToString();
+                    LunchPD.Text = selectedUser.lunch.ToString();
                     var selectSupervisor = (from s in PCTModel.userAccounts
                                             where s.ID.ToString() == supervisor_id
                                             select s).First();
-                    deptManagerbox.Text = (string)(selectSupervisor.first_name + ' '+ selectSupervisor.last_name);
+
+                    deptManagerbox.Text = (string)(selectSupervisor.first_name + ' ' + selectSupervisor.last_name);
                     creatorbox.Text = (selectedUser.first_name + ' ' + selectedUser.last_name).ToString();
                     deptDropDownList.SelectedValue = selectedUser.employee.dept_id.ToString();
-                    
-                    double carryOverV = Convert.ToDouble(selectedUser.vacation_carryOver);
-                    double carryOverP = Convert.ToDouble(selectedUser.personal_carryOver);
-                   
+
+                    decimal carryOverV = Convert.ToDecimal(selectedUser.vacation_carryOver);
+                    decimal carryOverP = Convert.ToDecimal(selectedUser.personal_carryOver);
+
                     DateTime today = DateTime.Today;
                     DateTime hireDate = Convert.ToDateTime(selectedUser.employee.hireDate);
-                   
-                    double PersonalMax = 40;
-                    var daysOfEmployment = (today - hireDate).TotalDays;
+
+                    decimal PersonalMax = 40;
+                    var daysOfEmployment = Convert.ToDecimal((today - hireDate).TotalDays);
                     calc_timeAvailable(daysOfEmployment);
                     //if an employee's lenght of employment turned 1 year this year then calculate their available hours based on the month they were employed for a year
                     var startBenefitsDate = hireDate.AddYears(1);
-                    double PredictedVHours;
-                    double PredictedPHours;
-                    double accruedVHours = 0;
-                    double accruedPHours = 0;
+                    decimal PredictedVHours;
+                    decimal PredictedPHours;
+                    decimal accruedVHours = 0;
+                    decimal accruedPHours = 0;
                     if (startBenefitsDate.ToString("yyyy") == today.ToString("yyyy"))
                     {
                         int hiredateMnum = hireDate.Month;
@@ -67,11 +73,11 @@ namespace TestProject
 
 
                         //cannot exceed the max allowed for the year
-                        if(PredictedVHours > 80)
+                        if (PredictedVHours > 80)
                         {
                             PredictedVHours = 80;
                         }
-                        if(PredictedPHours > 40)
+                        if (PredictedPHours > 40)
                         {
                             PredictedPHours = 40;
                         }
@@ -94,7 +100,7 @@ namespace TestProject
                                 var remainingPHrs = (accruedPHours - selectedUser.usedPHours);
                                 vacationHrsbox.Text = (accruedVHours.ToString() + " / " + remainingVHrs.ToString());
                                 personalHrsbox.Text = accruedPHours.ToString() + " / " + remainingPHrs.ToString();
-                                
+
                             }
                             else
                             {
@@ -106,10 +112,10 @@ namespace TestProject
                     }
                     else if (daysOfEmployment < 365)
                     {
-                    
-                            vacationHrsbox.Text = (" 0 / 0 ");
-                            personalHrsbox.Text = (" 0 / 0 ");
-                        
+
+                        vacationHrsbox.Text = (" 0 / 0 ");
+                        personalHrsbox.Text = (" 0 / 0 ");
+
                     }
                     else
                     {
@@ -117,8 +123,8 @@ namespace TestProject
                         PredictedVHours = (vacationMax + carryOverV);
                         PredictedPHours = (PersonalMax + carryOverP);
                         var thisMonth = today.Month;
-                        var currentVHrsAvailable = Convert.ToInt16(thisMonth) * monthlyVacation;
-                        var currentPHrsAvailable = Convert.ToInt16(thisMonth) * monthlyPersonal;
+                        var currentVHrsAvailable = Convert.ToDecimal(thisMonth) * monthlyVacation;
+                        var currentPHrsAvailable = Convert.ToDecimal(thisMonth) * monthlyPersonal;
                         accruedVHours = currentVHrsAvailable + carryOverV;
                         accruedPHours = currentPHrsAvailable + carryOverP;
                     }
@@ -134,12 +140,12 @@ namespace TestProject
                     if (DateTime.Today == firstDay)
                     {
                         calc_carryOVer(accruedVHours, accruedPHours);
-                        selectedUser.personal_carryOver = Convert.ToInt32(personalLeft);
-                        selectedUser.vacation_carryOver = Convert.ToInt32(vacationLeft);
+                        selectedUser.personal_carryOver = Convert.ToDecimal(personalLeft);
+                        selectedUser.vacation_carryOver = Convert.ToDecimal(vacationLeft);
                     }
 
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -148,19 +154,20 @@ namespace TestProject
             SummaryPanel.Visible = true;
         }
 
-        double vacationLeft;
-        double personalLeft;
-        public void calc_carryOVer(double accruedVTimeLeft, double accruedPTimeLeft)
+        decimal vacationLeft;
+        decimal personalLeft;
+        public void calc_carryOVer(decimal accruedVTimeLeft, decimal accruedPTimeLeft)
         {
             //might need to create separate class
-            
+
             //will this clear the carry over field each year.
             int year = DateTime.Now.Year;
             DateTime firstDayyear = new DateTime(year, 1, 1);
-          
+
             if (DateTime.Today == firstDayyear)
             {
-                if (accruedVTimeLeft > 40) { 
+                if (accruedVTimeLeft > 40)
+                {
                     vacationLeft = 40;
                 }
                 else
@@ -176,28 +183,27 @@ namespace TestProject
                     personalLeft = accruedPTimeLeft;
                 }
 
-               
+
             }
             return;
         }
 
         protected void PartDay_btn_Click(object sender, EventArgs e)
         {
-         
+
             MultiView1.ActiveViewIndex = 1;
             displayTypeH.Text = TypeRequest_dropdown.SelectedItem.ToString();
         }
 
         protected void FullDay_btn_Click(object sender, EventArgs e)
         {
-            
             MultiView1.ActiveViewIndex = 2;
-            displayTypeF.Text = TypeRequest_dropdown.SelectedItem.ToString();     
+            displayTypeF.Text = TypeRequest_dropdown.SelectedItem.ToString();
         }
 
         protected void comment_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void cancel_Click(object sender, EventArgs e)
@@ -206,24 +212,25 @@ namespace TestProject
         }
 
         //takes in number of da
-        double monthlyVacation;
-        double monthlyPersonal;
-        double vacationMax;
-        public void calc_timeAvailable(double daysofemp)
+        decimal monthlyVacation;
+        decimal monthlyPersonal;
+        decimal vacationMax;
+        public void calc_timeAvailable(decimal daysofemp)
         {
-            
-            if(daysofemp > 365 && daysofemp < 1460 || daysofemp == 365 || daysofemp == 1460)
+
+            if (daysofemp > 365 && daysofemp < 1460 || daysofemp == 365 || daysofemp == 1460)
             {
                 monthlyVacation = 8;
                 monthlyPersonal = 4;
                 vacationMax = 80;
             }
-            else if(daysofemp > 1825 && daysofemp < 3285 || daysofemp == 1825 || daysofemp == 3285 ){
+            else if (daysofemp > 1825 && daysofemp < 3285 || daysofemp == 1825 || daysofemp == 3285)
+            {
                 monthlyVacation = 12;
                 monthlyPersonal = 4;
                 vacationMax = 120;
             }
-            else if(daysofemp >= 3650)
+            else if (daysofemp >= 3650)
             {
                 monthlyVacation = 16;
                 monthlyPersonal = 4;
@@ -237,38 +244,276 @@ namespace TestProject
             }
 
         }
-       
+
         //when a user clicks submit for a full day request off
         protected void submitFD(object sender, EventArgs e)
         {
-            request Request = new request();
-
+            request FDRequest = new request();
+           decimal totalHours;
             try
             {
-                using(var context = new PCTEntities())
+                using (var FDreqcontext = new PCTEntities())
                 {
-
-                    Request.submitted = DateTime.Now;
+                    FDRequest.dept_id = Convert.ToInt32(deptDropDownList.SelectedValue);
+                    FDRequest.requestType_id = Convert.ToInt32(TypeRequest_dropdown.SelectedValue);
+                    FDRequest.userAccount_id = Convert.ToInt32(current_user);
+                    FDRequest.created = requestStarted;
+                    FDRequest.submitted = DateTime.Now;
                     //startDate is datetime instead of date.
-                    DateTime fromDate = Convert.ToDateTime(from);
-                    DateTime toDate = Convert.ToDateTime(to);
-                    var dateDiff = (fromDate - toDate).TotalDays;
-                    Request.startDate = fromDate;
-                    Request.endDate = toDate;
-                    Request.totalDays = Convert.ToInt32(dateDiff) ;
+                    DateTime fromDate = Convert.ToDateTime(from.Value);
+                    DateTime toDate = Convert.ToDateTime(to.Value);
+                    //format date
+                    var fromDate2 = fromDate.Date;
+                    var toDate2 = toDate.Date;
+                    int dateDiff = Convert.ToInt32(( toDate - fromDate).TotalDays);//switch the to and from
+                    totalHours = (dateDiff * (Convert.ToDecimal(fullDayHours.Text) - Convert.ToDecimal(Convert.ToDecimal(lunch.Text) / 60)));
 
-                    string calculatedHours = fullDayHours.Text.ToString();
+
+                    FDRequest.startDate = fromDate2;
+                    FDRequest.endDate = toDate2;
+                    FDRequest.totalHours = Convert.ToDecimal(totalHours);
+                    //time
+                    string newFromDate = fromDate.ToString("hh:mm");
+                    string newToDate = toDate.ToString("hh:mm");
+
+                    FDRequest.startTime = TimeSpan.Parse(newFromDate);
+                    FDRequest.endTime = TimeSpan.Parse(newToDate);
+
+                    FDRequest.status = "Pending";
+                    FDRequest.comments = commentBox2.Text.Trim();
+
+                    //update userAccount forcasted and current available hours
+
+                   
+
+                    FDreqcontext.requests.Add(FDRequest);
+                    FDreqcontext.SaveChanges();
+                }
+                var subLunchFd = (Convert.ToDecimal(lunch.Text) / 60);
+                //Update used V hours and  P hours
+                using (var useracct = new PCTEntities())
+                {
+                    var user = (from u in useracct.userAccounts
+                                where u.ID.ToString() == current_user
+                                select u).First();
+                    if(TypeRequest_dropdown.SelectedValue == "0")//Personal Type
+                    {
+                        
+                            user.usedPHours = Convert.ToDecimal((totalHours + user.usedPHours) - subLunchFd);
+                        
+                    }
+                    else //Type is Vacation
+                    {
+                        
+                            user.usedVHours = Convert.ToDecimal((totalHours + user.usedVHours) - subLunchFd);
+                        
+                    }
+                    useracct.SaveChanges();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            //email to supervisor and user
+            emailDetails(FDRequest);
+            //redirect to beginning
+            Response.Redirect("RequestOff.aspx");
+        }
+
+
+        protected void submitPD(object sender, EventArgs e)
+        {
+            request PDRequest = new request();
+            decimal totalHours;
+            try
+            {
+                using (var PDreqcontext = new PCTEntities())
+                {
+                    PDRequest.dept_id = Convert.ToInt32(deptDropDownList.SelectedValue);
+                    PDRequest.requestType_id = Convert.ToInt32(TypeRequest_dropdown.SelectedValue);
+                    PDRequest.userAccount_id = Convert.ToInt32(current_user);
+                    PDRequest.created = requestStarted;
+                    PDRequest.submitted = DateTime.Now;
+                    //startDate is datetime instead of date.
+                    DateTime fromDate = Convert.ToDateTime(datepickerSingle.Value);
+                    DateTime toDate = Convert.ToDateTime(datepickerSingle.Value);
+                    PDRequest.startDate = fromDate.Date;
+                    PDRequest.endDate = toDate.Date;
+                    var start = PDstartTime.Text; //fix
+                    var end = PDendTime.Text;
+                    DateTime start2 = Convert.ToDateTime(start);
+                    DateTime end2 = Convert.ToDateTime(end);
+
+                    PDRequest.startTime = TimeSpan.Parse(start);
+                    PDRequest.endTime = TimeSpan.Parse(end);
+                    totalHours = Convert.ToDecimal((end2 - start2).TotalHours);//switch the to and from       
+                    PDRequest.totalHours = Convert.ToDecimal(totalHours);
+                    PDRequest.status = "Pending";
+                    PDRequest.comments = commentbox.Text.Trim();
+
+                    //update userAccount forcasted and current available hours
+                    PDreqcontext.requests.Add(PDRequest);
+                    PDreqcontext.SaveChanges();
+
+                }
+
+                //Update used V hours and  P hours
+                using (var useracct2 = new PCTEntities())
+                {
+                    var subLunch = (Convert.ToDecimal(LunchPD.Text) / 60);
+                    var user2 = (from u in useracct2.userAccounts
+                                 where u.ID.ToString() == current_user
+                                 select u).First();
+                    if (TypeRequest_dropdown.SelectedValue == "0")//Personal Type
+                    {
+                        if (!LunchCheckBoxPD.Checked)
+                        {
+                            user2.usedPHours = Convert.ToDecimal(totalHours + user2.usedPHours);
+                        }
+                        else
+                        {
+                            user2.usedPHours = Convert.ToDecimal((totalHours + user2.usedPHours) - subLunch);
+                        }
+                    }
+                    else //Type is Vacation
+                    {
+                        if (!LunchCheckBoxPD.Checked)
+                        {
+                            user2.usedVHours = Convert.ToDecimal(totalHours + user2.usedVHours);
+                        }
+                        else
+                        {
+                            user2.usedVHours = Convert.ToDecimal((totalHours + user2.usedVHours) - subLunch);
+                        }
+                    }
+
+                    useracct2.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        }
 
-        protected void submitPD(object sender, EventArgs e)
-        {
-
+            //email to supervisor and user
+            emailDetails(PDRequest);
+            //redirect to beginning
+            Response.Redirect("RequestOff.aspx");
         }
-    }
+            
+        
+        //Email Dept Manager and User
+            protected void emailDetails(TestProject.request thisRequest)
+            {
+            DateTime StartDateTime = Convert.ToDateTime(thisRequest.startDate + thisRequest.startTime);
+            DateTime EndDateTime = Convert.ToDateTime(thisRequest.endDate + thisRequest.endTime);
+            string userEmail;
+            string supervisorEmail;
+            TestProject.userAccount user1;
+            using (var PCTContext = new PCTEntities())
+            {
+                user1 = (from ua in PCTContext.userAccounts
+                         join u in PCTContext.employees on ua.emp_id equals u.ID
+                         where ua.ID.ToString() == current_user
+                         select ua).First();
+                userEmail = user1.email;
+                string supervisor_id = user1.supervisor.ToString();
+
+                //get supervisors email
+                var selectSupervisor = (from s in PCTContext.userAccounts
+                                        where s.ID.ToString() == supervisor_id
+                                        select s).First();
+                supervisorEmail = selectSupervisor.email;
+                
+                //hardcode Request :(
+                string type;
+                if (thisRequest.requestType_id.ToString() == "0")
+                {
+                    type = "Personal";
+                }
+                else { type = "Vacation"; }
+
+                string lunchInfo;
+                if (MultiView1.ActiveViewIndex == 2)
+                {
+                    lunchInfo = "YES";
+                }
+                else
+                {
+                    if (LunchCheckBoxPD.Checked)
+                    {
+                        lunchInfo = "YES " + lunch.Text + " Minutes";
+                    }
+                    else
+                    {
+                        lunchInfo = "NO ";
+                    }
+                }
+                // Create email message
+                string emailMessage = "";
+                emailMessage += "<html>";
+                emailMessage += " <head>";
+                emailMessage += " <style>";
+                emailMessage += " h1{margin: 0;}";
+                emailMessage += " p{margin: 0; height: auto;}";
+                emailMessage += " </style>";
+                emailMessage += " </head>";
+                emailMessage += " <body>";
+                emailMessage += " <h1>Request off Submission Details:</h1>";
+                emailMessage += " <h2>Employee: " + user1.first_name + " " + user1.last_name + "<br />Department: " + deptDropDownList.SelectedItem.ToString() + "</h2>";
+                emailMessage += " <h3>Request Info:<h3>";
+                emailMessage += "<p>Start Date/Time: " + StartDateTime + "<br />End Date/Time: " + EndDateTime + "<br />Type: " + type + "<br />Request Submitted: " + thisRequest.submitted + "<br/>Comments: " + thisRequest.comments;
+                emailMessage += "<br />Total Hours: " + thisRequest.totalHours + "<br/>Status: " + thisRequest.status + "<br />Lunch included? "+lunchInfo + "</p>";
+                emailMessage += " </body>";
+                emailMessage += "</html>";
+                MailMessage Usermessage = new MailMessage();
+                MailMessage Supervisormessage = new MailMessage();
+                SmtpClient smtpClient = new SmtpClient();
+                string msg = string.Empty;
+
+                try
+                {
+                    MailAddress fromAddress = new MailAddress("regscantimeoff@gmail.com");
+                    //Customize user message    
+                    Usermessage.From = fromAddress;
+                    //Usermessage.To.Add(userEmail);
+                    Usermessage.To.Add("gabrielle@regscan.com");
+                    Usermessage.Subject = "Request Off Confirmation Email";
+                    Usermessage.IsBodyHtml = true;
+                    Usermessage.Body = emailMessage;
+                    //Customize supervisor message
+                    Supervisormessage.From = fromAddress;
+                    //Supervisormessage.To.Add(supervisorEmail);
+                    Supervisormessage.To.Add("gal4@pct.edu");
+                    Supervisormessage.Subject = "New Request Off";
+                    Supervisormessage.IsBodyHtml = true;
+                    Supervisormessage.Body = emailMessage;
+                    //message.Attachments.Add(new Attachment(Server.MapPath("uploads/Appointment2.ics")));
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    //smtpClient.UseDefaultCredentials = true;
+                    smtpClient.Credentials = new System.Net.NetworkCredential("regscantimeoff@gmail.com", "Regscan1234");
+                    smtpClient.Send(Usermessage);
+                    smtpClient.Send(Supervisormessage);
+                    //litAlert.Text = "Successful";
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                    //litAlert.Text = ex.Message;
+                }
+            }
+            }
+
+
+
+
+
+            
+        }
+    
 }

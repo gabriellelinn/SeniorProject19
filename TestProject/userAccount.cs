@@ -33,11 +33,11 @@ namespace TestProject
         public Nullable<int> emp_id { get; set; }
         public Nullable<int> userRole_id { get; set; }
         public Nullable<System.DateTime> lastUpdated { get; set; }
+        public Nullable<decimal> usedVHours { get; set; }
+        public Nullable<decimal> usedPHours { get; set; }
+        public Nullable<decimal> vacation_carryOver { get; set; }
+        public Nullable<decimal> personal_carryOver { get; set; }
         public Nullable<int> supervisor { get; set; }
-        public Nullable<int> usedVHours { get; set; }
-        public Nullable<int> usedPHours { get; set; }
-        public Nullable<int> vacation_carryOver { get; set; }
-        public Nullable<int> personal_carryOver { get; set; }
     
         public virtual employee employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -11,15 +11,15 @@
         <EntityTypeShape EntityType="PCTModel.request" Width="1.5" PointX="7.5" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PCTModel.requestType" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PCTModel.sysdiagram" Width="1.5" PointX="7.75" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="PCTModel.userAccount" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="PCTModel.userRole" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
         <AssociationConnector Association="PCTModel.FK__employee__dept_i__4F7CD00D" ManuallyRouted="false" />
         <AssociationConnector Association="PCTModel.FK__request__dept_id__5629CD9C" ManuallyRouted="false" />
         <AssociationConnector Association="PCTModel.FK__employee__empSta__5070F446" ManuallyRouted="false" />
-        <AssociationConnector Association="PCTModel.FK__userAccou__emp_i__5DCAEF64" ManuallyRouted="false" />
         <AssociationConnector Association="PCTModel.FK__request__request__571DF1D5" ManuallyRouted="false" />
-        <AssociationConnector Association="PCTModel.FK__request__userAcc__5FB337D6" ManuallyRouted="false" />
-        <AssociationConnector Association="PCTModel.FK__userAccou__userR__5EBF139D" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PCTModel.userAccount" Width="1.5" PointX="5.25" PointY="2.125" />
+        <AssociationConnector Association="PCTModel.FK__userAccou__emp_i__5DCAEF64" />
+        <AssociationConnector Association="PCTModel.FK__request__userAcc__5FB337D6" />
+        <AssociationConnector Association="PCTModel.FK__userAccou__userR__5EBF139D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

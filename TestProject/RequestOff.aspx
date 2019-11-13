@@ -65,11 +65,6 @@
             width: 259px;
             margin-left: 25px;
         }
-        .auto-style20 {
-            font-size: large;
-            width: 259px;
-            margin-left: 17px;
-        }
         .auto-style21 {
             height: 122px;
         }
@@ -144,6 +139,9 @@
         }
         .auto-style40 {
             width: 324px;
+            font-size: x-large;
+            text-decoration: underline;
+            text-align: center;
         }
         .auto-style41 {
             text-align: center;
@@ -184,6 +182,16 @@
              text-align: center;
         }
                 
+        .auto-style48 {
+            height: 88px;
+        }
+        .auto-style49 {
+            height: 92px;
+        }
+        .auto-style50 {
+            font-size: xx-large;
+        }
+                
     </style>
     <script src="../../Scripts/jquery-1.3.2.min.js" lang ="javascript" type="text/javascript"></script>
 <script src = "../../Scripts/jquery-ui-1.7.1.custom.min.js" type = "text/javascript"></script> 
@@ -191,6 +199,9 @@
   <link rel="stylesheet" href="/resources/demos/style.css"/>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="Scripts/dist/style.css" />
+    <script src="Scripts/dist/scripts.js"></script>
+
   <script>
       $(function () {
           var dateFormat = "mm/dd/yy",
@@ -313,7 +324,7 @@
                         <td class="auto-style7">
                             <div class="center">
                                 <strong>
-                                    <asp:Button ID="PartDay_btn" runat="server" CssClass="auto-style11" Height="96px" OnClick="PartDay_btn_Click" Text="Half Day" Width="326px" />
+                                    <asp:Button ID="PartDay_btn" runat="server" CssClass="auto-style11" Height="96px" OnClick="PartDay_btn_Click" Text="Part Day" Width="326px" />
                                 </strong>
                             </div>
                         </td>
@@ -334,7 +345,7 @@
              <%-----------------------------------------------PART DAY REQUEST OFF!---------------------------------------------%>
             <asp:View ID="HalfDayView2" runat="server">
                 <header>
-                    <h1 class="auto-style12">Half Day Request Off</h1>
+                    <h1 class="auto-style12">Part Day Request Off</h1>
                 </header>
                 <h2>
                     <asp:Label ID="displayTypeH" runat="server" style="margin-left:15px"></asp:Label>
@@ -342,18 +353,27 @@
                 <br />
                 <br />
                 <div class="auto-style22">
+                    
                     <asp:Label ID="selectDate_lbl" runat="server" CssClass="auto-style3 center" Text="Select Date: "></asp:Label>
-                   <input type="text" id="datepickerSingle" class="auto-style16" />
+                   <input type="text" ID="datepickerSingle" runat="server" class="auto-style16" />
                     <br />
                     <div class="auto-style18"></div>
+                    
                     <div class="auto-style21">
                         <asp:Label ID="startTime_lbl" runat="server" CssClass="auto-style3 center" Text="Start Time:"></asp:Label>
-                        <input type="time" name="Date" id="HDstartTime" class="auto-style20" />
+                        <asp:TextBox ID="PDstartTime" type="time" runat="server" class="auto-style19"></asp:TextBox>
+                        <%--<asp:textBox type="time" name="Date" id="PDstartTime" class="auto-style20" />--%>
                     </div>
-                    <div class="auto-style21">
+                    <div class="auto-style48">
                         <asp:Label ID="endTime_lbl" runat="server" CssClass="auto-style3 center" Text="End Time:"></asp:Label>
-                        <input type="time" name="Time" id="FDstartTime" class="auto-style19" />
+                       <asp:TextBox ID="PDendTime" type="time" runat="server" class="auto-style19"></asp:TextBox>
                     </div>
+                    <div class="auto-style49">
+                        <asp:Label ID="LabelPDLunch" runat="server" Text="Lunch (Minutes): " CssClass="auto-style3"></asp:Label>
+                        <asp:Label ID="LunchPD" runat="server" CssClass="auto-style3"></asp:Label>
+                                    <asp:CheckBox ID="LunchCheckBoxPD" runat="server" CssClass="auto-style50" />
+                    </div>
+                        
                     <div class="auto-style21">
                         <span class="auto-style3 center"><asp:Label runat="server" Text="Comment:"></asp:Label></span>
                         <asp:TextBox ID="commentbox" runat="server" CssClass="auto-style32" Height="27px" Onkeyup="AutoExpand(this)" TextMode="MultiLine" style="overflow:hidden" Width="435px" Rows="2"></asp:TextBox>
@@ -401,15 +421,18 @@
                             <tr>
                                 <td class="auto-style12"><asp:Label ID="stTime_lbl2" runat="server" CssClass="auto-style3 center" Text="Total Hours for Full Day: " style="text-decoration: underline"></asp:Label></td>
                                 <td></td>
-                                <td class="auto-style40">&nbsp;</td>
+                                <td class="auto-style40">Lunch (Minutes):</td>
                             </tr>
                              <tr><td></td></tr>
                             <tr>
                                 <td class="auto-style12"><asp:Label ID="fullDayHours" runat="server" CssClass="auto-style3"></asp:Label></td>
                                 <td></td>
                                 <td class="auto-style41">
-                                    &nbsp;</td>
+                                    <asp:Label ID="lunch" runat="server" CssClass="auto-style3"></asp:Label>
+                                    
+                                </td>
                             </tr>
+                           
                         </table>
                     <div class="auto-style42">
                         <span class="auto-style3 center"><asp:Label runat="server" Text="Comment:"></asp:Label></span>
