@@ -400,6 +400,7 @@
     <Content Include="SeniorProject-81fed4e75236.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SeniorProject-ee5b3ab2ec84.p12" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

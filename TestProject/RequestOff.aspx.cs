@@ -18,9 +18,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Services.Description;
 using System.Security.Cryptography.X509Certificates;
-using ThirdParty.BouncyCastle.OpenSsl;
-using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.Security;
 using System.Security.Cryptography;
 
 namespace TestProject
@@ -232,7 +229,7 @@ namespace TestProject
 
         string[] scopes = new string[] {
                 CalendarService.Scope.Calendar, // Manage your calendars
- 	            CalendarService.Scope.CalendarReadonly // View your Calendars
+ 	            //CalendarService.Scope.CalendarReadonly // View your Calendars
          };
         string insertedEventId;
         private void CreateCalEvent(TestProject.request request) {
@@ -257,16 +254,9 @@ namespace TestProject
                                         select s).First();
                 //supervisorEmail = selectSupervisor.email;
             }
-            string fileName = @"C:\Users\glinn\Source\Repos\TestProject\TestProject\SeniorProject-81fed4e75236.json";
-            //var certificate = new X509Certificate2(@"C:\Users\glinn\Source\Repos\TestProject\TestProject\SeniorProject-81fed4e75236.json", "notasecret", X509KeyStorageFlags.Exportable);
-            using (var reader = File.OpenText(fileName))
-            {
-                var pemReader = new PemReader(reader);
-                var bouncyRsaParameters = (RsaPrivateCrtKeyParameters)pemReader.ReadObject();
-                var rsaParameters = DotNetUtilities.ToRSAParameters(bouncyRsaParameters);
-                this.PrivateKey = new RSACryptoServiceProvider();
-                this.PrivateKey.ImportParameters(rsaParameters);
-            }
+           
+            var certificate = new X509Certificate2(@"C:\Users\glinn\Source\Repos\TestProject\TestProject\SeniorProject-ee5b3ab2ec84.p12", "notasecret", X509KeyStorageFlags.Exportable);
+           
             var serviceAccountEmail = "requestoff@seniorproject-258919.iam.gserviceaccount.com";
             ServiceAccountCredential credential = new ServiceAccountCredential(
                  new ServiceAccountCredential.Initializer(serviceAccountEmail)
@@ -311,11 +301,11 @@ namespace TestProject
                 calEvent.End = new Google.Apis.Calendar.v3.Data.EventDateTime { DateTime = request.endDate + request.endTime };
             }
             //calEvent.Attendees = 
-            calEvent.Attendees = new Google.Apis.Calendar.v3.Data.EventAttendee[]
-            {
-                 new Google.Apis.Calendar.v3.Data.EventAttendee() { Email = "15linng@gmail.com"},
-                 new Google.Apis.Calendar.v3.Data.EventAttendee() { Email = "gabrielle@regscan.com"}
-             };
+            //calEvent.Attendees = new Google.Apis.Calendar.v3.Data.EventAttendee[]
+            //{
+                 //new Google.Apis.Calendar.v3.Data.EventAttendee() { Email = "15linng@gmail.com"},
+                 //new Google.Apis.Calendar.v3.Data.EventAttendee() { Email = "gabrielle@regscan.com"}
+             //};
             var newEventRequest = service.Events.Insert(calEvent, "regscantimeoff@gmail.com");
             var eventResult = newEventRequest.Execute();
             //get event id
