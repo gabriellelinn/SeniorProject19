@@ -50,6 +50,7 @@
           <Property Name="requestType_id" Type="int" />
           <Property Name="userAccount_id" Type="int" />
           <Property Name="totalHours" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="eventID" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="requestType">
           <Key>
@@ -278,6 +279,7 @@
           <NavigationProperty Name="requestType" Relationship="Self.FK__request__request__571DF1D5" FromRole="request" ToRole="requestType" />
           <Property Name="totalHours" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="userAccount" Relationship="PCTModel.FK__request__userAcc__5FB337D6" FromRole="request" ToRole="userAccount" />
+          <Property Name="eventID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="requestType">
           <Key>
@@ -493,6 +495,7 @@
           <EntitySetMapping Name="requests">
             <EntityTypeMapping TypeName="PCTModel.request">
               <MappingFragment StoreEntitySet="request">
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
                 <ScalarProperty Name="totalHours" ColumnName="totalHours" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="created" ColumnName="created" />

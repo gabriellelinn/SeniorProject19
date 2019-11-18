@@ -12,7 +12,7 @@
             margin-bottom: 120px;
         }
         .auto-style6 {
-            height: 529px;
+            height: 723px;
         }
         .auto-style10 {
             text-align: left;

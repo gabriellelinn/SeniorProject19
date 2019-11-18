@@ -27,6 +27,7 @@ namespace TestProject
         public Nullable<int> requestType_id { get; set; }
         public Nullable<int> userAccount_id { get; set; }
         public Nullable<decimal> totalHours { get; set; }
+        public string eventID { get; set; }
     
         public virtual department department { get; set; }
         public virtual requestType requestType { get; set; }

@@ -8,6 +8,20 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Calendar.v3;
+using Google.Apis.Calendar.v3.Data;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Services.Description;
+using System.Security.Cryptography.X509Certificates;
+using ThirdParty.BouncyCastle.OpenSsl;
+using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Security;
+using System.Security.Cryptography;
 
 namespace TestProject
 {
@@ -17,6 +31,9 @@ namespace TestProject
         static int year = DateTime.Now.Year;
         DateTime firstDay = new DateTime(year, 1, 1);
         DateTime requestStarted;
+        decimal vacationLeft;
+        decimal personalLeft;
+        Boolean fullday;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["USER"] != null)
@@ -154,8 +171,6 @@ namespace TestProject
             SummaryPanel.Visible = true;
         }
 
-        decimal vacationLeft;
-        decimal personalLeft;
         public void calc_carryOVer(decimal accruedVTimeLeft, decimal accruedPTimeLeft)
         {
             //might need to create separate class
@@ -193,11 +208,13 @@ namespace TestProject
 
             MultiView1.ActiveViewIndex = 1;
             displayTypeH.Text = TypeRequest_dropdown.SelectedItem.ToString();
+            fullday = false;
         }
 
         protected void FullDay_btn_Click(object sender, EventArgs e)
         {
             MultiView1.ActiveViewIndex = 2;
+            fullday = true;
             displayTypeF.Text = TypeRequest_dropdown.SelectedItem.ToString();
         }
 
@@ -211,7 +228,102 @@ namespace TestProject
             Response.Redirect("Default.aspx");
         }
 
-        //takes in number of da
+       
+
+        string[] scopes = new string[] {
+                CalendarService.Scope.Calendar, // Manage your calendars
+ 	            CalendarService.Scope.CalendarReadonly // View your Calendars
+         };
+        string insertedEventId;
+        private void CreateCalEvent(TestProject.request request) {
+            //Get details of request
+            string userEmail;
+            string supervisorEmail;
+            string fullname;
+            TestProject.userAccount user1;
+            using (var Googlecontext = new PCTEntities())
+            {
+                user1 = (from ua in Googlecontext.userAccounts
+                         join u in Googlecontext.employees on ua.emp_id equals u.ID
+                         where ua.ID.ToString() == request.userAccount_id.ToString()
+                         select ua).First();
+                userEmail = user1.email;
+                fullname = (user1.first_name + user1.last_name);
+                string supervisor_id = user1.supervisor.ToString();
+
+                //get supervisors email
+                var selectSupervisor = (from s in Googlecontext.userAccounts
+                                        where s.ID.ToString() == supervisor_id
+                                        select s).First();
+                //supervisorEmail = selectSupervisor.email;
+            }
+            string fileName = @"C:\Users\glinn\Source\Repos\TestProject\TestProject\SeniorProject-81fed4e75236.json";
+            //var certificate = new X509Certificate2(@"C:\Users\glinn\Source\Repos\TestProject\TestProject\SeniorProject-81fed4e75236.json", "notasecret", X509KeyStorageFlags.Exportable);
+            using (var reader = File.OpenText(fileName))
+            {
+                var pemReader = new PemReader(reader);
+                var bouncyRsaParameters = (RsaPrivateCrtKeyParameters)pemReader.ReadObject();
+                var rsaParameters = DotNetUtilities.ToRSAParameters(bouncyRsaParameters);
+                this.PrivateKey = new RSACryptoServiceProvider();
+                this.PrivateKey.ImportParameters(rsaParameters);
+            }
+            var serviceAccountEmail = "requestoff@seniorproject-258919.iam.gserviceaccount.com";
+            ServiceAccountCredential credential = new ServiceAccountCredential(
+                 new ServiceAccountCredential.Initializer(serviceAccountEmail)
+                 {
+                     Scopes = scopes
+                 }.FromCertificate(certificate));
+
+
+            // Create the service.
+            CalendarService service = new CalendarService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = "SeniorProject",
+            });
+
+            Google.Apis.Calendar.v3.Data.Event calEvent = new Google.Apis.Calendar.v3.Data.Event();
+            //Title of the event
+            calEvent.Summary = fullname;
+            calEvent.ColorId = "5";
+            //calEvent.Description = "";
+            //Department
+            calEvent.Location = deptDropDownList.SelectedItem.ToString();
+            if (fullday == true)
+            {
+
+                DateTime newform = Convert.ToDateTime(request.startDate);
+                DateTime newform2 = Convert.ToDateTime(request.startDate);
+
+                calEvent.Start = new Google.Apis.Calendar.v3.Data.EventDateTime {
+                    DateTime = newform };
+
+                calEvent.End = new Google.Apis.Calendar.v3.Data.EventDateTime
+                {
+                    DateTime = newform2
+                };
+
+                //new Google.Apis.Calendar.v3.Data.EventDateTime { DateTime = request.startDate.ToString("yyyy-mm-dd") }
+            }
+            else
+            {
+                calEvent.Start = new Google.Apis.Calendar.v3.Data.EventDateTime { DateTime = request.startDate + request.startTime };
+                calEvent.End = new Google.Apis.Calendar.v3.Data.EventDateTime { DateTime = request.endDate + request.endTime };
+            }
+            //calEvent.Attendees = 
+            calEvent.Attendees = new Google.Apis.Calendar.v3.Data.EventAttendee[]
+            {
+                 new Google.Apis.Calendar.v3.Data.EventAttendee() { Email = "15linng@gmail.com"},
+                 new Google.Apis.Calendar.v3.Data.EventAttendee() { Email = "gabrielle@regscan.com"}
+             };
+            var newEventRequest = service.Events.Insert(calEvent, "regscantimeoff@gmail.com");
+            var eventResult = newEventRequest.Execute();
+            //get event id
+            insertedEventId = eventResult.Id;
+          
+        }
+
+        //calc_timeAvailable variables:
         decimal monthlyVacation;
         decimal monthlyPersonal;
         decimal vacationMax;
@@ -249,7 +361,7 @@ namespace TestProject
         protected void submitFD(object sender, EventArgs e)
         {
             request FDRequest = new request();
-           decimal totalHours;
+            decimal totalHours;
             try
             {
                 using (var FDreqcontext = new PCTEntities())
@@ -263,14 +375,14 @@ namespace TestProject
                     DateTime fromDate = Convert.ToDateTime(from.Value);
                     DateTime toDate = Convert.ToDateTime(to.Value);
                     //format date
-                    var fromDate2 = fromDate.Date;
-                    var toDate2 = toDate.Date;
-                    int dateDiff = Convert.ToInt32(( toDate - fromDate).TotalDays);//switch the to and from
-                    totalHours = (dateDiff * (Convert.ToDecimal(fullDayHours.Text) - Convert.ToDecimal(Convert.ToDecimal(lunch.Text) / 60)));
+                    //var fromDate2 = fromDate.Date;
+                    //var toDate2 = toDate.Date;
+                    int dateDiff = Convert.ToInt32((( toDate - fromDate).TotalDays)+1);//switch the to and from
+                    totalHours = ((dateDiff * (Convert.ToDecimal(fullDayHours.Text) - Convert.ToDecimal(Convert.ToDecimal(lunch.Text) / 60))));
 
 
-                    FDRequest.startDate = fromDate2;
-                    FDRequest.endDate = toDate2;
+                    FDRequest.startDate = fromDate;
+                    FDRequest.endDate = toDate;
                     FDRequest.totalHours = Convert.ToDecimal(totalHours);
                     //time
                     string newFromDate = fromDate.ToString("hh:mm");
@@ -281,10 +393,11 @@ namespace TestProject
 
                     FDRequest.status = "Pending";
                     FDRequest.comments = commentBox2.Text.Trim();
-
+                    //CREATE GOOGLE CALENDAR EVENT
+                    CreateCalEvent(FDRequest);
+                    //inserts the google calendar event id
+                    FDRequest.eventID = insertedEventId;
                     //update userAccount forcasted and current available hours
-
-                   
 
                     FDreqcontext.requests.Add(FDRequest);
                     FDreqcontext.SaveChanges();
@@ -323,7 +436,6 @@ namespace TestProject
             Response.Redirect("RequestOff.aspx");
         }
 
-
         protected void submitPD(object sender, EventArgs e)
         {
             request PDRequest = new request();
@@ -353,7 +465,10 @@ namespace TestProject
                     PDRequest.totalHours = Convert.ToDecimal(totalHours);
                     PDRequest.status = "Pending";
                     PDRequest.comments = commentbox.Text.Trim();
-
+                    //CREATE GOOGLE CALENDAR EVENT
+                    CreateCalEvent(PDRequest);
+                    //inserts the google calendar event id
+                    PDRequest.eventID = insertedEventId;
                     //update userAccount forcasted and current available hours
                     PDreqcontext.requests.Add(PDRequest);
                     PDreqcontext.SaveChanges();
@@ -403,13 +518,12 @@ namespace TestProject
             //redirect to beginning
             Response.Redirect("RequestOff.aspx");
         }
-            
-        
+          
         //Email Dept Manager and User
-            protected void emailDetails(TestProject.request thisRequest)
+            protected void emailDetails(TestProject.request RequestInfo)
             {
-            DateTime StartDateTime = Convert.ToDateTime(thisRequest.startDate + thisRequest.startTime);
-            DateTime EndDateTime = Convert.ToDateTime(thisRequest.endDate + thisRequest.endTime);
+            DateTime StartDateTime = Convert.ToDateTime(RequestInfo.startDate + RequestInfo.startTime);
+            DateTime EndDateTime = Convert.ToDateTime(RequestInfo.endDate + RequestInfo.endTime);
             string userEmail;
             string supervisorEmail;
             TestProject.userAccount user1;
@@ -430,7 +544,7 @@ namespace TestProject
                 
                 //hardcode Request :(
                 string type;
-                if (thisRequest.requestType_id.ToString() == "0")
+                if (RequestInfo.requestType_id.ToString() == "0")
                 {
                     type = "Personal";
                 }
@@ -465,8 +579,8 @@ namespace TestProject
                 emailMessage += " <h1>Request off Submission Details:</h1>";
                 emailMessage += " <h2>Employee: " + user1.first_name + " " + user1.last_name + "<br />Department: " + deptDropDownList.SelectedItem.ToString() + "</h2>";
                 emailMessage += " <h3>Request Info:<h3>";
-                emailMessage += "<p>Start Date/Time: " + StartDateTime + "<br />End Date/Time: " + EndDateTime + "<br />Type: " + type + "<br />Request Submitted: " + thisRequest.submitted + "<br/>Comments: " + thisRequest.comments;
-                emailMessage += "<br />Total Hours: " + thisRequest.totalHours + "<br/>Status: " + thisRequest.status + "<br />Lunch included? "+lunchInfo + "</p>";
+                emailMessage += "<p>Start Date/Time: " + StartDateTime + "<br />End Date/Time: " + EndDateTime + "<br />Type: " + type + "<br />Request Submitted: " + RequestInfo.submitted + "<br/>Comments: " + RequestInfo.comments;
+                emailMessage += "<br />Total Hours: " + RequestInfo.totalHours + "<br/>Status: " + RequestInfo.status + "<br />Lunch included? "+lunchInfo + "</p>";
                 emailMessage += " </body>";
                 emailMessage += "</html>";
                 MailMessage Usermessage = new MailMessage();
