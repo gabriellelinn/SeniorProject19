@@ -92,7 +92,7 @@
                             <a href="Default.aspx" class="w3-bar-item w3-button">HOME</a><br />
                             <a href="RequestOff.aspx" class="w3-bar-item w3-button">REQUEST OFF</a>
                             <br /><a href="#" class="w3-bar-item w3-button">MY PROFILE</a>
-                            <br /><a href="#" class="w3-bar-item w3-button">CALENDAR</a>
+                            <br /><a href="Calendar.aspx" class="w3-bar-item w3-button">CALENDAR</a>
                             <br /><a href="#" class="w3-bar-item w3-button">MY DEPARTMENTS</a>
                             <br /><a href="Admin.aspx" class="w3-bar-item w3-button">ADMIN</a>
                             <br />

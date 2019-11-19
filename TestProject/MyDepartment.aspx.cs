@@ -18,12 +18,17 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace TestProject
 {
-    public partial class calendar : Page
+    public partial class myDepartment : Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        public partial class WebForm1 : System.Web.UI.Page
         {
-     
-        }
+            protected void Page_Load(object sender, EventArgs e)
+            {
+                //set dept drop down value = users dept id
+                
 
+            }
+        }
+        
     }
 }

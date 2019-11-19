@@ -245,7 +245,7 @@ namespace TestProject
                          where ua.ID.ToString() == request.userAccount_id.ToString()
                          select ua).First();
                 userEmail = user1.email;
-                fullname = (user1.first_name + user1.last_name);
+                fullname = (user1.first_name + " "+ user1.last_name +" Off");
                 string supervisor_id = user1.supervisor.ToString();
 
                 //get supervisors email
