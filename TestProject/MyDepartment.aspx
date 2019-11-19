@@ -9,22 +9,56 @@
             <asp:DropDownList ID="deptDropDownList" runat="server" style="font-size: large" DataSourceID="deptDataSource" DataTextField="name" DataValueField="ID" Width="497px"></asp:DropDownList>
             <asp:SqlDataSource ID="deptDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT [ID], [name] FROM [department]"></asp:SqlDataSource>
         </div>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="requestDataSource">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="requestDataSource" AllowSorting="True" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCommand="GridView1_RowCommand" Width="1267px">
             <Columns>
-                <asp:BoundField DataField="submitted" HeaderText="submitted" SortExpression="submitted" />
-                <asp:BoundField DataField="startDate" HeaderText="startDate" SortExpression="startDate" />
-                <asp:BoundField DataField="endDate" HeaderText="endDate" SortExpression="endDate" />
-                <asp:BoundField DataField="startTime" HeaderText="startTime" SortExpression="startTime" />
-                <asp:BoundField DataField="endTime" HeaderText="endTime" SortExpression="endTime" />
-                <asp:BoundField DataField="status" HeaderText="status" SortExpression="status" />
-                <asp:BoundField DataField="comments" HeaderText="comments" SortExpression="comments" />
-                <asp:BoundField DataField="requestType_id" HeaderText="requestType_id" SortExpression="requestType_id" />
-                <asp:BoundField DataField="userAccount_id" HeaderText="userAccount_id" SortExpression="userAccount_id" />
-                <asp:BoundField DataField="eventID" HeaderText="eventID" SortExpression="eventID" />
-                <asp:BoundField DataField="totalHours" HeaderText="totalHours" SortExpression="totalHours" />
+                <asp:BoundField DataField="submitted" HeaderText="Submitted" SortExpression="submitted" >
+                <HeaderStyle Font-Bold="True" />
+                </asp:BoundField>
+                <asp:BoundField DataField="userAccount_id" HeaderText="User" SortExpression="userAccount_id">
+                <HeaderStyle Font-Bold="True" />
+                </asp:BoundField>
+                <asp:BoundField DataField="startDate" HeaderText="Start Date" SortExpression="startDate" DataFormatString="{0:t}" >
+                <HeaderStyle Font-Bold="True" />
+                </asp:BoundField>
+                <asp:BoundField DataField="endDate" HeaderText="End Date" SortExpression="endDate" >
+                <HeaderStyle Font-Bold="True" />
+                </asp:BoundField>
+                <asp:BoundField DataField="startTime" HeaderText="Start Time" SortExpression="startTime" >
+                <HeaderStyle Font-Bold="True" />
+                </asp:BoundField>
+                <asp:BoundField DataField="endTime" HeaderText="End Time" SortExpression="endTime" >
+                <HeaderStyle Font-Bold="True" />
+                </asp:BoundField>
+                <asp:BoundField DataField="totalHours" HeaderText="Total Hours" SortExpression="totalHours" >
+                <HeaderStyle Font-Bold="True" />
+                </asp:BoundField>
+                <asp:BoundField DataField="status" HeaderText="Status" SortExpression="status">
+                <HeaderStyle Font-Bold="True" />
+                </asp:BoundField>
+                <asp:BoundField DataField="requestType_id" HeaderText="Request Type" SortExpression="requestType_id">
+                <HeaderStyle Font-Bold="True" />
+                </asp:BoundField>
+                <asp:BoundField DataField="eventID" HeaderText="eventID" SortExpression="eventID" Visible="False" />
+                <asp:BoundField DataField="comments" HeaderText="comments" SortExpression="comments" >
+                <HeaderStyle Font-Bold="True" />
+                </asp:BoundField>
+                <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" Visible="False" />
+                <asp:TemplateField HeaderText="Approve" ShowHeader="true">
+                    <ItemTemplate>
+                        <asp:Button ID="Approvebtn" runat="server" BackColor="Green" CausesValidation="false" CommandArgument="<%# Container.DataItemIndex %>" CommandName="ApproveRequest" Text="Approve" />
+                        <HeaderStyle Font-Bold="True" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Deny" ShowHeader="true">
+                    <ItemTemplate>
+                        <asp:Button ID="Denybtn" runat="server" BackColor="Red" CausesValidation="false" CommandArgument="<%# Container.DataItemIndex %>" CommandName="DenyRequest" Text="Deny" />
+                        <HeaderStyle Font-Bold="True" />
+                    </ItemTemplate>
+                </asp:TemplateField>
             </Columns>
+            <SelectedRowStyle BackColor="Yellow" />
         </asp:GridView>
-        <asp:SqlDataSource ID="requestDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT [submitted], [startDate], [endDate], [startTime], [endTime], [status], [comments], [requestType_id], [userAccount_id], [eventID], [totalHours] FROM [request] WHERE ([dept_id] = @dept_id)">
+        <asp:SqlDataSource ID="requestDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT submitted, startDate, endDate, startTime, endTime, status, comments, requestType_id, userAccount_id, eventID, totalHours, ID FROM request WHERE (dept_id = @dept_id)">
             <SelectParameters>
                 <asp:ControlParameter ControlID="deptDropDownList" Name="dept_id" PropertyName="SelectedValue" Type="Int32" />
             </SelectParameters>
