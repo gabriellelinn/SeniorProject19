@@ -17,44 +17,57 @@
 
     <style type="text/css">
         .auto-style3 {
-            width: 174px;
+            width: 164px;
             height: 201px;
             margin-left: 0px;
             margin-top: 0px;
             float: left;
-            font-family:'Segoe UI';
+            font-family: 'Segoe UI';
+            left: 0px;
+            top: 141px;
         }
+
         .auto-style4 {
             width: 33px;
             height: 28px;
-            font-family:'Segoe UI';
+            font-family: 'Segoe UI';
         }
+
         .auto-style5 {
             height: auto;
             width: auto;
             margin-right: 10px;
             margin-top: 0px;
             margin-bottom: 1px;
-            font-family:'Segoe UI';
+            font-family: 'Segoe UI';
         }
-        .auto-style6 {
-            width:auto;
-            height: 199px;
-            margin-left: 0px;
-            margin-top: 0px;
-            float: inherit;
-            margin-right: 0px;
-            margin-bottom: 25px;
-            font-family:'Segoe UI';
+        #mySidebar {
+           
+            position:absolute;
         }
+
+        #mainCont {
+            position:relative;
+    
+        }
+        
         .auto-style10 {
             width: inherit;
             overflow: hidden;
             margin-bottom: 8px;
             height: auto;
             margin-right: 99px;
-            font-family:'Segoe UI';
+            font-family: 'Segoe UI';
         }
+        .auto-style11 {
+            height: 26px;
+            width: 71px;
+        }
+        /*.auto-style12 {
+            left: 174px;
+            top: 1px;
+            width: 1247px;
+        }*/
     </style>
       <script src="js/jquery-3.1.1.min.js"></script>
   <link href="css/w3.css" rel="stylesheet" />
@@ -84,11 +97,13 @@
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
+        <header class="text-right"><asp:Button ID="Logout" runat="server" Text="Log out" OnClick="Logout_Click" /></header>
+                    
 
         <%--Moved the Div to include the side bar--%>
-         <div aria-pressed="mixed" class="auto-style6" ;>
+         <%--<div aria-pressed="mixed" class="auto-style6" ;>--%>
         <div class="auto-style10">
-                        <div class="auto-style3" id="mySidebar" ;>
+                        <div class="auto-style3" id="mySidebar" ; style="margin-left: 5px">
                             <a href="Default.aspx" class="w3-bar-item w3-button">HOME</a><br />
                             <a href="RequestOff.aspx" class="w3-bar-item w3-button">REQUEST OFF</a>
                             <br /><a href="#" class="w3-bar-item w3-button">MY PROFILE</a>
@@ -97,26 +112,30 @@
                             <br /><a href="Admin.aspx" class="w3-bar-item w3-button">ADMIN</a>
                             <br />
                             <br />&nbsp;
-                            <button type="button" class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">
-                            Close &times;
+                            <button type="button" class="auto-style11" onclick="w3_close()" title="Close X">
+                            
+                                Close X
+                            
                             </button>
-        </div>
-
-                     
+        
+                            </div>
+         <%--    </div>--%>
+                       <div id="mainCont" style="margin-left: 165px">
                             <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                              
                             </asp:ContentPlaceHolder>
-                         
-                              </div>  
-                      
+                         </div>
+                              
+                     
                    </div>  
 
                 <script>
-                  function w3_open() {
-                            document.getElementById("mySidebar").style.display = "block";
-                        }
-                        function w3_close() {
-                            document.getElementById("mySidebar").style.display = "none";
-                        }
+                    function w3_open() {
+                        document.getElementById("mySidebar").style.display = "block";
+                    }
+                    function w3_close() {
+                        document.getElementById("mySidebar").style.display = "none";
+                    }
                 </script>
 
               </form>

@@ -235,7 +235,7 @@ namespace TestProject
         private void CreateCalEvent(TestProject.request request) {
             //Get details of request
             string userEmail;
-            string supervisorEmail;
+            //string supervisorEmail;
             string fullname;
             TestProject.userAccount user1;
             using (var Googlecontext = new PCTEntities())
@@ -245,7 +245,7 @@ namespace TestProject
                          where ua.ID.ToString() == request.userAccount_id.ToString()
                          select ua).First();
                 userEmail = user1.email;
-                fullname = (user1.first_name + " "+ user1.last_name +" Off");
+                fullname = (user1.first_name + " "+ user1.last_name +" Off - Pending");
                 string supervisor_id = user1.supervisor.ToString();
 
                 //get supervisors email

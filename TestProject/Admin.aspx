@@ -1,12 +1,12 @@
 ﻿<%@ Page Title="Admin" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="TestProject.About" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Panel ID="Panel1" runat="server" style="margin-left: 135px; margin-top: 0px; margin-right: 0px; margin-bottom: 10px;" Height="275px" >
+    <asp:Panel ID="Panel1" runat="server" style="margin-top: 0px; margin-right: 0px; margin-bottom: 10px;" Height="275px" >
         <div class="text-left" style="height:auto; width:auto; margin-top: 0px; margin-bottom: 23px; margin-left: 0px; margin-right: 0px;">
             <p class="text-center" style="font-size: xx-large;  margin-left: 0;">
                 Administrator</p>
         </div>
-        <div class="text-center" style="height: 68px; width: 1429px; margin-top: 0px; margin-left: 0px; margin-right: 0px;">
+        <div class="text-center" style="height: 68px; margin-top: 0px; margin-left: 0px; margin-right: 0px;">
             <strong>
                 <asp:Button ID="NewUserbtn" runat="server" BackColor="#009999" BorderColor="#009999" BorderStyle="Outset" Font-Bold="True" Font-Size="X-Large" Height="68px" OnClick="NewUserbtn_Click" Style="left: 50%; margin-left: 14px" Text="New User" Width="238px" />
             </strong>

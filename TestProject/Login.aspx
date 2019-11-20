@@ -7,12 +7,12 @@
     <title></title>
     <style type="text/css">
         .auto-style3 {
-            height: 102px;
+            height: auto;
             text-align: center;
-            margin-bottom: 120px;
+            margin-bottom: 20px;
         }
         .auto-style6 {
-            height: 723px;
+            height: auto;
         }
         .auto-style10 {
             text-align: left;
@@ -71,7 +71,7 @@
                 </p>
             </div>
         </div>
-        <asp:Panel ID="Panel1" runat="server" Height="304px">
+        <asp:Panel ID="Panel1" runat="server" style="margin-bottom:40px">
             <div>
                 <asp:Login ID="Login1" runat="server" BackColor="#EFF3FB" BorderColor="#B5C7DE" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" CssClass="auto-style17" Font-Names="Segoe UI" Font-Size="Large" ForeColor="#333333" Height="465px" OnAuthenticate="Login1_Authenticate" Width="594px">
                     <InstructionTextStyle Font-Italic="True" ForeColor="Black" />

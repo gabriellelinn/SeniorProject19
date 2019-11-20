@@ -9,7 +9,8 @@
             <asp:DropDownList ID="deptDropDownList" runat="server" style="font-size: large" DataSourceID="deptDataSource" DataTextField="name" DataValueField="ID" Width="497px"></asp:DropDownList>
             <asp:SqlDataSource ID="deptDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT [ID], [name] FROM [department]"></asp:SqlDataSource>
         </div>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="requestDataSource" AllowSorting="True" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCommand="GridView1_RowCommand" Width="1267px">
+        <div style="margin-left:15px; margin-right :15px">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="requestDataSource" AllowSorting="True" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCommand="GridView1_RowCommand" Width="1267px" AllowPaging="True">
             <Columns>
                 <asp:BoundField DataField="submitted" HeaderText="Submitted" SortExpression="submitted" >
                 <HeaderStyle Font-Bold="True" />
@@ -17,10 +18,10 @@
                 <asp:BoundField DataField="userAccount_id" HeaderText="User" SortExpression="userAccount_id">
                 <HeaderStyle Font-Bold="True" />
                 </asp:BoundField>
-                <asp:BoundField DataField="startDate" HeaderText="Start Date" SortExpression="startDate" DataFormatString="{0:t}" >
+                <asp:BoundField DataField="startDate" HeaderText="Start Date" SortExpression="startDate" DataFormatString="{0:d}" >
                 <HeaderStyle Font-Bold="True" />
                 </asp:BoundField>
-                <asp:BoundField DataField="endDate" HeaderText="End Date" SortExpression="endDate" >
+                <asp:BoundField DataField="endDate" HeaderText="End Date" SortExpression="endDate" DataFormatString="{0:d}" >
                 <HeaderStyle Font-Bold="True" />
                 </asp:BoundField>
                 <asp:BoundField DataField="startTime" HeaderText="Start Time" SortExpression="startTime" >
@@ -45,19 +46,20 @@
                 <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" Visible="False" />
                 <asp:TemplateField HeaderText="Approve" ShowHeader="true">
                     <ItemTemplate>
-                        <asp:Button ID="Approvebtn" runat="server" BackColor="Green" CausesValidation="false" CommandArgument="<%# Container.DataItemIndex %>" CommandName="ApproveRequest" Text="Approve" />
+                        <asp:Button ID="Approvebtn" runat="server" BackColor="Green" CausesValidation="false" CommandArgument="<%# Container.DataItemIndex %>" CommandName="Approve" Text="Approve" />
                         <HeaderStyle Font-Bold="True" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Deny" ShowHeader="true">
                     <ItemTemplate>
-                        <asp:Button ID="Denybtn" runat="server" BackColor="Red" CausesValidation="false" CommandArgument="<%# Container.DataItemIndex %>" CommandName="DenyRequest" Text="Deny" />
+                        <asp:Button ID="Denybtn" runat="server" BackColor="Red" CausesValidation="false" CommandArgument="<%# Container.DataItemIndex %>" CommandName="Deny" Text="Deny" />
                         <HeaderStyle Font-Bold="True" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
             <SelectedRowStyle BackColor="Yellow" />
         </asp:GridView>
+            </div>
         <asp:SqlDataSource ID="requestDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT submitted, startDate, endDate, startTime, endTime, status, comments, requestType_id, userAccount_id, eventID, totalHours, ID FROM request WHERE (dept_id = @dept_id)">
             <SelectParameters>
                 <asp:ControlParameter ControlID="deptDropDownList" Name="dept_id" PropertyName="SelectedValue" Type="Int32" />

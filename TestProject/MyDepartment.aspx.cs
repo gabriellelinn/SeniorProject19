@@ -14,14 +14,16 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Services.Description;
-
+using System.Security.Cryptography.X509Certificates;
 
 namespace TestProject
 {
     public partial class myDepartment : System.Web.UI.Page
     {
         string current_user;
-
+        CalendarService service;
+        string[] scopes = new string[] {
+                CalendarService.Scope.Calendar }; // Manage your calendars
     protected void Page_Load(object sender, EventArgs e)
     {
             
@@ -59,8 +61,24 @@ namespace TestProject
             {
                 throw ex;
             }
+            var certificate = new X509Certificate2(@"C:\Users\glinn\Source\Repos\TestProject\TestProject\SeniorProject-ee5b3ab2ec84.p12", "notasecret", X509KeyStorageFlags.Exportable);
 
-    }
+            var serviceAccountEmail = "requestoff@seniorproject-258919.iam.gserviceaccount.com";
+            ServiceAccountCredential credential = new ServiceAccountCredential(
+                 new ServiceAccountCredential.Initializer(serviceAccountEmail)
+                 {
+                     Scopes = scopes
+                 }.FromCertificate(certificate));
+
+
+            // Create the service.
+            service = new CalendarService(new BaseClientService.Initializer()
+            {
+                HttpClientInitializer = credential,
+                ApplicationName = "SeniorProject",
+            });
+
+        }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -74,8 +92,8 @@ namespace TestProject
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-           
-            if(e.CommandName == "ApproveRequest")
+
+            if (e.CommandName == "Approve")
             {
                 int index = Convert.ToInt32(e.CommandArgument);
                 GridViewRow selectedRow = GridView1.Rows[index];
@@ -84,14 +102,79 @@ namespace TestProject
                 //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
                 //ID of event
                 string ID = selectedRow.Cells[11].Text;
-                 
+                updateRequest(ID, e);
+
             }
-            if (e.CommandName == "DenyRequest")
+            if (e.CommandName == "Deny")
             {
-                string id = GridView1.SelectedRow.Cells[0].Text;
-                Console.WriteLine(id);
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow selectedRow = GridView1.Rows[index];
+                //Gets id of Google Event
+                string eventId = selectedRow.Cells[9].Text;
+                //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
+                //ID of event
+                string ID = selectedRow.Cells[11].Text;
+                updateRequest(ID, e);
+                updateGoogleEvent(service, ID, e);
             }
         }
+        private void updateRequest(string ID, GridViewCommandEventArgs args)
+        {
+            //might just want to insert this in other method.
+            try
+            {
+                using (var RequestEntity = new PCTEntities())
+                {
+                    var request = (from r in RequestEntity.requests
+                                   where r.ID.ToString() == ID
+                                   select r).FirstOrDefault();
+                    if(args.CommandName == "Approve") { request.status = "Approved"; }
+                    if(args.CommandName == "Deny") { request.status = "Denied"; }
+                 
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        
+        private void updateGoogleEvent(CalendarService service2,string EventID, GridViewCommandEventArgs cmdArgs)
+        {
+            string fullname;
+            try
+            {
+                //join the request id and join on userAccount id to update the Summary to Approved or Denied
+                using (var Googlecontext = new PCTEntities())
+                {
+                    var userEvent = (from ev in Googlecontext.requests
+                                     join u in Googlecontext.userAccounts on ev.userAccount_id equals u.ID
+                                     where ev.ID.ToString() == EventID
+                                     select ev).First();
+                    if (cmdArgs.CommandName == "Approve") 
+                    {
+                        //change google calendars summary
+                        fullname = (userEvent.userAccount.first_name + " " + userEvent.userAccount.last_name + " Off - Approved");
+                    }
+                    if (cmdArgs.CommandName == "Deny")
+                    {
+                        
+                        //delete event from google calendar
+                        service2.Events.Delete("regscantimeoff@gmail.com", EventID).Execute();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+            
     }
         
  
