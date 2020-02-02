@@ -32,11 +32,9 @@ I used SQL Server Management Studio to create my relational database and I linke
 - Application includes an Administrative section to conveniently create/edit users 
 
 #Design
-
 I used the drag and drop features for the user interface and implemeneted jQuery for features like the drop down box for date selection in the form of a calendar.
 
 #Tech Stack
-
   • SQL
   • C#
   • ASP.NET Web Application (.Net Framework)
