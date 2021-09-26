@@ -106,7 +106,7 @@
                        
                         <td style="height: 53px; width: 574px;"><input class="form-control" ID="NewPassword" type="password" runat="server" style="width: 100%; font-size: large;">
                          <asp:RequiredFieldValidator ID="PasswordRFV" runat="server" ControlToValidate="NewPassword" ErrorMessage="Required Field" ForeColor="Red" Enabled="False" EnableViewState="False"></asp:RequiredFieldValidator></td>
-                        <asp:CompareValidator ID="CompareValidator1" style="margin-left: 137px" runat="server" ControlToValidate="confirmPass_txt" ControlToCompare="NewPassword" ErrorMessage="Passwords must match!" ForeColor="Red" Font-Size="Large" ></asp:CompareValidator>
+                        
                         
                         <td style="width: 289px; height: 53px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
@@ -125,12 +125,27 @@
                         <td style="height: 64px; margin-left: 160px; width: 574px;">
                             
                             <asp:TextBox ID="confirmPass_txt" class="form-control" placeholder="Confirm Password" runat="server" type="password" style="font-size: large"></asp:TextBox>
-                           <asp:RequiredFieldValidator ID="confirmPassRFV" runat="server" ControlToValidate="confirmPass_txt" ErrorMessage="Required field" ForeColor="Red" Enabled="False"></asp:RequiredFieldValidator>
-                            <asp:CompareValidator ID="CompareValidator2" style="margin-left: 137px" runat="server" ControlToValidate="NewPassword" ControlToCompare="confirmPass_txt" ErrorMessage="Passwords must match!" ForeColor="Red" Font-Size="Large" ></asp:CompareValidator>
-                        </td>
+                           <asp:RequiredFieldValidator ID="confirmPassRFV" runat="server" ControlToValidate="confirmPass_txt" ErrorMessage="Required Field" ForeColor="Red" Enabled="False"></asp:RequiredFieldValidator>
+                            <td class="text-left"><strong>
+                                <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToCompare="confirmPass_txt" ControlToValidate="NewPassword" ErrorMessage="Passwords must match!" Font-Size="Small" ForeColor="Red"></asp:CompareValidator>
+                                </strong><td>
+                                    Department Manager:</td><td>
+                                        <asp:DropDownList ID="DeptManagerDropDownList" runat="server" DataSourceID="DeptManagerDataSource" DataTextField="first_name" DataValueField="ID"></asp:DropDownList>
+                                        <asp:SqlDataSource ID="DeptManagerDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT DISTINCT [ID], ([first_name] +' '+[last_name]) AS Name, [dept_id], [IsDeptManager] FROM [employee] WHERE ([IsDeptManager] = @IsDeptManager)">
+                                            <SelectParameters>
+                                                <asp:Parameter DefaultValue="true" Name="IsDeptManager" Type="Boolean" />
+                                            </SelectParameters>
+                                        </asp:SqlDataSource>
+                                </td>
                          <td style="width: 289px; height: 64px">
                              &nbsp&nbsp;&nbsp;&nbsp; &nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                         </td>
+                         </tr>
+
+                    <tr>
+                        <td style="height: 50px; width: 193px;"></td>
+                        <td style="width: 574px"><asp:Literal ID="LitAlert" runat="server" Visible="False"></asp:Literal></td>
+                        <td></td>
                         <td style="height: 64px; width: 161px; font-size: large;">User Role:</td>
                         <td style="height: 64px; width: 420px;">
                             <asp:DropDownList ID="RoleDropDownList" class="form-control" runat="server" Height="37px" Width="248px" style="font-size: large">
@@ -140,11 +155,8 @@
                                  <asp:ListItem Value="9">Administrator</asp:ListItem>
                             </asp:DropDownList>
                         </td>
-                    </tr>
-                    <tr>
-                        <td style="height: 50px; width: 193px;"></td>
-                        <td style="width: 574px"><asp:Literal ID="LitAlert" runat="server" Visible="False"></asp:Literal></td>
-                    </tr>
+                   </tr>
+                   
                     <tr>
                         <td style="width: 193px"><asp:Button ID="CancelBtn" runat="server" Text="CANCEL" Height="54px" BackColor="#3366FF" BorderColor="#3366FF" CssClass="mt-0" Font-Bold="True" Font-Size="Larger" OnClick="CancelBtn_Click"/></td>
                         <td style="width: 574px"></td>

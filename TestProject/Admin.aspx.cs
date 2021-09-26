@@ -16,14 +16,41 @@ namespace TestProject
         public int current_user;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Need to verify user is authorized to view.
-            if (Session["USER"] != null)
-            {
-                current_user = Convert.ToInt32(Session["USER"]);
-            }
-            else
+            if (Session["USER"] == null)
             {
                 Response.Redirect("Login.aspx");
+            }
+            //current_user = user id
+            
+         
+            try
+            {
+                current_user = Convert.ToInt32(Session["USER"]);
+                using (var RoleModel = new PCTEntities())
+                {
+                    var User = (from u in RoleModel.userAccounts
+                                join r in RoleModel.userRoles on u.userRole_id equals r.ID
+                                where u.ID == current_user
+                                select u).FirstOrDefault();
+                    //employee is dept manager
+                    if(User.userRole_id.ToString() == "9")
+                    {
+
+                    }
+                    else
+                    {
+                        Response.Redirect("Login.aspx");
+                    }
+
+                    //verify the user is authenticated
+                   
+            
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
             //Do not show anything yet
             GeneralPanel.Visible = false;
@@ -248,6 +275,7 @@ namespace TestProject
                             }
                             userEnt.fullDayHours = fullday;
                             userEnt.lunch = lunchBreak;
+                            userEnt.supervisor = Convert.ToInt32(DeptManagerDropDownList.SelectedValue);
                             //BAD PRACTICE 
                             userEnt.hashedPassword = NewPassword.Value.ToString();
                             //account status, and user role

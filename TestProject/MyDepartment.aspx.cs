@@ -83,6 +83,31 @@ namespace TestProject
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        //    GridViewRow row = GridView1.SelectedRow;
+
+        //    if (e.CommandName == "Approve")
+        //    {
+                
+        //        //Gets id of Google Event
+        //        string eventId = row.Cells[9].Text;
+        //        //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
+        //        //ID of event
+        //        string ID = row.Cells[11].Text;
+        //        updateRequest(ID, e);
+
+        //    }
+        //    if (e.CommandName == "Deny")
+        //    {
+
+               
+        //        //Gets id of Google Event
+        //        string eventId = row.Cells[9].Text;
+        //        //ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + myStringVariable + "');", true);
+        //        //ID of event
+        //        string ID = row.Cells[11].Text;
+        //        updateRequest(ID, e);
+        //        updateGoogleEvent(service, ID, e);
+           // }
         }
 
         protected void ClickedBtn(object sender, GridViewCommandEventArgs e)
@@ -107,6 +132,7 @@ namespace TestProject
             }
             if (e.CommandName == "Deny")
             {
+
                 int index = Convert.ToInt32(e.CommandArgument);
                 GridViewRow selectedRow = GridView1.Rows[index];
                 //Gets id of Google Event

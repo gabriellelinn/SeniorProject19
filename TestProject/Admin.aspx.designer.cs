@@ -258,15 +258,6 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.RequiredFieldValidator PasswordRFV;
 
         /// <summary>
-        /// CompareValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
-
-        /// <summary>
         /// acct_dropdownlist control.
         /// </summary>
         /// <remarks>
@@ -312,13 +303,22 @@ namespace TestProject
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator2;
 
         /// <summary>
-        /// RoleDropDownList control.
+        /// DeptManagerDropDownList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList RoleDropDownList;
+        protected global::System.Web.UI.WebControls.DropDownList DeptManagerDropDownList;
+
+        /// <summary>
+        /// DeptManagerDataSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource DeptManagerDataSource;
 
         /// <summary>
         /// LitAlert control.
@@ -328,6 +328,15 @@ namespace TestProject
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal LitAlert;
+
+        /// <summary>
+        /// RoleDropDownList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList RoleDropDownList;
 
         /// <summary>
         /// CancelBtn control.

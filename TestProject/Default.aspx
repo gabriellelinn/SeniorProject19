@@ -2,17 +2,15 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="text-left" style="height:auto; width:auto; margin-top: 0px; margin-bottom: 23px; margin-left: 0px; margin-right: 0px;">
-            <p class="text-center" style="font-size: xx-large;  margin-left: 0;">
+    <div class="w3-grey">
+    <%--<div class="text-left" style="height:auto; width:auto; margin-top: 0px; margin-bottom: 23px; margin-left: 0px; margin-right: 0px;">--%>
+            
+     <%--   </div>--%>
+        <div></div>
+        <div>
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="userAccountEvents" AllowPaging="True" AllowSorting="True" OnRowCommand="GridView1_RowCommand">
+       <p class=w3-display-topmiddle style="font-size:xx-large;">
                 My Requests</p>
-        </div>
-<p class="text-right">
-    <asp:Button ID="RequestOff_btn" runat="server" Height="78px" Text="New Request Off" Width="263px" BackColor="#009999" BorderColor="#009999" BorderStyle="Groove" Font-Bold="True" Font-Size="X-Large" OnClick="RequestOff_btn_Click" />
-    </p>
-<p>
-    &nbsp;</p>
-<div>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ID" DataSourceID="userAccountEvents" AllowPaging="True" AllowSorting="True">
         <Columns>
             <asp:BoundField DataField="ID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="ID" Visible="False" />
             <asp:BoundField DataField="created" HeaderText="Created" SortExpression="created" Visible="False">
@@ -49,38 +47,28 @@
             <HeaderStyle Font-Bold="True" />
             </asp:BoundField>
             <asp:BoundField DataField="eventID" HeaderText="eventID" SortExpression="eventID" Visible="False" />
+            <asp:TemplateField HeaderText="Edit">
+                <ItemTemplate>
+                        <asp:Button ID="Editbtn" runat="server" BackColor="Yellow" CausesValidation="false" CommandArgument="<%# Container.DataItemIndex %>" CommandName="Edit" Text="Edit" />
+                        <HeaderStyle Font-Bold="True" />
+                    </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Cancel">
+                <ItemTemplate>
+                        <asp:Button ID="Cancelbtn" runat="server" BackColor="Red" CausesValidation="false" CommandArgument="<%# Container.DataItemIndex %>" CommandName="Cancel" Text="Cancel" />
+                        <HeaderStyle Font-Bold="True" />
+                    </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    <asp:SqlDataSource ID="userAccountEvents" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT request.ID, request.created, request.submitted, request.startDate, request.endDate, request.startTime, request.endTime, request.status, request.comments, request.dept_id, request.requestType_id, request.userAccount_id, request.totalHours, request.eventID, requestType.name FROM [request] JOIN requestType on request.requestType_id = requestType.ID WHERE ([userAccount_id] = @userAccount_id) ORDER BY [submitted] DESC
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<asp:SqlDataSource ID="userAccountEvents" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT request.ID, request.created, request.submitted, request.startDate, request.endDate, request.startTime, request.endTime, request.status, request.comments, request.dept_id, request.requestType_id, request.userAccount_id, request.totalHours, request.eventID, requestType.name FROM [request] JOIN requestType on request.requestType_id = requestType.ID WHERE ([userAccount_id] = @userAccount_id) ORDER BY [submitted] DESC
+        
 
 ">
         <SelectParameters>
             <asp:SessionParameter Name="userAccount_id" SessionField="USER" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
-</div>
 
+        </div>
     </asp:Content>

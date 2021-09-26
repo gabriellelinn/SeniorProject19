@@ -10,7 +10,7 @@
             <asp:SqlDataSource ID="deptDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:PCTConnectionString %>" SelectCommand="SELECT [ID], [name] FROM [department]"></asp:SqlDataSource>
         </div>
         <div style="margin-left:15px; margin-right :15px">
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="requestDataSource" AllowSorting="True" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCommand="GridView1_RowCommand" Width="1267px" AllowPaging="True">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="requestDataSource" AllowSorting="True" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCommand="GridView1_RowCommand" AllowPaging="True">
             <Columns>
                 <asp:BoundField DataField="submitted" HeaderText="Submitted" SortExpression="submitted" >
                 <HeaderStyle Font-Bold="True" />

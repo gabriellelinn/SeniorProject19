@@ -52,6 +52,7 @@ namespace TestProject
                                         select ua).First();
                     requestStarted = DateTime.Now;
                     string supervisor_id = selectedUser.supervisor.ToString();
+                    
                     fullDayHours.Text = selectedUser.fullDayHours.ToString();
                     lunch.Text = selectedUser.lunch.ToString();
                     LunchPD.Text = selectedUser.lunch.ToString();
@@ -247,7 +248,7 @@ namespace TestProject
                 userEmail = user1.email;
                 fullname = (user1.first_name + " "+ user1.last_name +" Off - Pending");
                 string supervisor_id = user1.supervisor.ToString();
-
+               
                 //get supervisors email
                 var selectSupervisor = (from s in Googlecontext.userAccounts
                                         where s.ID.ToString() == supervisor_id
@@ -272,6 +273,7 @@ namespace TestProject
                 ApplicationName = "SeniorProject",
             });
 
+            //Creates the calendar event object
             Google.Apis.Calendar.v3.Data.Event calEvent = new Google.Apis.Calendar.v3.Data.Event();
             //Title of the event
             calEvent.Summary = fullname;
@@ -293,19 +295,13 @@ namespace TestProject
                     DateTime = newform2
                 };
 
-                //new Google.Apis.Calendar.v3.Data.EventDateTime { DateTime = request.startDate.ToString("yyyy-mm-dd") }
             }
             else
             {
                 calEvent.Start = new Google.Apis.Calendar.v3.Data.EventDateTime { DateTime = request.startDate + request.startTime };
                 calEvent.End = new Google.Apis.Calendar.v3.Data.EventDateTime { DateTime = request.endDate + request.endTime };
             }
-            //calEvent.Attendees = 
-            //calEvent.Attendees = new Google.Apis.Calendar.v3.Data.EventAttendee[]
-            //{
-                 //new Google.Apis.Calendar.v3.Data.EventAttendee() { Email = "15linng@gmail.com"},
-                 //new Google.Apis.Calendar.v3.Data.EventAttendee() { Email = "gabrielle@regscan.com"}
-             //};
+
             var newEventRequest = service.Events.Insert(calEvent, "regscantimeoff@gmail.com");
             var eventResult = newEventRequest.Execute();
             //get event id
@@ -383,6 +379,7 @@ namespace TestProject
 
                     FDRequest.status = "Pending";
                     FDRequest.comments = commentBox2.Text.Trim();
+                    FDreqcontext.SaveChanges();
                     //CREATE GOOGLE CALENDAR EVENT
                     CreateCalEvent(FDRequest);
                     //inserts the google calendar event id
@@ -430,8 +427,7 @@ namespace TestProject
         {
             request PDRequest = new request();
             decimal totalHours;
-            try
-            {
+           // try{
                 using (var PDreqcontext = new PCTEntities())
                 {
                     PDRequest.dept_id = Convert.ToInt32(deptDropDownList.SelectedValue);
@@ -497,11 +493,11 @@ namespace TestProject
 
                     useracct2.SaveChanges();
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
 
             //email to supervisor and user
             emailDetails(PDRequest);
@@ -525,7 +521,7 @@ namespace TestProject
                          select ua).First();
                 userEmail = user1.email;
                 string supervisor_id = user1.supervisor.ToString();
-
+                
                 //get supervisors email
                 var selectSupervisor = (from s in PCTContext.userAccounts
                                         where s.ID.ToString() == supervisor_id
